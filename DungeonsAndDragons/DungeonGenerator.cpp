@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "DungeonGenerator.h"
+#include "GameManager.h"
+#include "RoomType.h"
 #include <random>
 #include <vector>
 
@@ -7,26 +9,27 @@ using namespace std;
 
 DungeonGenerator::DungeonGenerator()
 {
-	CreateFloor();
 }
 
 DungeonGenerator::~DungeonGenerator()
 {
 }
 
-void CreateFloor()
+void DungeonGenerator::CreateFloor()
 {
-	uniform_int_distribution<int> roomType(0, 10);
+	uniform_int_distribution<int> roomType(0, 4);
 
 	// Create a random floor
-	vector<vector<int>> floor;
+	vector<vector<RoomType>> floor;
 	for (int x = 0; x < 10; x++)
 	{
-		vector<int> row;
+		vector<RoomType> row;
 		for (int y = 0; y < 10; y++)
 		{
-			row[y] = roomType(random);
+			row.push_back((RoomType) roomType(GameManager::random));
+			cout << row[y];
 		}
-		floor[x] = row;
+		cout << endl;
+		floor.push_back(row);
 	}
 }

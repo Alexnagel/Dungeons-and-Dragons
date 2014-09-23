@@ -1,22 +1,17 @@
 #include "stdafx.h"
 #include "GameManager.h"
-#include <random>
+#include "DungeonGenerator.h"
 
 using namespace std;
 
+default_random_engine GameManager::random;
+
 GameManager::GameManager()
 {
+	DungeonGenerator generator;
+	generator.CreateFloor();
 }
-
 
 GameManager::~GameManager()
 {
-}
-
-default_random_engine random;
-
-int main()
-{
-	cout << "adsfasfdadfa";
-	return 0;
 }

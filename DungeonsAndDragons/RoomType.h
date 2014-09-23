@@ -1,0 +1,9 @@
+#pragma once
+
+enum RoomType {
+	START,
+	STAIRCASE_UP,
+	STAIRCASE_DOWN,
+	BOSS_ROOM,
+	NORMAL_ROOM
+};

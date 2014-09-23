@@ -4,5 +4,6 @@ class DungeonGenerator
 public:
 	DungeonGenerator();
 	~DungeonGenerator();
+	void CreateFloor();
 };
 
