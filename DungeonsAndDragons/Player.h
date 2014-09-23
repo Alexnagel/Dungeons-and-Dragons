@@ -3,8 +3,8 @@
 
 class Player : public Character
 {
-	public:
-		Player();
-		~Player();
+public:
+	Player();
+	~Player();
 };
 

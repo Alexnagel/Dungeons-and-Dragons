@@ -3,8 +3,8 @@
 
 class Enemy : public Character
 {
-	public:
-		Enemy();
-		~Enemy();
+public:
+	Enemy();
+	~Enemy();
 };
 

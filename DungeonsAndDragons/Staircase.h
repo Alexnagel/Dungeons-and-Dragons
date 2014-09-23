@@ -3,8 +3,8 @@
 
 class Staircase : public Room
 {
-	public:
-		Staircase();
-		~Staircase();
+public:
+	Staircase();
+	~Staircase();
 };
 

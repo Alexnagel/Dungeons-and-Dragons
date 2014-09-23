@@ -3,8 +3,8 @@
 
 class NormalRoom : public Room
 {
-	public:
-		NormalRoom();
-		~NormalRoom();
+public:
+	NormalRoom();
+	~NormalRoom();
 };
 
