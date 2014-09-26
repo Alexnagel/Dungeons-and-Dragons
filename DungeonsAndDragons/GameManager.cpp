@@ -9,7 +9,7 @@ default_random_engine GameManager::random;
 GameManager::GameManager()
 {
 	DungeonGenerator generator;
-	generator.CreateFloor();
+	generator.CreateDungeon();
 }
 
 GameManager::~GameManager()
