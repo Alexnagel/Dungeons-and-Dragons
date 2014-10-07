@@ -15,7 +15,7 @@ public:
 	~DungeonParser();
 
 	// Functions
-	Floor ParseFloor(vector<vector<RoomType>> floor);
+	Floor ParseFloor(vector<vector<RoomType>> floor, int level);
 	Dungeon ParseDungeon(vector<Floor> floorCollection);
 };
 

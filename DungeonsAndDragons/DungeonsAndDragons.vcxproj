@@ -84,6 +84,7 @@
     <ClInclude Include="BossRoom.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Chest.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="Dungeon.h" />
     <ClInclude Include="DungeonGenerator.h" />
     <ClInclude Include="DungeonParser.h" />

@@ -15,7 +15,10 @@ DungeonGenerator::DungeonGenerator()
 	dungeonParser = new DungeonParser();
 
 	ContainsStartPosition = true;
-	ContainsBossRoom = true;
+	ContainsBossRoom = true;	
+	
+	seed = random_device()();
+	rng = std::mt19937(seed);
 }
 
 DungeonGenerator::~DungeonGenerator()
@@ -59,10 +62,6 @@ Dungeon DungeonGenerator::CreateDungeon()
 
 Floor DungeonGenerator::CreateFloor()
 {
-	uniform_int_distribution<int> roomTypeGenerator(0, NUMBER_OF_TYPES);
-
-	
-
 	// Create a random floor
 	vector<vector<RoomType>> floor;
 	for (int x = 0; x < 10; x++)
@@ -70,10 +69,37 @@ Floor DungeonGenerator::CreateFloor()
 		vector<RoomType> row;
 		for (int y = 0; y < 10; y++)
 		{
-			RoomType type = (RoomType) roomTypeGenerator(GameManager::random);
+			int chance = GetRandomNumber();
+			RoomType type;
 
-			while (!CheckRoom(type))
-				type = (RoomType)roomTypeGenerator(GameManager::random);
+			if (chance <= CHANCE_ROOM)
+			{
+				type = RoomType::NORMAL_ROOM;
+			}
+			else
+			{
+				do
+				{
+					chance = GetRandomNumber();
+				} while (!CheckRoom(chance));
+
+				if (chance <= CHANCE_STAIRCASE_UP)
+				{
+					type = RoomType::STAIRCASE_UP;
+				}
+				else if (chance <= CHANCE_STAIRCASE_DOWN)
+				{
+					type = RoomType::STAIRCASE_DOWN;
+				}
+				else if (chance <= CHANCE_START)
+				{
+					type = RoomType::START;
+				}
+				else
+				{
+					type = RoomType::BOSS_ROOM;
+				}
+			}
 
 			row.push_back(type);
 			cout << row[y];
@@ -84,44 +110,36 @@ Floor DungeonGenerator::CreateFloor()
 
 	// Parse the floor
 	DungeonParser parser = *dungeonParser;
-	return parser.ParseFloor(floor);
+	return parser.ParseFloor(floor, 0);
 }
 
-bool DungeonGenerator::CheckRoom(RoomType type)
+bool DungeonGenerator::CheckRoom(int chance)
 {
-	bool result = true;
-
-	switch (type)
+	if (chance <= CHANCE_STAIRCASE_UP)
 	{
-	case START:
-		if (!ContainsStartPosition)
-			ContainsStartPosition = true;
-		else
-			result = false;
-		break;
-	case STAIRCASE_UP:
 		if (!ContainsStaircaseUp)
-			ContainsStaircaseUp = true;
-		else
-			result = false;
-		break;
-	case STAIRCASE_DOWN:
+			return ContainsStaircaseUp = true;
+	}
+	else if (chance <= CHANCE_STAIRCASE_DOWN)
+	{
 		if (!ContainsStaircaseDown)
-			ContainsStaircaseDown = true;
-		else
-			result = false;
-		break;
-	case BOSS_ROOM:
+			return ContainsStaircaseDown = true;
+	}
+	else if (chance <= CHANCE_START)
+	{
+		if (!ContainsStartPosition)
+			return ContainsStartPosition = true;
+	}
+	else
+	{
 		if (!ContainsBossRoom)
-			ContainsBossRoom = true;
-		else
-			result = false;
-		break;
-	case NORMAL_ROOM:
-		break;
-	default:
-		break;
+			return ContainsBossRoom = true;
 	}
 
-	return result;
+	return false;
+}
+
+int DungeonGenerator::GetRandomNumber()
+{
+	return uniform_int_distribution<int>(0, 100)(rng);
 }
