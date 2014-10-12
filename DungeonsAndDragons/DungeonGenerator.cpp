@@ -35,6 +35,7 @@ Dungeon DungeonGenerator::CreateDungeon()
 	{
 		ContainsStaircaseDown = false;
 		ContainsStaircaseUp = false;
+		distanceSinceSpecial = 0;
 
 		if (i == 0)
 		{
@@ -75,30 +76,11 @@ Floor DungeonGenerator::CreateFloor()
 			if (chance <= CHANCE_ROOM)
 			{
 				type = RoomType::NORMAL_ROOM;
+				distanceSinceSpecial++;
 			}
 			else
 			{
-				do
-				{
-					chance = GetRandomNumber();
-				} while (!CheckRoom(chance));
-
-				if (chance <= CHANCE_STAIRCASE_UP)
-				{
-					type = RoomType::STAIRCASE_UP;
-				}
-				else if (chance <= CHANCE_STAIRCASE_DOWN)
-				{
-					type = RoomType::STAIRCASE_DOWN;
-				}
-				else if (chance <= CHANCE_START)
-				{
-					type = RoomType::START;
-				}
-				else
-				{
-					type = RoomType::BOSS_ROOM;
-				}
+				type = CreateSpecialRoom();
 			}
 
 			row.push_back(type);
@@ -109,34 +91,75 @@ Floor DungeonGenerator::CreateFloor()
 	}
 
 	// Parse the floor
-	DungeonParser parser = *dungeonParser;
-	return parser.ParseFloor(floor, 0);
+	return dungeonParser->ParseFloor(floor, 0);
+}
+
+RoomType DungeonGenerator::CreateSpecialRoom()
+{
+	int chance;
+
+	do {
+		chance = GetRandomNumber();
+	} while (CheckRoom(chance) && !ContainsAllSpecial());
+
+	RoomType type = RoomType::NORMAL_ROOM;
+
+	// To make the placement of the special rooms more random
+	if (chance % 2 == 0 && distanceSinceSpecial > SPECIAL_ROOM_DISTANCE)
+	{
+		if (chance <= CHANCE_STAIRCASE_UP && !ContainsStaircaseUp)
+		{
+			type = RoomType::STAIRCASE_UP;
+			ContainsStaircaseUp = true;
+			distanceSinceSpecial = 1;
+		}
+		else if (chance <= CHANCE_STAIRCASE_DOWN && !ContainsStaircaseDown)
+		{
+			type = RoomType::STAIRCASE_DOWN;
+			ContainsStaircaseDown = true;
+			distanceSinceSpecial = 1;
+		}
+		else if (chance <= CHANCE_START && !ContainsStartPosition)
+		{
+			type = RoomType::START;
+			ContainsStartPosition = true;
+			distanceSinceSpecial = 1;
+		}
+		else if (!ContainsBossRoom)
+		{
+			type = RoomType::BOSS_ROOM;
+			ContainsBossRoom = true;
+			distanceSinceSpecial = 1;
+		}
+	}
+	return type;
+}
+
+bool DungeonGenerator::ContainsAllSpecial()
+{
+	return (ContainsBossRoom && ContainsStaircaseDown && ContainsStaircaseUp && ContainsStartPosition);
 }
 
 bool DungeonGenerator::CheckRoom(int chance)
 {
 	if (chance <= CHANCE_STAIRCASE_UP)
 	{
-		if (!ContainsStaircaseUp)
-			return ContainsStaircaseUp = true;
+		return ContainsStaircaseUp;
 	}
 	else if (chance <= CHANCE_STAIRCASE_DOWN)
 	{
-		if (!ContainsStaircaseDown)
-			return ContainsStaircaseDown = true;
+		return ContainsStaircaseDown;
+	}
+	else if (chance <= CHANCE_BOSS)
+	{
+		return ContainsBossRoom;
 	}
 	else if (chance <= CHANCE_START)
 	{
-		if (!ContainsStartPosition)
-			return ContainsStartPosition = true;
-	}
-	else
-	{
-		if (!ContainsBossRoom)
-			return ContainsBossRoom = true;
+		return ContainsStartPosition;
 	}
 
-	return false;
+	return true;
 }
 
 int DungeonGenerator::GetRandomNumber()
