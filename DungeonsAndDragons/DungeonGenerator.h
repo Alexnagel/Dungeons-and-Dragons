@@ -11,19 +11,6 @@
 class DungeonGenerator
 {
 private:
-	// Constant variables
-	const int NUMBER_OF_TYPES = 4;
-	const int NUMBER_OF_FLOORS = 10;
-	const int NUMBER_OF_ROOMS_X = 10;
-	const int NUMBER_OF_ROOMS_Y = 10;
-
-	const int CHANCE_ROOM = 85;
-	const int CHANCE_STAIRCASE_UP = 25;
-	const int CHANCE_STAIRCASE_DOWN = 50;
-	const int CHANCE_BOSS = 75;
-	const int CHANCE_START = 100;
-	const int SPECIAL_ROOM_DISTANCE = 10;
-
 	// Variables
 	DungeonParser *dungeonParser;
 	bool ContainsStartPosition, ContainsBossRoom, ContainsStaircaseUp, ContainsStaircaseDown;
@@ -45,5 +32,18 @@ public:
 
 	// Functions
 	Dungeon CreateDungeon();
+
+	// Constant variables
+	static const int NUMBER_OF_TYPES = 4;
+	static const int NUMBER_OF_FLOORS = 10;
+	static const int NUMBER_OF_ROOMS_X = 10;
+	static const int NUMBER_OF_ROOMS_Y = 10;
+
+	static const int CHANCE_ROOM = 85;
+	static const int CHANCE_STAIRCASE_UP = 25;
+	static const int CHANCE_STAIRCASE_DOWN = 50;
+	static const int CHANCE_BOSS = 75;
+	static const int CHANCE_START = 100;
+	static const int SPECIAL_ROOM_DISTANCE = 10;
 };
 

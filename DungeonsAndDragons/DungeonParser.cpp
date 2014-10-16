@@ -7,29 +7,28 @@ DungeonParser::DungeonParser()
 	rng = std::mt19937(seed);
 }
 
-
 DungeonParser::~DungeonParser()
 {
 }
 
-Floor DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int width, int height, int level)
+Floor DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int level)
 {
 	// Create all the rooms
-	std::vector<std::vector<Room>> roomCollection;
+	roomCollection[DungeonGenerator::NUMBER_OF_ROOMS_X][DungeonGenerator::NUMBER_OF_ROOMS_Y];
 	for (int y = 0; y < floor.size(); y++)
 	{
-		std::vector<Room> rowOfRooms;
 		std::vector<RoomType> row = floor.at(y);
 		for (int x = 0; x < row.size(); x++)
 		{
-			rowOfRooms.push_back(RoomGenerator::CreateRoom(row.at(x), level));
+			roomCollection[x][y] = RoomGenerator::CreateRoom(row.at(x), level);
 		}
 	}
 
 	// Connect all the rooms
-	ConnectionAlgorithm(width, height);
+	ConnectionAlgorithm();
 
 	// Create and return the floor;
+	// TODO: Create the floor.
 	return Floor();
 }
 
@@ -40,15 +39,30 @@ Dungeon DungeonParser::ParseDungeon(std::vector<Floor> floorCollection)
 	return Dungeon();
 }
 
-void DungeonParser::ConnectionAlgorithm(int width, int height)
+// Using DFS algorithm to create a maze
+void DungeonParser::ConnectionAlgorithm()
 {
-	int north = 1;
-	int east = 2;
-	int south = 3;
-	int west = 4;
+	// Create a random start position
+	int startX = GetRandomNumber(0, DungeonGenerator::NUMBER_OF_ROOMS_X);
+	int startY = GetRandomNumber(0, DungeonGenerator::NUMBER_OF_ROOMS_Y);
 
-	int startX = GetRandomNumber(0,1);
-	int startX = GetRandomNumber(0, 1);
+	// Create an array to see which positions are visited
+	visitedRooms[DungeonGenerator::NUMBER_OF_ROOMS_X][DungeonGenerator::NUMBER_OF_ROOMS_Y];
+	for (int y = 0; y < DungeonGenerator::NUMBER_OF_ROOMS_Y; y++)
+	{
+		for (int x = 0; x < DungeonGenerator::NUMBER_OF_ROOMS_X; x++)
+		{
+			visitedRooms[x][y] = false;
+		}
+	}
+
+	// Start the search
+	DFS(startX, startY);
+}
+
+void DungeonParser::DFS(int x, int y)
+{
+
 }
 
 int DungeonParser::GetRandomNumber(int min, int max)
