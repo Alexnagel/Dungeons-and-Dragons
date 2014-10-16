@@ -13,5 +13,5 @@ RoomGenerator::~RoomGenerator()
 
 Room RoomGenerator::CreateRoom(RoomType type, int level)
 {
-	// Create a room...
+	return Room();
 }

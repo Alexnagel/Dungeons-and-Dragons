@@ -1,5 +1,6 @@
 #pragma once
 #include <random>
+#include "DungeonGenerator.h"
 
 class GameManager
 {
