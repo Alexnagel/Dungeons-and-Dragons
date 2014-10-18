@@ -108,6 +108,9 @@
     <ClInclude Include="RoomNode.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Position.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Dungeon.cpp">
@@ -174,6 +177,9 @@
       <Filter>Source Files\Services</Filter>
     </ClCompile>
     <ClCompile Include="RoomNode.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Position.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
   </ItemGroup>

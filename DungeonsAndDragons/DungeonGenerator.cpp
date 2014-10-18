@@ -3,8 +3,6 @@
 
 DungeonGenerator::DungeonGenerator()
 {
-	dungeonParser = new DungeonParser();
-
 	ContainsStartPosition = true;
 	ContainsBossRoom = true;	
 	
@@ -14,8 +12,6 @@ DungeonGenerator::DungeonGenerator()
 
 DungeonGenerator::~DungeonGenerator()
 {
-	delete(dungeonParser);
-	dungeonParser = nullptr;
 }
 
 Dungeon DungeonGenerator::CreateDungeon()
@@ -48,15 +44,15 @@ Dungeon DungeonGenerator::CreateDungeon()
 	}
 
 	// Create the dungeon
-	DungeonParser parser = *dungeonParser;
-	return parser.ParseDungeon(floorCollection);
+	std::unique_ptr<DungeonParser> dungeonParser;
+	return dungeonParser->ParseDungeon(floorCollection);
 }
 
 Floor DungeonGenerator::CreateFloor()
 {
 	// Create a random floor
 	std::vector<std::vector<RoomType>> floor;
-	for (int y = 0; y < NUMBER_OF_ROOMS_Y; y++)
+	for (int y = 0; y < GameManager::NUMBER_OF_ROOMS_Y; y++)
 	{
 		std::vector<RoomType> row;
 		for (int x = 0; x < 10; x++)
@@ -82,7 +78,8 @@ Floor DungeonGenerator::CreateFloor()
 	}
 
 	// Parse the floor
-	return dungeonParser->ParseFloor(floor, NUMBER_OF_ROOMS_X, NUMBER_OF_ROOMS_Y, 0);
+	std::unique_ptr<DungeonParser> dungeonParser;
+	return dungeonParser->ParseFloor(floor, 0);
 }
 
 RoomType DungeonGenerator::CreateSpecialRoom()
