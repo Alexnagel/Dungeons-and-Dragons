@@ -67,11 +67,8 @@ void DungeonParser::ConnectionAlgorithm()
 	DFS(startPosition);
 }
 
-int counter = 0;
-
 void DungeonParser::DFS(Position pos)
 {
-	std::cout << counter++ << std::endl;
 	if (!visitedRooms[pos.GetX()][pos.GetY()])
 	{
 		Position neighbour = GetNeighbour(pos);
