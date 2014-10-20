@@ -24,10 +24,10 @@ private:
 
 	// Functions
 	void ConnectionAlgorithm();
-	void DFS(Position);
+	void DFS(Position pos);
 	void Carve();
 	int GetDirection();
-	Position* GetNeighbour(Position);
+	Position GetNeighbour(Position pos);
 	int GetRandomNumber(int width, int height);
 
 public:

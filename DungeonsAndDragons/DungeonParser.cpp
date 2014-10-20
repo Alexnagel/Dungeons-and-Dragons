@@ -60,24 +60,27 @@ void DungeonParser::ConnectionAlgorithm()
 	}
 
 	// Push the initial position to the stack
-	Position* startPosition = new Position(startX, startY);
-	stack.push(*startPosition);
+	Position startPosition = Position(startX, startY);
+	stack.push(startPosition);
 
 	// Start the search
-	DFS(*startPosition);
+	DFS(startPosition);
 }
+
+int counter = 0;
 
 void DungeonParser::DFS(Position pos)
 {
+	std::cout << counter++ << std::endl;
 	if (!visitedRooms[pos.GetX()][pos.GetY()])
 	{
-		Position* neighbour = GetNeighbour(pos);
+		Position neighbour = GetNeighbour(pos);
+		visitedRooms[neighbour.GetX()][neighbour.GetY()] = true;
 
-		//if (neighbour->GetX() >= 0 && neighbour->GetY() >= 0)
-		if (neighbour != nullptr)
+		if (neighbour.GetX() >= 0 && neighbour.GetY() >= 0)
 		{
-			stack.push(*neighbour);
-			DFS(*neighbour);
+			stack.push(neighbour);
+			DFS(neighbour);
 		}
 		else
 		{
@@ -87,33 +90,33 @@ void DungeonParser::DFS(Position pos)
 	}
 }
 
-Position* DungeonParser::GetNeighbour(Position pos)
+Position DungeonParser::GetNeighbour(Position pos)
 {
-	std::vector<Position*> neighbours;
+	std::vector<Position> neighbours;
 
 	// Set all the neighbours
 	if (pos.GetX() + 1 < GameManager::NUMBER_OF_ROOMS_X)
 	{
 		if (!visitedRooms[pos.GetX() + 1][pos.GetY()])
-			neighbours.push_back(new Position(pos.GetX() + 1, pos.GetY()));
+			neighbours.push_back(Position(pos.GetX() + 1, pos.GetY()));
 	}
 
 	if (pos.GetX() - 1 >= 0)
 	{
 		if (!visitedRooms[pos.GetX() - 1][pos.GetY()])
-			neighbours.push_back(new Position(pos.GetX() - 1, pos.GetY()));
+			neighbours.push_back(Position(pos.GetX() - 1, pos.GetY()));
 	}
 
 	if (pos.GetY() + 1 < GameManager::NUMBER_OF_ROOMS_Y)
 	{
 		if (!visitedRooms[pos.GetX()][pos.GetY() + 1])
-			neighbours.push_back(new Position(pos.GetX(), pos.GetY() + 1));
+			neighbours.push_back(Position(pos.GetX(), pos.GetY() + 1));
 	}
 
 	if (pos.GetY() - 1 >= 0)
 	{
 		if (!visitedRooms[pos.GetX()][pos.GetY() - 1])
-			neighbours.push_back(new Position(pos.GetX(), pos.GetY() - 1));
+			neighbours.push_back(Position(pos.GetX(), pos.GetY() - 1));
 	}
 
 	// Choose a random neighbour
@@ -123,7 +126,7 @@ Position* DungeonParser::GetNeighbour(Position pos)
 		return neighbours[randomNumber];
 	}
 	else
-		return nullptr;// new Position(-1, -1);
+		return Position(-1, -1);
 }
 
 int DungeonParser::GetRandomNumber(int min, int max)

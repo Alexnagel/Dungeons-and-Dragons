@@ -17,7 +17,7 @@ private:
 	// Variables
 	int seed;
 	std::mt19937 rng;
-	std::unique_ptr<DungeonParser> dungeonParser;
+	//std::unique_ptr<DungeonParser> dungeonParser;
 	bool ContainsStartPosition, ContainsBossRoom, ContainsStaircaseUp, ContainsStaircaseDown;
 	int distanceSinceSpecial;
 
