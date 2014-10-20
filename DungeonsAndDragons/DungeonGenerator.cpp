@@ -44,8 +44,8 @@ Dungeon DungeonGenerator::CreateDungeon()
 	}
 
 	// Create the dungeon
-	std::unique_ptr<DungeonParser> dungeonParser;
-	return dungeonParser->ParseDungeon(floorCollection);
+	DungeonParser* parser = new DungeonParser();
+	return parser->ParseDungeon(floorCollection);
 }
 
 Floor DungeonGenerator::CreateFloor()
@@ -78,8 +78,8 @@ Floor DungeonGenerator::CreateFloor()
 	}
 
 	// Parse the floor
-	std::unique_ptr<DungeonParser> dungeonParser;
-	return dungeonParser->ParseFloor(floor, 0);
+	DungeonParser* parser = new DungeonParser();
+	return parser->ParseFloor(floor, 0);
 }
 
 RoomType DungeonGenerator::CreateSpecialRoom()

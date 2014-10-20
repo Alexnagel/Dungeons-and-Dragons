@@ -27,7 +27,7 @@ private:
 	void DFS(Position);
 	void Carve();
 	int GetDirection();
-	Position GetNeighbour(Position);
+	Position* GetNeighbour(Position);
 	int GetRandomNumber(int width, int height);
 
 public:
