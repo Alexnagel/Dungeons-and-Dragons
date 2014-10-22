@@ -3,6 +3,6 @@
 
 int main()
 {
-	new GameManager();
+	GameManager();
 	return 0;
 }

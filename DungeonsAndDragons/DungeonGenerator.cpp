@@ -1,36 +1,23 @@
 #include "stdafx.h"
 #include "DungeonGenerator.h"
-#include "DungeonParser.h"
-#include "GameManager.h"
-#include "RoomType.h"
-#include "Floor.h"
-#include "Dungeon.h"
-#include <random>
-#include <vector>
-
-using namespace std;
 
 DungeonGenerator::DungeonGenerator()
 {
-	dungeonParser = new DungeonParser();
-
 	ContainsStartPosition = true;
 	ContainsBossRoom = true;	
 	
-	seed = random_device()();
+	seed = std::random_device()();
 	rng = std::mt19937(seed);
 }
 
 DungeonGenerator::~DungeonGenerator()
 {
-	delete(dungeonParser);
-	dungeonParser = nullptr;
 }
 
 Dungeon DungeonGenerator::CreateDungeon()
 {
 	// Create all the floors
-	vector<Floor> floorCollection;
+	std::vector<Floor> floorCollection;
 	for (int i = 0; i < NUMBER_OF_FLOORS; i++)
 	{
 		ContainsStaircaseDown = false;
@@ -48,27 +35,27 @@ Dungeon DungeonGenerator::CreateDungeon()
 			ContainsStaircaseDown = true;
 		}
 
-		cout << "FLOOR " << i << endl;
-		cout <<  endl;
+		std::cout << "FLOOR " << i << std::endl;
+		std::cout << std::endl;
 
 		floorCollection.push_back(CreateFloor());
 
-		cout << endl;
+		std::cout << std::endl;
 	}
 
 	// Create the dungeon
-	DungeonParser parser = *dungeonParser;
-	return parser.ParseDungeon(floorCollection);
+	std::unique_ptr<DungeonParser> parser(new DungeonParser());
+	return parser->ParseDungeon(floorCollection);
 }
 
 Floor DungeonGenerator::CreateFloor()
 {
 	// Create a random floor
-	vector<vector<RoomType>> floor;
-	for (int x = 0; x < 10; x++)
+	std::vector<std::vector<RoomType>> floor;
+	for (int y = 0; y < GameManager::NUMBER_OF_ROOMS_Y; y++)
 	{
-		vector<RoomType> row;
-		for (int y = 0; y < 10; y++)
+		std::vector<RoomType> row;
+		for (int x = 0; x < 10; x++)
 		{
 			int chance = GetRandomNumber();
 			RoomType type;
@@ -84,14 +71,15 @@ Floor DungeonGenerator::CreateFloor()
 			}
 
 			row.push_back(type);
-			cout << row[y];
+			std::cout << row[x];
 		}
-		cout << endl;
+		std::cout << std::endl;
 		floor.push_back(row);
 	}
 
 	// Parse the floor
-	return dungeonParser->ParseFloor(floor, 0);
+	std::unique_ptr<DungeonParser> parser(new DungeonParser());
+	return parser->ParseFloor(floor, 0);
 }
 
 RoomType DungeonGenerator::CreateSpecialRoom()
@@ -164,5 +152,5 @@ bool DungeonGenerator::CheckRoom(int chance)
 
 int DungeonGenerator::GetRandomNumber()
 {
-	return uniform_int_distribution<int>(0, 100)(rng);
+	return std::uniform_int_distribution<int>(0, 100)(rng);
 }

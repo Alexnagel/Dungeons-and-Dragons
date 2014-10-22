@@ -94,8 +94,10 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="NormalRoom.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Position.h" />
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomGenerator.h" />
+    <ClInclude Include="RoomNode.h" />
     <ClInclude Include="RoomType.h" />
     <ClInclude Include="SaveLoadParser.h" />
     <ClInclude Include="Staircase.h" />
@@ -119,8 +121,10 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="NormalRoom.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Position.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomGenerator.cpp" />
+    <ClCompile Include="RoomNode.cpp" />
     <ClCompile Include="SaveLoadParser.cpp" />
     <ClCompile Include="Staircase.cpp" />
     <ClCompile Include="stdafx.cpp">
