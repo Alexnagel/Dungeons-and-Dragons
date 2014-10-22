@@ -7,7 +7,6 @@ GameManager::GameManager()
 {
 	DungeonGenerator generator;
 	generator.CreateDungeon();
-
 }
 
 GameManager::~GameManager()

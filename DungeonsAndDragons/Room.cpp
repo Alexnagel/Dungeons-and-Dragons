@@ -4,6 +4,12 @@
 Room::Room()
 {
 	roomIsVisited = false;
+
+	roomTop = nullptr;
+	roomRight = nullptr;
+	roomBottom = nullptr;
+	roomLeft = nullptr;
+
 	GenerateDescription();
 }
 

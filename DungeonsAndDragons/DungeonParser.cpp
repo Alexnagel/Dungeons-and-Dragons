@@ -34,33 +34,26 @@ Floor DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int le
 	for (int y = 0; y < floor.size(); y++)
 	{
 		std::vector<RoomType> row = floor.at(y);
-		for (int loop = 0; loop < 2; loop++)
+		std::string rowTopstring = "";
+		std::string rowstring = "";
+		for (int x = 0; x < row.size(); x++)
 		{
-			for (int x = 0; x < row.size(); x++)
-			{
-				std::array<bool, 2>connections = roomCollection[x][y].GetConnections();
+			std::array<bool, 2>connections = roomCollection[x][y].GetConnections();
 
-				if (loop == 0 && x == row.size() - 1 && (y == 0 || connections[0]))
-					std::cout << "+--+" << std::endl;
-				else if (loop == 0 && x == row.size() - 1 && !connections[0])
-					std::cout << "   +" << std::endl;
+			if (connections[0])
+				rowTopstring.append("  |");
+			else
+				rowTopstring.append("   ");
 
-				else if (loop == 1 && x == row.size() - 1 && connections[1])
-					std::cout << "|  |" << std::endl;
-				else if (loop == 1 && x == row.size() - 1 && !connections[1])
-					std::cout << "   |" << std::endl;
+			if (connections[1])
+				rowstring.append("--");
+			else
+				rowstring.append("  ");
 
-				else if (loop == 0 && (y == 0 || connections[0]))
-					std::cout << "+--";
-				else if (loop == 0 && !connections[0])
-					std::cout << "   ";
-				
-				else if (loop == 1 && (x == 0 || connections[1]))
-					std::cout << "|  ";
-				else if (loop == 1 && !connections[1])
-					std::cout << "   ";
-			}
+			rowstring.append("x");
 		}
+		std::cout << rowTopstring << std::endl;
+		std::cout << rowstring << std::endl;
 	}
 
 
@@ -103,49 +96,50 @@ void DungeonParser::ConnectionAlgorithm()
 
 void DungeonParser::DFS(Position pos)
 {
-	if (!visitedRooms[pos.GetX()][pos.GetY()])
+	if (!visitedRooms[pos.GetX()][pos.GetY()] || !stack.empty())
 	{
 		Position neighbour = GetNeighbour(pos);
-		visitedRooms[neighbour.GetX()][neighbour.GetY()] = true;
+		visitedRooms[pos.GetX()][pos.GetY()] = true;
 
-		Room mainRoom = roomCollection[pos.GetX()][pos.GetY()];
-		Room connectRoom = roomCollection[neighbour.GetX()][neighbour.GetY()];
+		Room* mainRoom = &roomCollection[pos.GetX()][pos.GetY()];
+		Room* connectRoom = &roomCollection[neighbour.GetX()][neighbour.GetY()];
 		int mainX = pos.GetX();
 		int mainY = pos.GetY();
 		int neighbourX = neighbour.GetX();
 		int neighbourY = neighbour.GetY();
-		
-		if (mainX > neighbourX)
-		{
-			mainRoom.roomLeft = &connectRoom;
-			connectRoom.roomRight = &mainRoom;
-		}
-		if (mainX < neighbourX)
-		{
-			mainRoom.roomRight = &connectRoom;
-			connectRoom.roomLeft = &mainRoom;
-		}
-		if (mainY > neighbourY)
-		{
-			mainRoom.roomTop = &connectRoom;
-			connectRoom.roomBottom = &mainRoom;
-		}
 
-		if (mainY < neighbourY)
-		{
-			mainRoom.roomTop = &connectRoom;
-			connectRoom.roomBottom = &mainRoom;
-		}
-
+		// Set the neighbour if it has a valid position
 		if (neighbour.GetX() >= 0 && neighbour.GetY() >= 0)
 		{
+			if (mainX > neighbourX)
+			{
+				mainRoom->roomLeft = connectRoom;
+				connectRoom->roomRight = mainRoom;
+			}
+			if (mainX < neighbourX)
+			{
+				mainRoom->roomRight = connectRoom;
+				connectRoom->roomLeft = mainRoom;
+			}
+			if (mainY > neighbourY)
+			{
+				mainRoom->roomTop = connectRoom;
+				connectRoom->roomBottom = mainRoom;
+			}
+			if (mainY < neighbourY)
+			{
+				mainRoom->roomBottom = connectRoom;
+				connectRoom->roomTop = mainRoom;
+			}
+
 			stack.push(neighbour);
-			DFS(neighbour);
+			DungeonParser::DFS(neighbour);
 		}
 		else
 		{
 			stack.pop();
-			DFS(stack.top());
+			if (!stack.empty())
+				DFS(stack.top());
 		}
 	}
 }
@@ -193,3 +187,24 @@ int DungeonParser::GetRandomNumber(int min, int max)
 {
 	return std::uniform_int_distribution<int>(min, max)(rng);
 }
+
+
+//if (loop == 0 && x == row.size() - 1 && (y == 0 || connections[0]))
+//std::cout << "+--+" << std::endl;
+//else if (loop == 0 && x == row.size() - 1 && !connections[0])
+//std::cout << "   +" << std::endl;
+//
+//else if (loop == 1 && x == row.size() - 1 && connections[1])
+//std::cout << "|  |" << std::endl;
+//else if (loop == 1 && x == row.size() - 1 && !connections[1])
+//std::cout << "   |" << std::endl;
+//
+//else if (loop == 0 && (y == 0 || connections[0]))
+//std::cout << "+--";
+//else if (loop == 0 && !connections[0])
+//std::cout << "   ";
+//
+//else if (loop == 1 && (x == 0 || connections[1]))
+//std::cout << "|  ";
+//else if (loop == 1 && !connections[1])
+//std::cout << "   ";
