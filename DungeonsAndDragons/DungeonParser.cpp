@@ -30,6 +30,40 @@ Floor DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int le
 	// Connect all the rooms
 	ConnectionAlgorithm();
 
+	// print maze
+	for (int y = 0; y < floor.size(); y++)
+	{
+		std::vector<RoomType> row = floor.at(y);
+		for (int loop = 0; loop < 2; loop++)
+		{
+			for (int x = 0; x < row.size(); x++)
+			{
+				std::array<bool, 2>connections = roomCollection[x][y].GetConnections();
+
+				if (loop == 0 && x == row.size() - 1 && (y == 0 || connections[0]))
+					std::cout << "+--+" << std::endl;
+				else if (loop == 0 && x == row.size() - 1 && !connections[0])
+					std::cout << "   +" << std::endl;
+
+				else if (loop == 1 && x == row.size() - 1 && connections[1])
+					std::cout << "|  |" << std::endl;
+				else if (loop == 1 && x == row.size() - 1 && !connections[1])
+					std::cout << "   |" << std::endl;
+
+				else if (loop == 0 && (y == 0 || connections[0]))
+					std::cout << "+--";
+				else if (loop == 0 && !connections[0])
+					std::cout << "   ";
+				
+				else if (loop == 1 && (x == 0 || connections[1]))
+					std::cout << "|  ";
+				else if (loop == 1 && !connections[1])
+					std::cout << "   ";
+			}
+		}
+	}
+
+
 	// Create and return the floor;
 	// TODO: Create the floor.
 	return Floor();
@@ -73,6 +107,35 @@ void DungeonParser::DFS(Position pos)
 	{
 		Position neighbour = GetNeighbour(pos);
 		visitedRooms[neighbour.GetX()][neighbour.GetY()] = true;
+
+		Room mainRoom = roomCollection[pos.GetX()][pos.GetY()];
+		Room connectRoom = roomCollection[neighbour.GetX()][neighbour.GetY()];
+		int mainX = pos.GetX();
+		int mainY = pos.GetY();
+		int neighbourX = neighbour.GetX();
+		int neighbourY = neighbour.GetY();
+		
+		if (mainX > neighbourX)
+		{
+			mainRoom.roomLeft = &connectRoom;
+			connectRoom.roomRight = &mainRoom;
+		}
+		if (mainX < neighbourX)
+		{
+			mainRoom.roomRight = &connectRoom;
+			connectRoom.roomLeft = &mainRoom;
+		}
+		if (mainY > neighbourY)
+		{
+			mainRoom.roomTop = &connectRoom;
+			connectRoom.roomBottom = &mainRoom;
+		}
+
+		if (mainY < neighbourY)
+		{
+			mainRoom.roomTop = &connectRoom;
+			connectRoom.roomBottom = &mainRoom;
+		}
 
 		if (neighbour.GetX() >= 0 && neighbour.GetY() >= 0)
 		{

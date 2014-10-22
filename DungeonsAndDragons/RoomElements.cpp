@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "RoomElements.h"
-
+/*
 RoomElements::RoomElements()
 {
 	seed = std::random_device()();
@@ -51,7 +51,7 @@ void RoomElements::fillVectors()
 
 std::string RoomElements::GetRandomFloorType()
 {
-	return floorVector[GetRandomNumber(floorVector.size)];
+	return std::string((floorVector[GetRandomNumber(floorVector.size)]));
 }
 
 std::string RoomElements::GetRandomSize()
@@ -87,3 +87,4 @@ int RoomElements::GetRandomNumber(int max)
 RoomElements::~RoomElements()
 {
 }
+*/

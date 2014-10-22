@@ -5,6 +5,6 @@ class NormalRoom : public Room
 {
 public:
 	NormalRoom();
-	~NormalRoom();
+	virtual ~NormalRoom();
 };
 
