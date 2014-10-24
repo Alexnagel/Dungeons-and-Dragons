@@ -495,6 +495,39 @@
         <elementDefinition Id="d92579ee-6196-42bf-b736-88019feadca0" />
       </class>
     </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="357fc902-8781-4e0f-b834-2a91e6bbd95f" name="Weapon" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="b84e1719-09e1-4e51-8188-cbef03459548" />
+        <generalsInternal>
+          <generalization Id="0d99a108-7c6e-4b26-8a85-a44e350e9a85" isSubstitutable="false">
+            <classMoniker Id="9f82bfc9-7fb8-48e0-979f-c016ed7bcf2d" LastKnownName="Item" />
+            <elementDefinition Id="58d4a8eb-123e-49eb-96a6-301875b25f10" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="1bd4e8b7-3dac-40f6-8635-bc1c4e3be38e" name="Potion" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="2ef8a470-316e-4bf1-bad9-186887e67fe9" />
+        <generalsInternal>
+          <generalization Id="8d68895b-d4dd-47b1-ba55-edb141cc56c4" isSubstitutable="false">
+            <classMoniker Id="9f82bfc9-7fb8-48e0-979f-c016ed7bcf2d" LastKnownName="Item" />
+            <elementDefinition Id="286156b5-d387-48c8-8f6e-946796809b35" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="fd1f2bce-3a9a-4e82-84ac-c99e2cd0417c" name="Armour" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="5bd2e9f4-7dd6-4813-b7c8-2dc9ca53ecc7" />
+        <generalsInternal>
+          <generalization Id="06345cb7-06df-4164-bafb-63618734c7b0" isSubstitutable="false">
+            <classMoniker Id="9f82bfc9-7fb8-48e0-979f-c016ed7bcf2d" LastKnownName="Item" />
+            <elementDefinition Id="93226b23-7fd0-4ba8-ad09-85846c1e8965" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
   </packagedElements>
   <package Id="5a2072f1-2e02-4078-8d37-4c3e4d64f628" name="Diagram">
     <elementDefinition Id="309a6fe2-d23d-4bf5-97a5-7c026efc128b" />

@@ -1006,6 +1006,63 @@
         isLeaf="false"
         isActiveClass="false" />
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="b84e1719-09e1-4e51-8188-cbef03459548"
+        name="Weapon"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="58d4a8eb-123e-49eb-96a6-301875b25f10"
+            isSubstitutable="false">
+            <classMoniker
+              Id="d3eaa1ef-d8e5-4ba9-bb28-f2dd43972917"
+              LastKnownName="Item"
+              LastKnownLocation="Diagram.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="2ef8a470-316e-4bf1-bad9-186887e67fe9"
+        name="Potion"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="286156b5-d387-48c8-8f6e-946796809b35"
+            isSubstitutable="false">
+            <classMoniker
+              Id="d3eaa1ef-d8e5-4ba9-bb28-f2dd43972917"
+              LastKnownName="Item"
+              LastKnownLocation="Diagram.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="5bd2e9f4-7dd6-4813-b7c8-2dc9ca53ecc7"
+        name="Armour"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="93226b23-7fd0-4ba8-ad09-85846c1e8965"
+            isSubstitutable="false">
+            <classMoniker
+              Id="d3eaa1ef-d8e5-4ba9-bb28-f2dd43972917"
+              LastKnownName="Item"
+              LastKnownLocation="Diagram.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
   </packagedElements>
   <primitiveType
     Id="220a3521-e091-4221-bae9-3ef9018e845c"
