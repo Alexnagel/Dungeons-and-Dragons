@@ -3,6 +3,6 @@ class Floor
 {
 public:
 	Floor();
-	~Floor();
+	virtual ~Floor();
 };
 

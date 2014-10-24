@@ -5,6 +5,6 @@ class Staircase : public Room
 {
 public:
 	Staircase();
-	~Staircase();
+	virtual ~Staircase();
 };
 

@@ -10,3 +10,19 @@ Character::Character()
 Character::~Character()
 {
 }
+
+// Getters
+std::string Character::GetName()
+{
+	return name;
+}
+
+int Character::GetLevel()
+{
+	return level;
+}
+
+int Character::GetHp()
+{
+	return hp;
+}

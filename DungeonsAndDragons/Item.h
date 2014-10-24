@@ -3,6 +3,6 @@ class Item
 {
 public:
 	Item();
-	~Item();
+	virtual ~Item();
 };
 

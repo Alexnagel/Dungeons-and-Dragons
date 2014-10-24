@@ -3,6 +3,6 @@ class Chest
 {
 public:
 	Chest();
-	~Chest();
+	virtual ~Chest();
 };
 

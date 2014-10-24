@@ -13,7 +13,7 @@ private:
 
 public:
 	RoomNode();
-	~RoomNode();
+	virtual ~RoomNode();
 
 	Room GoNorth();
 	Room GoEast();

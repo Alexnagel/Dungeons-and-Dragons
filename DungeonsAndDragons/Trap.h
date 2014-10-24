@@ -3,6 +3,6 @@ class Trap
 {
 public:
 	Trap();
-	~Trap();
+	virtual ~Trap();
 };
 

@@ -3,6 +3,6 @@ class Battle
 {
 public:
 	Battle();
-	~Battle();
+	virtual ~Battle();
 };
 

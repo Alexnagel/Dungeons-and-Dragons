@@ -9,7 +9,7 @@ private:
 public:
 	// Constructor
 	Position(int x, int y);
-	~Position();
+	virtual ~Position();
 
 	// Functions
 	int GetX();

@@ -11,22 +11,7 @@ Enemy::~Enemy()
 {
 }
 
-// Getters
-std::string Enemy::GetName()
-{
-	return name;
-}
-
-int Enemy::GetLevel()
-{
-	return level;
-}
-
-int Enemy::GetHp()
-{
-	return hp;
-}
-
+// Functions
 int Enemy::GetXp()
 {
 	if (hp == 0)
@@ -35,7 +20,7 @@ int Enemy::GetXp()
 		return 0;
 }
 
-// Functions
+
 int Enemy::Attack()
 {
 	// Gebruik een random getal, of de enemy mist of niet?

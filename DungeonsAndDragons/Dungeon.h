@@ -3,6 +3,6 @@ class Dungeon
 {
 public:
 	Dungeon();
-	~Dungeon();
+	virtual ~Dungeon();
 };
 

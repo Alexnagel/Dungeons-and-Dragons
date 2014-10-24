@@ -3,6 +3,16 @@ class Character
 {
 public:
 	Character();
-	~Character();
+	virtual ~Character();
+
+	// Functions
+	std::string GetName();
+	int GetLevel();
+	int GetHp();
+
+protected:
+	std::string name;
+	int hp;
+	int level;
 };
 

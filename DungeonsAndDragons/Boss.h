@@ -5,6 +5,6 @@ class Boss : public Enemy
 {
 public:
 	Boss();
-	~Boss();
+	virtual ~Boss();
 };
 

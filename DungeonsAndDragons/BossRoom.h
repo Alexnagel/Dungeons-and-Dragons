@@ -5,6 +5,6 @@ class BossRoom : public Room
 {
 	public:
 		BossRoom();
-		~BossRoom();
+		virtual ~BossRoom();
 };
 
