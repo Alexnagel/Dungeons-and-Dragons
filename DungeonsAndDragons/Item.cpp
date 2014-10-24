@@ -10,3 +10,9 @@ Item::Item()
 Item::~Item()
 {
 }
+
+// Functions
+std::string Item::GetName()
+{
+	return name;
+}
