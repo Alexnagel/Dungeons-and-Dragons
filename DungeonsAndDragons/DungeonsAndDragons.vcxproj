@@ -100,7 +100,6 @@
     <ClInclude Include="Room.h" />
     <ClInclude Include="RoomElements.h" />
     <ClInclude Include="RoomGenerator.h" />
-    <ClInclude Include="RoomNode.h" />
     <ClInclude Include="RoomType.h" />
     <ClInclude Include="SaveLoadParser.h" />
     <ClInclude Include="Staircase.h" />
@@ -131,7 +130,6 @@
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="RoomElements.cpp" />
     <ClCompile Include="RoomGenerator.cpp" />
-    <ClCompile Include="RoomNode.cpp" />
     <ClCompile Include="SaveLoadParser.cpp" />
     <ClCompile Include="Staircase.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -19,6 +19,7 @@ private:
 
 public:
 	Player();
+	Player(std::string name);
 	virtual ~Player();
 
 	// Functions

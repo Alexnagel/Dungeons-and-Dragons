@@ -35,12 +35,12 @@ Dungeon DungeonGenerator::CreateDungeon()
 			ContainsStaircaseDown = true;
 		}
 
-		std::cout << "FLOOR " << i << std::endl;
-		std::cout << std::endl;
+		//std::cout << "FLOOR " << i << std::endl;
+		//std::cout << std::endl;
 
 		floorCollection.push_back(CreateFloor());
 
-		std::cout << std::endl;
+		//std::cout << std::endl;
 	}
 
 	// Create the dungeon
@@ -71,9 +71,9 @@ Floor DungeonGenerator::CreateFloor()
 			}
 
 			row.push_back(type);
-			std::cout << row[x];
+			//std::cout << row[x];
 		}
-		std::cout << std::endl;
+		//std::cout << std::endl;
 		floor.push_back(row);
 	}
 

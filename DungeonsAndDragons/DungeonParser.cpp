@@ -31,7 +31,7 @@ Floor DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int le
 	ConnectionAlgorithm();
 
 	// print maze
-	for (int y = 0; y < floor.size(); y++)
+	/*for (int y = 0; y < floor.size(); y++)
 	{
 		std::vector<RoomType> row = floor.at(y);
 		std::string rowTopstring = "";
@@ -54,7 +54,7 @@ Floor DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int le
 		}
 		std::cout << rowTopstring << std::endl;
 		std::cout << rowstring << std::endl;
-	}
+	}*/
 
 
 	// Create and return the floor;
@@ -187,24 +187,3 @@ int DungeonParser::GetRandomNumber(int min, int max)
 {
 	return std::uniform_int_distribution<int>(min, max)(rng);
 }
-
-
-//if (loop == 0 && x == row.size() - 1 && (y == 0 || connections[0]))
-//std::cout << "+--+" << std::endl;
-//else if (loop == 0 && x == row.size() - 1 && !connections[0])
-//std::cout << "   +" << std::endl;
-//
-//else if (loop == 1 && x == row.size() - 1 && connections[1])
-//std::cout << "|  |" << std::endl;
-//else if (loop == 1 && x == row.size() - 1 && !connections[1])
-//std::cout << "   |" << std::endl;
-//
-//else if (loop == 0 && (y == 0 || connections[0]))
-//std::cout << "+--";
-//else if (loop == 0 && !connections[0])
-//std::cout << "   ";
-//
-//else if (loop == 1 && (x == 0 || connections[1]))
-//std::cout << "|  ";
-//else if (loop == 1 && !connections[1])
-//std::cout << "   ";

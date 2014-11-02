@@ -141,9 +141,6 @@
     <ClInclude Include="Floor.h">
       <Filter>Header Files\Model\Dungeon</Filter>
     </ClInclude>
-    <ClInclude Include="RoomNode.h">
-      <Filter>Header Files\Model\Dungeon</Filter>
-    </ClInclude>
     <ClInclude Include="RoomType.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
@@ -222,9 +219,6 @@
       <Filter>Source Files\Model\Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="Floor.cpp">
-      <Filter>Source Files\Model\Dungeon</Filter>
-    </ClCompile>
-    <ClCompile Include="RoomNode.cpp">
       <Filter>Source Files\Model\Dungeon</Filter>
     </ClCompile>
     <ClCompile Include="Battle.cpp">
