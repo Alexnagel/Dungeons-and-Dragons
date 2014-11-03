@@ -9,7 +9,7 @@ class GameManager
 private:
 	// Variables
 	bool isRunning;
-	Dungeon dungeon;
+	Dungeon* dungeon;
 	Player player;
 	int level;
 

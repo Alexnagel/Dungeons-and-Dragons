@@ -2,7 +2,6 @@
 
 #include "stdafx.h"
 #include "DungeonGenerator.h"
-#include "Floor.h"
 #include "Position.h"
 #include "Room.h"
 #include "RoomType.h"
@@ -11,6 +10,8 @@
 #include "Dungeon.h"
 #include <vector>
 #include <stack>
+
+class Floor;
 
 class DungeonParser
 {
@@ -33,9 +34,9 @@ private:
 public:
 	// Constructors
 	DungeonParser();
-	~DungeonParser();
+	virtual ~DungeonParser();
 
 	// Functions
-	Floor ParseFloor(std::vector<std::vector<RoomType>> floor, int level);
-	Dungeon ParseDungeon(std::vector<Floor> floorCollection);
+	Floor* ParseFloor(std::vector<std::vector<RoomType>> floor, int level);
+	Dungeon* ParseDungeon(std::vector<Floor*> floorCollection);
 };

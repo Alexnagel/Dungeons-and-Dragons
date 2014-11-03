@@ -14,10 +14,10 @@ DungeonGenerator::~DungeonGenerator()
 {
 }
 
-Dungeon DungeonGenerator::CreateDungeon()
+Dungeon* DungeonGenerator::CreateDungeon()
 {
 	// Create all the floors
-	std::vector<Floor> floorCollection;
+	std::vector<Floor *> floorCollection;
 	for (int i = 0; i < NUMBER_OF_FLOORS; i++)
 	{
 		ContainsStaircaseDown = false;
@@ -37,8 +37,8 @@ Dungeon DungeonGenerator::CreateDungeon()
 
 		//std::cout << "FLOOR " << i << std::endl;
 		//std::cout << std::endl;
-
-		floorCollection.push_back(CreateFloor());
+		Floor floor = *CreateFloor();
+		floorCollection.push_back(&floor);
 
 		//std::cout << std::endl;
 	}
@@ -48,7 +48,7 @@ Dungeon DungeonGenerator::CreateDungeon()
 	return parser->ParseDungeon(floorCollection);
 }
 
-Floor DungeonGenerator::CreateFloor()
+Floor* DungeonGenerator::CreateFloor()
 {
 	// Create a random floor
 	std::vector<std::vector<RoomType>> floor;
@@ -93,7 +93,7 @@ RoomType DungeonGenerator::CreateSpecialRoom()
 	RoomType type = RoomType::NORMAL_ROOM;
 
 	// To make the placement of the special rooms more random
-	if (chance % 2 == 0 && distanceSinceSpecial > SPECIAL_ROOM_DISTANCE)
+	if (distanceSinceSpecial > SPECIAL_ROOM_DISTANCE)
 	{
 		if (chance <= CHANCE_STAIRCASE_UP && !ContainsStaircaseUp)
 		{

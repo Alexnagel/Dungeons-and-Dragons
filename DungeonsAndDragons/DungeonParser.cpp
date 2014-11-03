@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "DungeonParser.h"
+#include "Floor.h"
 
 // Globals
-Room roomCollection[GameManager::NUMBER_OF_ROOMS_X][GameManager::NUMBER_OF_ROOMS_Y];
+Room* roomCollection[GameManager::NUMBER_OF_ROOMS_X][GameManager::NUMBER_OF_ROOMS_Y];
 bool visitedRooms[GameManager::NUMBER_OF_ROOMS_X][GameManager::NUMBER_OF_ROOMS_Y];
 
 DungeonParser::DungeonParser()
@@ -15,7 +16,7 @@ DungeonParser::~DungeonParser()
 {
 }
 
-Floor DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int level)
+Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int level)
 {
 	// Create all the rooms
 	for (int y = 0; y < floor.size(); y++)
@@ -31,14 +32,14 @@ Floor DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int le
 	ConnectionAlgorithm();
 
 	// print maze
-	/*for (int y = 0; y < floor.size(); y++)
+	for (int y = 0; y < floor.size(); y++)
 	{
 		std::vector<RoomType> row = floor.at(y);
 		std::string rowTopstring = "";
 		std::string rowstring = "";
 		for (int x = 0; x < row.size(); x++)
 		{
-			std::array<bool, 2>connections = roomCollection[x][y].GetConnections();
+			std::array<bool, 2>connections = roomCollection[x][y]->GetConnections();
 
 			if (connections[0])
 				rowTopstring.append("  |");
@@ -50,23 +51,23 @@ Floor DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int le
 			else
 				rowstring.append("  ");
 
-			rowstring.append("x");
+			rowstring.append(roomCollection[x][y]->RoomCharacter());
 		}
 		std::cout << rowTopstring << std::endl;
 		std::cout << rowstring << std::endl;
-	}*/
+	}
 
 
 	// Create and return the floor;
 	// TODO: Create the floor.
-	return Floor();
+	return new Floor(*&roomCollection);
 }
 
-Dungeon DungeonParser::ParseDungeon(std::vector<Floor> floorCollection)
+Dungeon* DungeonParser::ParseDungeon(std::vector<Floor *> floorCollection)
 {
 	// TODO:
 	// - Connect Floors to each other
-	return Dungeon();
+	return new Dungeon(floorCollection);
 }
 
 // Using DFS algorithm to create a maze
@@ -101,8 +102,8 @@ void DungeonParser::DFS(Position pos)
 		Position neighbour = GetNeighbour(pos);
 		visitedRooms[pos.GetX()][pos.GetY()] = true;
 
-		Room* mainRoom = &roomCollection[pos.GetX()][pos.GetY()];
-		Room* connectRoom = &roomCollection[neighbour.GetX()][neighbour.GetY()];
+		Room* mainRoom = roomCollection[pos.GetX()][pos.GetY()];
+		Room* connectRoom = roomCollection[neighbour.GetX()][neighbour.GetY()];
 		int mainX = pos.GetX();
 		int mainY = pos.GetY();
 		int neighbourX = neighbour.GetX();

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "RoomElements.h"
-/*
+
 RoomElements::RoomElements()
 {
 	seed = std::random_device()();
@@ -45,46 +45,50 @@ void RoomElements::fillVectors()
 	// Room floor types
 	floorVector.push_back("stone");
 	floorVector.push_back("grass");
-	floorVector.push_back("wood");
+	floorVector.push_back("wooden");
 	floorVector.push_back("sand");
+
+	// Item places
+	placeVector.push_back("the right corner");
+	placeVector.push_back("the middle of the room");
+	placeVector.push_back("the left corner");
 }
 
 std::string RoomElements::GetRandomFloorType()
 {
-	return std::string((floorVector[GetRandomNumber(floorVector.size)]));
+	return std::string((floorVector[GetRandomNumber(floorVector.size())]));
 }
 
 std::string RoomElements::GetRandomSize()
 {
-	return sizeVector[GetRandomNumber(sizeVector.size)];
+	return sizeVector[GetRandomNumber(sizeVector.size())];
 }
 
 std::string RoomElements::GetRandomLighting()
 {
-	return lightingVector[GetRandomNumber(lightingVector.size)];
+	return lightingVector[GetRandomNumber(lightingVector.size())];
 }
 
 std::string RoomElements::GetRandomState()
 {
-	return stateVector[GetRandomNumber(stateVector.size)];
+	return stateVector[GetRandomNumber(stateVector.size())];
 }
 
 std::string RoomElements::GetRandomItem()
 {
-	return itemVector[GetRandomNumber(itemVector.size)];
+	return itemVector[GetRandomNumber(itemVector.size())];
 }
 
 std::string RoomElements::GetRandomPlace()
 {
-	return placeVector[GetRandomNumber(placeVector.size)];
+	return placeVector[GetRandomNumber(placeVector.size())];
 }
 
 int RoomElements::GetRandomNumber(int max)
 {
-	return std::uniform_int_distribution<int>(0, max)(rng);
+	return std::uniform_int_distribution<int>(0, max - 1)(rng);
 }
 
 RoomElements::~RoomElements()
 {
 }
-*/

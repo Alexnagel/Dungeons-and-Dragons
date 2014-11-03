@@ -5,7 +5,7 @@
 
 class RoomElements
 {
-	/*
+	
 private:
 	int seed;
 	std::mt19937 rng;
@@ -28,6 +28,6 @@ public:
 	std::string GetRandomItem();
 	std::string GetRandomFloorType();
 	std::string GetRandomPlace();
-	*/
+	
 };
 

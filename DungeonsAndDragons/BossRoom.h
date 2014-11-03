@@ -4,7 +4,8 @@
 class BossRoom : public Room
 {
 	public:
-		BossRoom();
+		BossRoom(int level);
 		virtual ~BossRoom();
+		std::string RoomCharacter();
 };
 

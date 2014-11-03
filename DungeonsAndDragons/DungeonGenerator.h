@@ -23,7 +23,7 @@ private:
 
 	// Functions
 	bool CheckRoom(int chance);
-	Floor CreateFloor();
+	Floor* CreateFloor();
 	int GetRandomNumber();
 	RoomType CreateSpecialRoom();
 	bool ContainsAllSpecial();
@@ -34,7 +34,7 @@ public:
 	virtual ~DungeonGenerator();
 
 	// Functions
-	Dungeon CreateDungeon();
+	Dungeon* CreateDungeon();
 
 	// Constant variables
 	static const int NUMBER_OF_TYPES = 4;

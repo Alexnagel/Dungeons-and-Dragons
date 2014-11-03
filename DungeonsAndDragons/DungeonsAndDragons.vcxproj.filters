@@ -144,6 +144,9 @@
     <ClInclude Include="RoomType.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="StairCaseDirection.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">

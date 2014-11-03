@@ -1,10 +1,16 @@
 #pragma once
 #include "Room.h"
+#include "StairCaseDirection.h"
 
 class Staircase : public Room
 {
+private: 
+	StairCaseDirection direction;
+
 public:
-	Staircase();
+	Staircase(int level, StairCaseDirection direction);
 	virtual ~Staircase();
+
+	std::string RoomCharacter();
 };
 
