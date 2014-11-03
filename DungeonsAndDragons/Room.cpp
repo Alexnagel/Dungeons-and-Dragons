@@ -19,6 +19,29 @@ Room::Room()
 
 }
 
+bool Room::ContainsRoom(Direction direction)
+{
+	switch (direction)
+	{
+	case Direction::NORTH:
+		if (roomTop != nullptr)
+			return true;
+		break;
+	case Direction::EAST:
+		if (roomRight != nullptr)
+			return true;
+		break;
+	case Direction::SOUTH:
+		if (roomBottom != nullptr)
+			return true;
+		break;;
+	case Direction::WEST:
+		if (roomLeft != nullptr)
+			return true;
+		break;
+	}
+}
+
 Room Room::GoInDirection(Direction direction)
 {
 	switch (direction)
@@ -42,6 +65,11 @@ std::string Room::Print()
 std::string Room::RoomCharacter()
 {
 	return "x";
+}
+
+std::string Room::GetDirections()
+{
+	return directions;
 }
 
 void Room::SetDirections()

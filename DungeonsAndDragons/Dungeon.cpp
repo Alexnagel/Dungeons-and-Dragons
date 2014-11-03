@@ -21,7 +21,12 @@ Floor* Dungeon::GetFloor(int level)
 	return FloorCollection.at(level);
 }
 
-Room Dungeon::GetRoom(int level, int x, int y)
+Room* Dungeon::GetRoom(int level, int x, int y)
 {
-	return Room();
+	return (FloorCollection.at(level))->GetRoom(x, y);
+}
+
+Room* Dungeon::GetStartRoom()
+{
+	return (FloorCollection.at(0))->GetStartRoom();
 }

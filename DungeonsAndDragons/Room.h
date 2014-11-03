@@ -29,10 +29,15 @@ public:
 	Room(int level);
 	Room();
 	virtual ~Room();
+
 	std::array<bool, 2> GetConnections();
+	std::string GetDirections();
 	Room GoInDirection(Direction direction);
+	bool ContainsRoom(Direction direction);
+
 	void SetVisited();
 	bool IsVisited();
+
 	virtual std::string Print();
 	virtual std::string RoomCharacter();
 };

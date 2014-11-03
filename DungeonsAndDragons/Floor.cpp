@@ -60,6 +60,25 @@ void Floor::PrintFloor()
 	}
 }
 
+Room* Floor::GetRoom(int x, int y)
+{
+	std::vector<Room*> row = vRooms.at(y);
+	return row.at(x);
+}
+
+Room* Floor::GetStartRoom()
+{
+	for (int y = 0; y < vRooms.size(); y++)
+	{
+		std::vector<Room*> vRow = vRooms.at(y);
+		for (int x = 0; x < vRow.size(); x++)
+		{
+			if (vRow.at(x)->RoomCharacter() == "S")
+				return vRow.at(x);
+		}
+	}
+}
+
 Floor::~Floor()
 {
 }

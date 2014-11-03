@@ -12,7 +12,8 @@ public:
 	Floor(Room* rooms[][10]);
 
 	void PrintFloor();
-
+	Room* GetRoom(int x, int y);
+	Room* GetStartRoom();
 	virtual ~Floor();
 };
 

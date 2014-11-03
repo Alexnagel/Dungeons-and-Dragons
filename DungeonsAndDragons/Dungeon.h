@@ -11,7 +11,8 @@ public:
 
 	// Functions
 	Floor* GetFloor(int level);
-	Room GetRoom(int level, int x, int y);
+	Room* GetRoom(int level, int x, int y);
+	Room* GetStartRoom();
 	virtual ~Dungeon();
 };
 

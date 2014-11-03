@@ -11,11 +11,15 @@ private:
 	bool isRunning;
 	Dungeon* dungeon;
 	Player player;
+	Room* currentRoom;
 	int level;
 
 	// Functions
 	void PrintFloor();
 	void PrintRoom(int x, int y);
+	void Move();
+	void Attack();
+	void Flee();
 	void StartGame();
 	void QuitGame();
 	void Help();
