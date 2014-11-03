@@ -13,6 +13,7 @@ Dungeon::Dungeon(std::vector<Floor*> floorCollection)
 
 Dungeon::~Dungeon()
 {
+	FloorCollection.clear();
 }
 
 // Functions

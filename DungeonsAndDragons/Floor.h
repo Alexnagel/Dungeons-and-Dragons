@@ -1,16 +1,14 @@
 #pragma once
+#include <memory>
 #include "Room.h"
-#include "RoomType.h"
-#include "GameManager.h"
 
 class Floor
 {
 private:
-	std::vector<std::vector<Room*>> vRooms;
+	std::vector<std::vector<Room*>> vFloor;
 public:
 	Floor();
-	Floor(Room* rooms[][10]);
-
+	Floor(std::vector<std::vector<Room*>> floorVector);
 	void PrintFloor();
 
 	virtual ~Floor();

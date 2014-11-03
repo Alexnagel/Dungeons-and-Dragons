@@ -27,10 +27,12 @@ GameManager::~GameManager()
 #pragma region Print functions
 void GameManager::PrintFloor()
 {
+	// Print the floor map
 	std::cout << "Floor map:" << std::endl;
 	Floor* floor = dungeon->GetFloor(level);
-	// TODO: print the floor
-	// TODO: print the legenda
+	floor->PrintFloor();
+	
+	// Print the legend
 	std::cout << std::endl << std::endl;
 	std::cout << "Legend:" << std::endl;
 	std::cout << "|-- : Gangen" << std::endl;
@@ -40,8 +42,6 @@ void GameManager::PrintFloor()
 	std::cout << "U   : Staircase up" << std::endl;
 	std::cout << "D   : Staircase down" << std::endl;
 	std::cout << ".   : Undiscovered room" << std::endl;
-	
-	floor->PrintFloor();
 }
 
 void GameManager::PrintRoom(int x, int y)

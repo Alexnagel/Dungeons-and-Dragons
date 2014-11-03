@@ -91,4 +91,10 @@ int RoomElements::GetRandomNumber(int max)
 
 RoomElements::~RoomElements()
 {
+	sizeVector.clear();
+	stateVector.clear();
+	lightingVector.clear();
+	itemVector.clear();
+	floorVector.clear();
+	placeVector.clear();
 }

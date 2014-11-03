@@ -7,7 +7,6 @@ NormalRoom::NormalRoom(int level)
 {
 	seed = std::random_device()();
 	rng = std::mt19937(seed);
-	isStart = false;
 }
 
 void NormalRoom::RandomizeEnemies()
@@ -36,14 +35,9 @@ void NormalRoom::PrintEnemies()
 		std::cout << std::endl << "There are no enemies in the room" << std::endl; 
 }
 
-void NormalRoom::SetStart()
-{
-	isStart = true;
-}
-
 std::string NormalRoom::RoomCharacter()
 {
-	if (isStart)
+	if (Room::roomIsStart)
 		return "S";
 	else
 		return "R";

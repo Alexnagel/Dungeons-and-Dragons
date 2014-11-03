@@ -17,6 +17,7 @@ private:
 protected:
 	int level;
 	RoomElements roomElements;
+	bool roomIsStart;
 
 	virtual void GenerateDescription();
 
@@ -33,6 +34,7 @@ public:
 	Room GoInDirection(Direction direction);
 	void SetVisited();
 	bool IsVisited();
+	void SetStart();
 	virtual std::string Print();
 	virtual std::string RoomCharacter();
 };
