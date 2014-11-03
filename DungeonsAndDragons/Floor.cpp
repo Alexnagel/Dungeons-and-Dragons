@@ -22,7 +22,7 @@ void Floor::PrintFloor()
 			std::array<bool, 2>connections = currentRoom->GetConnections();
 
 			// If the room is visited print room type and connection
-			if (!currentRoom->IsVisited())
+			if (currentRoom->IsVisited())
 			{
 				if (connections[0])
 					rowTopstring.append("  |");
@@ -39,7 +39,7 @@ void Floor::PrintFloor()
 			else
 			{
 				rowTopstring.append("   ");
-				rowstring.append(".");
+				rowstring.append(" . ");
 			}
 		}
 		std::cout << rowTopstring << std::endl;
@@ -61,7 +61,10 @@ Room* Floor::GetStartRoom()
 		for (int x = 0; x < vRow.size(); x++)
 		{
 			if (vRow.at(x)->GetStart())
+			{
+				vRow.at(x)->SetVisited();
 				return vRow.at(x);
+			}
 		}
 	}
 }

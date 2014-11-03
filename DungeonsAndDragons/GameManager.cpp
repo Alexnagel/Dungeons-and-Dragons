@@ -49,7 +49,6 @@ void GameManager::PrintRoom(int x, int y)
 {
 	Room* room = dungeon->GetRoom(level, x, y);
 	room->Print();
-	// TODO: print the room "room.print();"
 }
 #pragma endregion
 
@@ -83,18 +82,20 @@ void GameManager::Move()
 
 	direction = ToLowerCase(direction);
 	if (direction == "north" && currentRoom->ContainsRoom(Direction::NORTH))
-		currentRoom = &currentRoom->GoInDirection(Direction::NORTH);
+		currentRoom = currentRoom->GoInDirection(Direction::NORTH);
 	else if (direction == "east" && currentRoom->ContainsRoom(Direction::EAST))
-		currentRoom = &currentRoom->GoInDirection(Direction::EAST);
+		currentRoom = currentRoom->GoInDirection(Direction::EAST);
 	else if (direction == "south" && currentRoom->ContainsRoom(Direction::SOUTH))
-		currentRoom = &currentRoom->GoInDirection(Direction::SOUTH);
+		currentRoom = currentRoom->GoInDirection(Direction::SOUTH);
 	else if (direction == "west" && currentRoom->ContainsRoom(Direction::WEST))
-		currentRoom = &currentRoom->GoInDirection(Direction::WEST);
+		currentRoom = currentRoom->GoInDirection(Direction::WEST);
 	else
 	{
 		std::cout << "You can't move to this direction" << std::endl << std::endl;
 		return;
 	}
+	// set the room as visited
+	currentRoom->SetVisited();
 
 	// Print the new room if the player has moved
 	std::cout << std::endl;

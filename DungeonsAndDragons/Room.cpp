@@ -43,16 +43,16 @@ bool Room::ContainsRoom(Direction direction)
 	}
 }
 
-Room Room::GoInDirection(Direction direction)
+Room* Room::GoInDirection(Direction direction)
 {
 	switch (direction)
 	{
-	case Direction::NORTH: return *roomTop; break;
-	case Direction::EAST:  return *roomRight; break;
-	case Direction::SOUTH: return *roomBottom; break;
-	case Direction::WEST:  return *roomLeft; break;
+	case Direction::NORTH: return roomTop; break;
+	case Direction::EAST:  return roomRight; break;
+	case Direction::SOUTH: return roomBottom; break;
+	case Direction::WEST:  return roomLeft; break;
 	}
-	return Room();
+	return new Room();
 }
 
 std::string Room::Print()
