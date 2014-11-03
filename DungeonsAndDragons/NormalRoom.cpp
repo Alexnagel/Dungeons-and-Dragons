@@ -7,6 +7,8 @@ NormalRoom::NormalRoom(int level)
 {
 	seed = std::random_device()();
 	rng = std::mt19937(seed);
+
+	RandomizeEnemies();
 }
 
 void NormalRoom::RandomizeEnemies()
@@ -19,20 +21,21 @@ void NormalRoom::RandomizeEnemies()
 	}
 }
 
-void NormalRoom::PrintEnemies()
+std::string NormalRoom::PrintEnemies()
 {
+	std::string output;
 	if (!enemies.empty())
 	{
-		std::cout << std::endl << "There are " + std::to_string(enemies.size()) + " enemies in the room: ";
+		output.append("There are " + std::to_string(enemies.size()) + " enemies in the room: \n");
 		for (Enemy* enemy : enemies)
 		{
-			std::cout << std::endl;
-			std::cout << enemy->GetName() << ", Level: " << enemy->GetLevel() << ", HP: " << enemy->GetHp() << ", XP: " << enemy->GetXp();
+			output.append(enemy->GetName() + ", Level: " + std::to_string(enemy->GetLevel()) + ", HP: " + std::to_string(enemy->GetHp()) + ", XP: " + std::to_string(enemy->GetXp()) + "\n");
 		}
-		std::cout << std::endl;
 	}
 	else
-		std::cout << std::endl << "There are no enemies in the room" << std::endl; 
+		output.append("There are no enemies in the room\n");
+
+	return output;
 }
 
 std::string NormalRoom::RoomCharacter()
@@ -46,6 +49,18 @@ std::string NormalRoom::RoomCharacter()
 int NormalRoom::RandomNumber(int max)
 {
 	return std::uniform_int_distribution<int>(0, max)(rng);
+}
+
+std::string NormalRoom::Print()
+{
+	std::string output = description + "\n";
+	if (directions.empty())
+		SetDirections();
+
+	output.append(directions + "\n\n");
+	output.append(PrintEnemies());
+
+	return output;
 }
 
 NormalRoom::~NormalRoom()

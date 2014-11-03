@@ -9,6 +9,7 @@ private:
 
 public:
 	Enemy();
+	Enemy(int floor);
 	virtual ~Enemy();
 
 	// Functions
