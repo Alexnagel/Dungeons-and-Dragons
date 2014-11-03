@@ -92,6 +92,11 @@ void Room::SetStart()
 	roomIsStart = true;
 }
 
+bool Room::GetStart()
+{
+	return roomIsStart;
+}
+
 void Room::SetVisited()
 {
 	roomIsVisited = true;

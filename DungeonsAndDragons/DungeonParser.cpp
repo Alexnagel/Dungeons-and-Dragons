@@ -31,42 +31,16 @@ Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int l
 	// Connect all the rooms
 	ConnectionAlgorithm();
 
-	// print maze
-	/*
-	for (int y = 0; y < floor.size(); y++)
-	{
-		std::vector<RoomType> row = floor.at(y);
-		std::string rowTopstring = "";
-		std::string rowstring = "";
-		for (int x = 0; x < row.size(); x++)
-		{
-			std::array<bool, 2>connections = roomCollection[x][y]->GetConnections();
-
-			if (connections[0])
-				rowTopstring.append("  |");
-			else
-				rowTopstring.append("   ");
-
-			if (connections[1])
-				rowstring.append("--");
-			else
-				rowstring.append("  ");
-
-			rowstring.append(roomCollection[x][y]->RoomCharacter());
-		}
-		std::cout << rowTopstring << std::endl;
-		std::cout << rowstring << std::endl;
-	}*/
-
 	// Convert floor array to Vector 
-	std::vector<std::vector<std::shared_ptr<Room>>> floorVector;
+	std::vector<std::vector<Room*>> floorVector;
 	int rows = GameManager::NUMBER_OF_ROOMS_Y;
 	int cols = GameManager::NUMBER_OF_ROOMS_X;
 	for (int row = 0; row < rows; row++)
 	{
-		std::vector<std::shared_ptr<Room>> roomRow;
+		std::vector<Room*> roomRow;
 		for (int col = 0; col < cols; col++)
 		{
+			
 			roomRow.push_back(roomCollection[col][row]);
 		}
 		floorVector.push_back(roomRow);
@@ -78,8 +52,6 @@ Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int l
 
 Dungeon* DungeonParser::ParseDungeon(std::vector<Floor *> floorCollection)
 {
-	// TODO:
-	// - Connect Floors to each other
 	return new Dungeon(floorCollection);
 }
 

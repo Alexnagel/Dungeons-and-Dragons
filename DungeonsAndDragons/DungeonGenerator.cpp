@@ -37,8 +37,8 @@ Dungeon* DungeonGenerator::CreateDungeon()
 
 		//std::cout << "FLOOR " << i << std::endl;
 		//std::cout << std::endl;
-		Floor floor = *CreateFloor();
-		floorCollection.push_back(&floor);
+		Floor* floor = CreateFloor();
+		floorCollection.push_back(floor);
 
 		//std::cout << std::endl;
 	}
