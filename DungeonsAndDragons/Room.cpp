@@ -5,6 +5,7 @@ Room::Room(int level)
 {
 	this->level = level;
 	roomIsVisited = false;
+	roomIsStart = false;
 
 	roomTop = nullptr;
 	roomRight = nullptr;
@@ -84,6 +85,11 @@ void Room::SetDirections()
 		directions += "south, ";
 	if (roomLeft != nullptr)
 		directions += "west";
+}
+
+void Room::SetStart()
+{
+	roomIsStart = true;
 }
 
 void Room::SetVisited()

@@ -27,12 +27,11 @@ GameManager::~GameManager()
 #pragma region Print functions
 void GameManager::PrintFloor()
 {
+	// Print the floor map
 	std::cout << "Floor map:" << std::endl;
 	Floor* floor = dungeon->GetFloor(level);
-
-	// Print the floor
 	floor->PrintFloor();
-
+	
 	// Print the legend
 	std::cout << std::endl << std::endl;
 	std::cout << "Legend:" << std::endl;
@@ -47,8 +46,8 @@ void GameManager::PrintFloor()
 
 void GameManager::PrintRoom(int x, int y)
 {
-	Room* room = dungeon->GetRoom(level, x, y);
-	room->Print();
+	Room room = dungeon->GetRoom(level, x, y);
+	room.Print();
 	// TODO: print the room "room.print();"
 }
 #pragma endregion
@@ -58,13 +57,7 @@ void GameManager::HandleInput(std::string input)
 {
 	input = ToLowerCase(input);
 
-	if (input == "move")
-		Move();
-	else if (input == "attack")
-		Attack();
-	else if (input == "flee")
-		Flee();
-	else if (input == "start")
+	if (input == "start")
 		StartGame();
 	else if (input == "quit")
 		QuitGame();
@@ -72,42 +65,6 @@ void GameManager::HandleInput(std::string input)
 		PrintFloor();
 	else if (input == "help")
 		Help();
-}
-
-void GameManager::Move()
-{
-	std::string direction;
-	std::cout << "Which direction do you want to travel to?" << std::endl;
-	std::cout << currentRoom->GetDirections() << std::endl;
-	std::cin >> direction;
-
-	direction = ToLowerCase(direction);
-	if (direction == "north" && currentRoom->ContainsRoom(Direction::NORTH))
-		currentRoom = &currentRoom->GoInDirection(Direction::NORTH);
-	else if (direction == "east" && currentRoom->ContainsRoom(Direction::EAST))
-		currentRoom = &currentRoom->GoInDirection(Direction::EAST);
-	else if (direction == "south" && currentRoom->ContainsRoom(Direction::SOUTH))
-		currentRoom = &currentRoom->GoInDirection(Direction::SOUTH);
-	else if (direction == "west" && currentRoom->ContainsRoom(Direction::WEST))
-		currentRoom = &currentRoom->GoInDirection(Direction::WEST);
-	else
-	{
-		std::cout << "You can't move to this direction" << std::endl;
-		return;
-	}
-
-	// Print the new room if the player has moved
-	currentRoom->Print();
-}
-
-void GameManager::Attack()
-{
-
-}
-
-void GameManager::Flee()
-{
-
 }
 
 void GameManager::StartGame()
@@ -123,7 +80,6 @@ void GameManager::StartGame()
 	system("CLS");
 
 	// Start the game
-	currentRoom = dungeon->GetStartRoom();
 	std::cout << "Welcome " << player.GetName() << ", your epic journey will start from here!" << std::endl;
 }
 
@@ -147,7 +103,6 @@ void GameManager::Help()
 	std::cout << "Quit:        Ends the game" << std::endl;
 	std::cout << "Map:         Prints a map of your current floor and a legend" << std::endl;
 	std::cout << "Help:        Shows you all the commands" << std::endl;
-	std::cout << std::endl;
 }
 
 std::string GameManager::ToLowerCase(std::string string)

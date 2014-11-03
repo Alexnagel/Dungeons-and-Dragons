@@ -32,6 +32,7 @@ Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int l
 	ConnectionAlgorithm();
 
 	// print maze
+	/*
 	for (int y = 0; y < floor.size(); y++)
 	{
 		std::vector<RoomType> row = floor.at(y);
@@ -55,12 +56,24 @@ Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int l
 		}
 		std::cout << rowTopstring << std::endl;
 		std::cout << rowstring << std::endl;
+	}*/
+
+	// Convert floor array to Vector 
+	std::vector<std::vector<std::shared_ptr<Room>>> floorVector;
+	int rows = GameManager::NUMBER_OF_ROOMS_Y;
+	int cols = GameManager::NUMBER_OF_ROOMS_X;
+	for (int row = 0; row < rows; row++)
+	{
+		std::vector<std::shared_ptr<Room>> roomRow;
+		for (int col = 0; col < cols; col++)
+		{
+			roomRow.push_back(roomCollection[col][row]);
+		}
+		floorVector.push_back(roomRow);
 	}
 
-
 	// Create and return the floor;
-	// TODO: Create the floor.
-	return new Floor(*&roomCollection);
+	return new Floor(floorVector);
 }
 
 Dungeon* DungeonParser::ParseDungeon(std::vector<Floor *> floorCollection)

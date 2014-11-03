@@ -1,40 +1,27 @@
 #include "stdafx.h"
 #include "Floor.h"
 
-Room* Rooms[GameManager::NUMBER_OF_ROOMS_X][GameManager::NUMBER_OF_ROOMS_Y];
-
-
 Floor::Floor()
 {
 }
 
-Floor::Floor(Room* rooms[GameManager::NUMBER_OF_ROOMS_X][GameManager::NUMBER_OF_ROOMS_Y])
+Floor::Floor(std::vector<std::vector<Room*>> floorVector) :vFloor(floorVector)
 {
-	int rows = GameManager::NUMBER_OF_ROOMS_X;
-	int cols = GameManager::NUMBER_OF_ROOMS_Y;
-	for (int row = 0; row < rows; row++)
-	{
-		std::vector<Room*> vRow;
-		for (int col = 0; col < cols; col++)
-		{
-			vRow.push_back(rooms[row][col]);
-		}
-		vRooms.push_back(vRow);
-	}
 }
 
 void Floor::PrintFloor()
 {
-	for (int y = 0; y < vRooms.size(); y++)
+	for (int y = 0; y < vFloor.size(); y++)
 	{
 		std::string rowTopstring = "";
 		std::string rowstring = "";
-		std::vector<Room*> vRow = vRooms.at(y);
+		std::vector<Room*> vRow = vFloor.at(y);
 		for (int x = 0; x < vRow.size(); x++)
 		{
 			Room* currentRoom = vRow.at(x);
 			std::array<bool, 2>connections = currentRoom->GetConnections();
 
+			// If the room is visited print room type and connection
 			if (!currentRoom->IsVisited())
 			{
 				if (connections[0])
@@ -81,4 +68,5 @@ Room* Floor::GetStartRoom()
 
 Floor::~Floor()
 {
+	vFloor.clear();
 }
