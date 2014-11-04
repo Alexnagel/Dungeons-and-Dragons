@@ -9,8 +9,9 @@ Floor::Floor(std::vector<std::vector<Room*>> floorVector) :vFloor(floorVector)
 {
 }
 
-void Floor::PrintFloor()
+std::string Floor::PrintFloor()
 {
+	std::string output;
 	for (int y = 0; y < vFloor.size(); y++)
 	{
 		std::string rowTopstring = "";
@@ -42,9 +43,10 @@ void Floor::PrintFloor()
 				rowstring.append("  .");
 			}
 		}
-		std::cout << rowTopstring << std::endl;
-		std::cout << rowstring << std::endl;
+		output.append(rowTopstring + "\n");
+		output.append(rowstring + "\n");
 	}
+	return output;
 }
 
 Room* Floor::GetRoom(int x, int y)

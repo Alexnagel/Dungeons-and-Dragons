@@ -137,7 +137,6 @@ std::array<bool, 2> Room::GetConnections()
 
 Room::~Room()
 {
-	/*
 	delete roomTop;
 	delete roomRight;
 	delete roomBottom; 
@@ -145,5 +144,5 @@ Room::~Room()
 	roomTop = nullptr;
 	roomRight = nullptr;
 	roomBottom = nullptr;
-	roomLeft = nullptr;*/
+	roomLeft = nullptr;
 }

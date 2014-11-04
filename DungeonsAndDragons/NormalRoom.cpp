@@ -70,4 +70,7 @@ std::string NormalRoom::Print()
 
 NormalRoom::~NormalRoom()
 {
+	enemies.clear();
+	delete chest;
+	chest = nullptr;
 }

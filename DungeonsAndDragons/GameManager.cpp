@@ -30,7 +30,7 @@ void GameManager::PrintFloor()
 	// Print the floor map
 	std::cout << "Floor map:" << std::endl;
 	Floor* floor = dungeon->GetFloor(level);
-	floor->PrintFloor();
+	std::cout << floor->PrintFloor();
 	
 	// Print the legend
 	std::cout << std::endl << std::endl;
