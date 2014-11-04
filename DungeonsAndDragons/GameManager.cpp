@@ -1,12 +1,22 @@
 #include "stdafx.h"
 #include "GameManager.h"
 
+#ifdef _WIN32
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+#endif
+
 std::default_random_engine GameManager::random;
 
-GameManager::GameManager() : isRunning(true), level(0)
+GameManager::GameManager() : isRunning(true), level(0), currentRoom(nullptr), dungeon(nullptr)
 {
 	DungeonGenerator generator;
 	dungeon = generator.CreateDungeon();
+
+#ifdef _WIN32
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
 
 	// Start handling user input
 	std::string input;
@@ -21,7 +31,10 @@ GameManager::GameManager() : isRunning(true), level(0)
 
 GameManager::~GameManager()
 {
-	
+	if (dungeon != nullptr)
+		delete dungeon;
+	if (currentRoom != nullptr)
+		delete currentRoom;
 }
 
 #pragma region Print functions

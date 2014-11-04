@@ -24,7 +24,7 @@ Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int l
 		std::vector<RoomType> row = floor.at(y);
 		for (int x = 0; x < row.size(); x++)
 		{
-			roomCollection[x][y] = RoomGenerator::CreateRoom(row.at(x), level);
+			roomCollection[x][y] = RoomGenerator::CreateRoom(row.at(x), level); // <-- Memory leak??? new Room(); geeft geen memory leaks.....
 		}
 	}
 
@@ -40,17 +40,21 @@ Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int l
 		std::vector<Room*> roomRow;
 		for (int col = 0; col < cols; col++)
 		{
-			
 			roomRow.push_back(roomCollection[col][row]);
+			delete roomCollection[col][row];
+			roomCollection[col][row] = nullptr;
 		}
 		floorVector.push_back(roomRow);
+		roomRow.clear();
 	}
 
 	// Create and return the floor;
-	return new Floor(floorVector);
+	Floor* floor = new Floor(floorVector);
+	floorVector.clear();
+	return floor;
 }
 
-Dungeon* DungeonParser::ParseDungeon(std::vector<Floor *> floorCollection)
+Dungeon* DungeonParser::ParseDungeon(std::vector<Floor*> floorCollection)
 {
 	return new Dungeon(floorCollection);
 }

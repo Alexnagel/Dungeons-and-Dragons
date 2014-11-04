@@ -39,6 +39,7 @@ Dungeon* DungeonGenerator::CreateDungeon()
 		//std::cout << std::endl;
 		Floor* floor = CreateFloor();
 		floorCollection.push_back(floor);
+		delete floor;
 
 		//std::cout << std::endl;
 	}
@@ -80,6 +81,7 @@ Floor* DungeonGenerator::CreateFloor()
 	// Parse the floor
 	std::unique_ptr<DungeonParser> parser(new DungeonParser());
 	return parser->ParseFloor(floor, 0);
+	//return new Floor();
 }
 
 RoomType DungeonGenerator::CreateSpecialRoom()

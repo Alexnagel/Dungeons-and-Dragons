@@ -15,9 +15,19 @@ Room::Room(int level)
 	GenerateDescription();
 }
 
-Room::Room()
+Room::Room() : roomTop(nullptr), roomRight(nullptr), roomBottom(nullptr), roomLeft(nullptr)
 {
+}
 
+Room& Room::operator=(const Room& other)
+{
+	if (this != &other)
+	{
+		Room* cSymbol = new Room(other);
+		return *cSymbol;
+
+	}
+	return *this;
 }
 
 bool Room::ContainsRoom(Direction direction)
@@ -136,8 +146,7 @@ std::array<bool, 2> Room::GetConnections()
 
 Room::~Room()
 {
-	/*
-	delete roomTop;
+	/*delete roomTop;
 	delete roomRight;
 	delete roomBottom; 
 	delete roomLeft;

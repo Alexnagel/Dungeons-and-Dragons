@@ -26,6 +26,8 @@ public:
 	Room* roomTop;
 	Room* roomBottom;
 
+	Room& operator=(const Room& other);
+
 	Room(int level);
 	Room();
 	virtual ~Room();
