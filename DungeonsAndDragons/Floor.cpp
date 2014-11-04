@@ -39,7 +39,7 @@ void Floor::PrintFloor()
 			else
 			{
 				rowTopstring.append("   ");
-				rowstring.append(" . ");
+				rowstring.append("  .");
 			}
 		}
 		std::cout << rowTopstring << std::endl;

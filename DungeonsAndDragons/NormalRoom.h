@@ -16,9 +16,10 @@ private:
 	const int MAX_ENEMIES = 3;
 	const int CHANCE_CHEST = 40;
 	int seed;
+	std::mt19937 rng;
+
 	std::vector<Enemy *> enemies;
 	Chest* chest;
-	std::mt19937 rng;
 
 	void GenerateChest();
 	void RandomizeEnemies();

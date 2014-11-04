@@ -76,8 +76,8 @@ void GameManager::HandleInput(std::string input)
 void GameManager::Move()
 {
 	std::string direction;
-	std::cout << "Which direction do you want to travel to?" << std::endl;
-	std::cout << currentRoom->GetDirections() << std::endl;
+	std::cout << "Which direction do you want to travel in?" << std::endl;
+	std::cout << currentRoom->GetDirections() << std::endl << std::endl;
 	std::cin >> direction;
 
 	direction = ToLowerCase(direction);
@@ -91,7 +91,7 @@ void GameManager::Move()
 		currentRoom = currentRoom->GoInDirection(Direction::WEST);
 	else
 	{
-		std::cout << "You can't move to this direction" << std::endl << std::endl;
+		std::cout << "You can't move in this direction" << std::endl << std::endl;
 		return;
 	}
 	// set the room as visited

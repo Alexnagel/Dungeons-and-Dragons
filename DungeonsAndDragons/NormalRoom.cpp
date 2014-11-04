@@ -9,6 +9,11 @@ NormalRoom::NormalRoom(int level)
 	rng = std::mt19937(seed);
 }
 
+void NormalRoom::GenerateChest()
+{
+
+}
+
 void NormalRoom::RandomizeEnemies()
 {
 	int enemyAmount = RandomNumber(MAX_ENEMIES);
