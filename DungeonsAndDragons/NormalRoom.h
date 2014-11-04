@@ -8,8 +8,9 @@ class NormalRoom : public Room
 public:
 	NormalRoom(int level);
 	virtual ~NormalRoom();
-	void PrintEnemies();
+	std::string PrintEnemies();
 	std::string RoomCharacter();
+	std::string Print() override;
 
 private:
 	// Variables

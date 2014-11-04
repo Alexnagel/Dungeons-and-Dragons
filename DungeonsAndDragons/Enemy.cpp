@@ -6,6 +6,13 @@ Enemy::Enemy()
 {
 }
 
+Enemy::Enemy(int floor)
+{
+	// Add a name
+	// Add a lvl
+	// Add a xp amount
+}
+
 
 Enemy::~Enemy()
 {

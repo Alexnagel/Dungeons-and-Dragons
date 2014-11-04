@@ -8,17 +8,16 @@
 class Room
 {
 private:
-	std::string description;
-	std::string directions;
 	bool roomIsVisited;
-
-	void SetDirections();
 
 protected:
 	int level;
+	std::string description;
+	std::string directions;
 	RoomElements roomElements;
 	bool roomIsStart;
 
+	void SetDirections();
 	virtual void GenerateDescription();
 
 public:
