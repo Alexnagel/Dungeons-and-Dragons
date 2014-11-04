@@ -12,6 +12,8 @@ public:
 	std::string PrintEnemies();
 	std::string RoomCharacter();
 	std::string Print() override;
+	std::vector<std::shared_ptr<Enemy>> GetEnemies() override;
+	void DefeatedEnemies() override;
 
 private:
 	// Variables

@@ -31,7 +31,7 @@ void NormalRoom::RandomizeEnemies()
 	for (int i = 0; i < enemyAmount; i++)
 	{
 		// add floornumber for difficulty
-		enemies.push_back(std::make_shared<Enemy>(Enemy()));
+		enemies.push_back(std::make_shared<Enemy>(Enemy(level)));
 	}
 }
 
@@ -40,10 +40,14 @@ std::string NormalRoom::PrintEnemies()
 	std::string output;
 	if (!enemies.empty())
 	{
-		output.append("There are " + std::to_string(enemies.size()) + " enemies in the room: \n");
+		if (enemies.size() > 1)
+			output.append("There are " + std::to_string(enemies.size()) + " enemies in the room: \n");
+		else
+			output.append("There is " + std::to_string(enemies.size()) + " enemy in the room: \n");
+
 		for (std::shared_ptr<Enemy> enemy : enemies)
 		{
-			output.append(enemy->GetName() + ", Level: " + std::to_string(enemy->GetLevel()) + ", HP: " + std::to_string(enemy->GetHp()) + ", XP: " + std::to_string(enemy->GetXp()) + "\n");
+			output.append(enemy->GetName() + ", Level: " + std::to_string(enemy->GetLevel()) + ", HP: " + std::to_string(enemy->GetMaxHp()) + ", XP: " + std::to_string(enemy->GetXp()) + "\n");
 		}
 	}
 	else
@@ -63,6 +67,16 @@ std::string NormalRoom::RoomCharacter()
 int NormalRoom::RandomNumber(int max)
 {
 	return std::uniform_int_distribution<int>(0, max)(rng);
+}
+
+std::vector<std::shared_ptr<Enemy>> NormalRoom::GetEnemies()
+{
+	return enemies;
+}
+
+void NormalRoom::DefeatedEnemies()
+{
+	enemies.clear();
 }
 
 std::string NormalRoom::Print()

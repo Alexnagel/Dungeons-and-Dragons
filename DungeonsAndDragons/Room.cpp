@@ -161,6 +161,15 @@ std::array<bool, 2> Room::GetConnections()
 	return connections;
 }
 
+std::vector<std::shared_ptr<Enemy>> Room::GetEnemies()
+{
+	return std::vector<std::shared_ptr<Enemy>>();
+}
+
+void Room::DefeatedEnemies()
+{
+}
+
 Room::~Room()
 {
 	roomTop.reset();

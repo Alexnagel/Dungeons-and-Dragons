@@ -3,6 +3,7 @@
 #include "DungeonGenerator.h"
 #include "Dungeon.h"
 #include "Player.h"
+#include "Battle.h";
 
 class GameManager
 {
@@ -10,8 +11,9 @@ private:
 	// Variables
 	bool isRunning;
 	std::unique_ptr<Dungeon> dungeon;
-	Player player;
+	std::shared_ptr<Player> player;
 	std::shared_ptr<Room> currentRoom;
+	Battle battle;
 	int level;
 
 	// Functions

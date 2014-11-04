@@ -13,9 +13,6 @@ Dungeon::Dungeon(std::vector<std::shared_ptr<Floor>> floorCollection)
 
 Dungeon::~Dungeon()
 {
-	/*for (auto it = FloorCollection.begin(); it != FloorCollection.end(); ++it){
-		delete *it;
-	}*/
 	FloorCollection.clear();
 }
 
