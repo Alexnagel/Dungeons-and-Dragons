@@ -83,7 +83,12 @@ std::string NormalRoom::Print()
 
 NormalRoom::~NormalRoom()
 {
-	enemies.clear();
+	for (std::vector<Enemy *>::iterator itr = enemies.begin(); itr != enemies.end(); itr++)
+	{
+		delete *itr;
+		*itr = nullptr;
+	}
+
 	delete chest;
 	chest = nullptr;
 }

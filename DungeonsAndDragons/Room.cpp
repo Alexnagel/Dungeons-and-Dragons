@@ -158,14 +158,4 @@ void Room::DefeatedEnemies()
 
 Room::~Room()
 {
-	/*
-	delete roomTop;
-	delete roomRight;
-	delete roomBottom; 
-	delete roomLeft;
-	roomTop = nullptr;
-	roomRight = nullptr;
-	roomBottom = nullptr;
-	roomLeft = nullptr;
-	*/
 }
