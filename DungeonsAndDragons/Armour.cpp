@@ -6,6 +6,10 @@ Armour::Armour()
 {
 }
 
+Armour::Armour(int floor)
+{
+
+}
 
 Armour::~Armour()
 {

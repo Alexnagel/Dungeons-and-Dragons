@@ -23,7 +23,9 @@ public:
 	virtual ~Player();
 
 	// Functions
+	void AddToBackpack(Item toAdd);
 	std::vector<Item> GetBackpack();
+	std::string ListBackpackContents();
 	Weapon GetEquipedWeapon();
 	Armour GetEquipedArmour();
 	void SetWeapon(Weapon weapon);

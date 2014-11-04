@@ -32,9 +32,27 @@ Armour Player::GetEquipedArmour()
 	return armour;
 }
 
+std::string Player::ListBackpackContents()
+{
+	std::string output;
+	for (Item item : backpack)
+	{
+		output.append(" " + item.GetName() + ",");
+	}
+	if (output.back() == char(','))
+		output.pop_back();
+
+	return output;
+}
+
 std::vector<Item> Player::GetBackpack()
 {
 	return backpack;
+}
+
+void Player::AddToBackpack(Item toAdd)
+{
+	backpack.push_back(toAdd);
 }
 
 void Player::SetWeapon(Weapon p_weapon)

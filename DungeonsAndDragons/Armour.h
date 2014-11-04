@@ -8,6 +8,7 @@ private:
 
 public:
 	Armour();
+	Armour(int floor);
 	virtual ~Armour();
 
 	// Functions
