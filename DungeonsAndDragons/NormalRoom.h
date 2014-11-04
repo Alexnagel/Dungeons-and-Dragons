@@ -7,6 +7,7 @@ class NormalRoom : public Room
 {
 public:
 	NormalRoom(int level);
+	NormalRoom(int level, bool isStart);
 	virtual ~NormalRoom();
 	std::string PrintEnemies();
 	std::string RoomCharacter();
@@ -19,8 +20,8 @@ private:
 	int seed;
 	std::mt19937 rng;
 
-	std::vector<Enemy *> enemies;
-	Chest* chest;
+	std::vector<std::shared_ptr<Enemy>> enemies;
+	Chest chest;
 
 	void GenerateChest();
 	void RandomizeEnemies();

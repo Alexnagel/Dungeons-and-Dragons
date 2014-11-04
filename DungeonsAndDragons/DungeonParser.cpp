@@ -3,7 +3,7 @@
 #include "Floor.h"
 
 // Globals
-Room* roomCollection[GameManager::NUMBER_OF_ROOMS_X][GameManager::NUMBER_OF_ROOMS_Y];
+std::shared_ptr<Room> roomCollection[GameManager::NUMBER_OF_ROOMS_X][GameManager::NUMBER_OF_ROOMS_Y];
 bool visitedRooms[GameManager::NUMBER_OF_ROOMS_X][GameManager::NUMBER_OF_ROOMS_Y];
 
 DungeonParser::DungeonParser()
@@ -16,7 +16,7 @@ DungeonParser::~DungeonParser()
 {
 }
 
-Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int level)
+std::shared_ptr<Floor> DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int level)
 {
 	// Create all the rooms
 	for (int y = 0; y < floor.size(); y++)
@@ -24,7 +24,9 @@ Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int l
 		std::vector<RoomType> row = floor.at(y);
 		for (int x = 0; x < row.size(); x++)
 		{
-			roomCollection[x][y] = RoomGenerator::CreateRoom(row.at(x), level); // <-- Memory leak??? new Room(); geeft geen memory leaks.....
+			std::shared_ptr<Room> room = std::shared_ptr<Room>(RoomGenerator::CreateRoom(row.at(x), level));
+			roomCollection[x][y] = room; // <-- Memory leak??? new Room(); geeft geen memory leaks.....
+			room.reset();
 		}
 	}
 
@@ -32,31 +34,32 @@ Floor* DungeonParser::ParseFloor(std::vector<std::vector<RoomType>> floor, int l
 	ConnectionAlgorithm();
 
 	// Convert floor array to Vector 
-	std::vector<std::vector<Room*>> floorVector;
+	std::vector<std::vector<std::shared_ptr<Room>>> floorVector;
 	int rows = GameManager::NUMBER_OF_ROOMS_Y;
 	int cols = GameManager::NUMBER_OF_ROOMS_X;
 	for (int row = 0; row < rows; row++)
 	{
-		std::vector<Room*> roomRow;
+		std::vector<std::shared_ptr<Room>> roomRow;
 		for (int col = 0; col < cols; col++)
 		{
-			roomRow.push_back(roomCollection[col][row]);
-			delete roomCollection[col][row];
-			roomCollection[col][row] = nullptr;
+			std::shared_ptr<Room> room = std::shared_ptr<Room>(std::shared_ptr<Room>(roomCollection[col][row]));
+			roomRow.push_back(room);
+			roomCollection[col][row].reset();
+			room.reset();
 		}
 		floorVector.push_back(roomRow);
 		roomRow.clear();
 	}
 
 	// Create and return the floor;
-	Floor* floor = new Floor(floorVector);
+	std::shared_ptr<Floor> pfloor = std::make_shared<Floor>(floorVector);
 	floorVector.clear();
-	return floor;
+	return pfloor;
 }
 
-Dungeon* DungeonParser::ParseDungeon(std::vector<Floor*> floorCollection)
+std::unique_ptr<Dungeon> DungeonParser::ParseDungeon(std::vector<std::shared_ptr<Floor>> floorCollection)
 {
-	return new Dungeon(floorCollection);
+	return std::make_unique<Dungeon>(floorCollection);
 }
 
 // Using DFS algorithm to create a maze
@@ -91,16 +94,16 @@ void DungeonParser::DFS(Position pos)
 		Position neighbour = GetNeighbour(pos);
 		visitedRooms[pos.GetX()][pos.GetY()] = true;
 
-		Room* mainRoom = roomCollection[pos.GetX()][pos.GetY()];
-		Room* connectRoom = roomCollection[neighbour.GetX()][neighbour.GetY()];
-		int mainX = pos.GetX();
-		int mainY = pos.GetY();
-		int neighbourX = neighbour.GetX();
-		int neighbourY = neighbour.GetY();
-
 		// Set the neighbour if it has a valid position
 		if (neighbour.GetX() >= 0 && neighbour.GetY() >= 0)
 		{
+			std::shared_ptr<Room> mainRoom = roomCollection[pos.GetX()][pos.GetY()];
+			std::shared_ptr<Room> connectRoom = roomCollection[neighbour.GetX()][neighbour.GetY()];
+			int mainX = pos.GetX();
+			int mainY = pos.GetY();
+			int neighbourX = neighbour.GetX();
+			int neighbourY = neighbour.GetY();
+			
 			if (mainX > neighbourX)
 			{
 				mainRoom->roomLeft = connectRoom;

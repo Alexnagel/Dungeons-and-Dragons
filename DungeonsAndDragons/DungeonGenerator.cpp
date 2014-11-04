@@ -14,10 +14,10 @@ DungeonGenerator::~DungeonGenerator()
 {
 }
 
-Dungeon* DungeonGenerator::CreateDungeon()
+std::unique_ptr<Dungeon> DungeonGenerator::CreateDungeon()
 {
 	// Create all the floors
-	std::vector<Floor *> floorCollection;
+	std::vector<std::shared_ptr<Floor>> floorCollection;
 	for (int i = 0; i < NUMBER_OF_FLOORS; i++)
 	{
 		ContainsStaircaseDown = false;
@@ -37,9 +37,8 @@ Dungeon* DungeonGenerator::CreateDungeon()
 
 		//std::cout << "FLOOR " << i << std::endl;
 		//std::cout << std::endl;
-		Floor* floor = CreateFloor();
+		std::shared_ptr<Floor> floor = CreateFloor();
 		floorCollection.push_back(floor);
-		delete floor;
 
 		//std::cout << std::endl;
 	}
@@ -49,7 +48,7 @@ Dungeon* DungeonGenerator::CreateDungeon()
 	return parser->ParseDungeon(floorCollection);
 }
 
-Floor* DungeonGenerator::CreateFloor()
+std::shared_ptr<Floor> DungeonGenerator::CreateFloor()
 {
 	// Create a random floor
 	std::vector<std::vector<RoomType>> floor;

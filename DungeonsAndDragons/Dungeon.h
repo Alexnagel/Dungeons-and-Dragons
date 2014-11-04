@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include "Room.h"
 class Floor;
 
@@ -6,13 +7,13 @@ class Dungeon
 {
 public:
 	Dungeon();
-	Dungeon(std::vector<Floor*> floorCollection);
-	std::vector<Floor*> FloorCollection;
+	Dungeon(std::vector<std::shared_ptr<Floor>> floorCollection);
+	std::vector<std::shared_ptr<Floor>> FloorCollection;
 
 	// Functions
-	Floor* GetFloor(int level);
-	Room* GetRoom(int level, int x, int y);
-	Room* GetStartRoom();
+	std::shared_ptr<Floor> GetFloor(int level);
+	std::shared_ptr<Room> GetRoom(int level, int x, int y);
+	std::shared_ptr<Room> GetStartRoom();
 	virtual ~Dungeon();
 };
 

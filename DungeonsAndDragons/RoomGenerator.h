@@ -1,5 +1,5 @@
 #pragma once
-
+#include <memory>
 #include "Room.h"
 #include "RoomType.h"
 #include "NormalRoom.h"
@@ -13,6 +13,6 @@ public:
 	RoomGenerator();
 	~RoomGenerator();
 
-	static Room* CreateRoom(RoomType type, int level);
+	static std::shared_ptr<Room> CreateRoom(RoomType type, int level);
 };
 

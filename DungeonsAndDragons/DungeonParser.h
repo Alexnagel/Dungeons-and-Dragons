@@ -1,4 +1,5 @@
 #pragma once
+#include<memory>
 
 #include "stdafx.h"
 #include "DungeonGenerator.h"
@@ -37,6 +38,6 @@ public:
 	virtual ~DungeonParser();
 
 	// Functions
-	Floor* ParseFloor(std::vector<std::vector<RoomType>> floor, int level);
-	Dungeon* ParseDungeon(std::vector<Floor*> floorCollection);
+	std::shared_ptr<Floor> ParseFloor(std::vector<std::vector<RoomType>> floor, int level);
+	std::unique_ptr<Dungeon> ParseDungeon(std::vector<std::shared_ptr<Floor>> floorCollection);
 };

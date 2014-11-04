@@ -11,6 +11,15 @@ NormalRoom::NormalRoom(int level)
 	RandomizeEnemies();
 }
 
+NormalRoom::NormalRoom(int level, bool isStart)
+:Room(level, isStart)
+{
+	seed = std::random_device()();
+	rng = std::mt19937(seed);
+
+	RandomizeEnemies();
+}
+
 void NormalRoom::GenerateChest()
 {
 
@@ -22,7 +31,7 @@ void NormalRoom::RandomizeEnemies()
 	for (int i = 0; i < enemyAmount; i++)
 	{
 		// add floornumber for difficulty
-		enemies.push_back(new Enemy());
+		enemies.push_back(std::make_shared<Enemy>(Enemy()));
 	}
 }
 
@@ -32,7 +41,7 @@ std::string NormalRoom::PrintEnemies()
 	if (!enemies.empty())
 	{
 		output.append("There are " + std::to_string(enemies.size()) + " enemies in the room: \n");
-		for (Enemy* enemy : enemies)
+		for (std::shared_ptr<Enemy> enemy : enemies)
 		{
 			output.append(enemy->GetName() + ", Level: " + std::to_string(enemy->GetLevel()) + ", HP: " + std::to_string(enemy->GetHp()) + ", XP: " + std::to_string(enemy->GetXp()) + "\n");
 		}
@@ -70,12 +79,4 @@ std::string NormalRoom::Print()
 
 NormalRoom::~NormalRoom()
 {
-	for (std::vector<Enemy *>::iterator itr = enemies.begin(); itr != enemies.end(); itr++)
-	{
-		delete *itr;
-		*itr = nullptr;
-	}
-
-	delete chest;
-	chest = nullptr;
 }

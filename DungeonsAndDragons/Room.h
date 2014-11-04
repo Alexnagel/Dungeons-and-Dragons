@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <string>
 #include <iostream>
 #include <array>
@@ -11,30 +12,31 @@ private:
 	bool roomIsVisited;
 
 protected:
+	bool roomIsStart;
 	int level;
 	std::string description;
 	std::string directions;
 	RoomElements roomElements;
-	bool roomIsStart;
 
 	void SetDirections();
 	virtual void GenerateDescription();
 
 public:
-	Room* roomLeft;
-	Room* roomRight;
-	Room* roomTop;
-	Room* roomBottom;
+	std::weak_ptr<Room> roomLeft;
+	std::weak_ptr<Room> roomRight;
+	std::weak_ptr<Room> roomTop;
+	std::weak_ptr<Room> roomBottom;
 
 	Room& operator=(const Room& other);
 
 	Room(int level);
+	Room(int level, bool isStart);
 	Room();
 	virtual ~Room();
 
 	std::array<bool, 2> GetConnections();
 	std::string GetDirections();
-	Room* GoInDirection(Direction direction);
+	std::shared_ptr<Room> GoInDirection(Direction direction);
 	bool ContainsRoom(Direction direction);
 
 	void SetVisited();

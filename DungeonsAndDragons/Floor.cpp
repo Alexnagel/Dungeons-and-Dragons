@@ -5,7 +5,7 @@ Floor::Floor()
 {
 }
 
-Floor::Floor(std::vector<std::vector<Room*>> floorVector) :vFloor(floorVector)
+Floor::Floor(std::vector<std::vector<std::shared_ptr<Room>>> floorVector) :vFloor(floorVector)
 {
 }
 
@@ -16,10 +16,10 @@ std::string Floor::PrintFloor()
 	{
 		std::string rowTopstring = "";
 		std::string rowstring = "";
-		std::vector<Room*> vRow = vFloor.at(y);
+		std::vector<std::shared_ptr<Room>> vRow = vFloor.at(y);
 		for (int x = 0; x < vRow.size(); x++)
 		{
-			Room* currentRoom = vRow.at(x);
+			std::shared_ptr<Room> currentRoom = vRow.at(x);
 			std::array<bool, 2>connections = currentRoom->GetConnections();
 
 			// If the room is visited print room type and connection
@@ -49,24 +49,26 @@ std::string Floor::PrintFloor()
 	return output;
 }
 
-Room* Floor::GetRoom(int x, int y)
+std::shared_ptr<Room> Floor::GetRoom(int x, int y)
 {
-	std::vector<Room*> row = vFloor.at(y);
+	std::vector<std::shared_ptr<Room>> row = vFloor.at(y);
 	return row.at(x);
 }
 
-Room* Floor::GetStartRoom()
+std::shared_ptr<Room> Floor::GetStartRoom()
 {
 	for (int y = 0; y < vFloor.size(); y++)
 	{
-		std::vector<Room*> vRow = vFloor.at(y);
+		std::vector<std::shared_ptr<Room>> vRow = vFloor.at(y);
 		for (int x = 0; x < vRow.size(); x++)
 		{
-			if (vRow.at(x)->GetStart())
+			std::shared_ptr<Room> room = std::shared_ptr<Room>(vRow.at(x));
+			if (room->GetStart())
 			{
-				vRow.at(x)->SetVisited();
-				return vRow.at(x);
+				room->SetVisited();
+				return room;
 			}
+			room.reset();
 		}
 	}
 }

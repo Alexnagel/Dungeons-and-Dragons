@@ -9,9 +9,9 @@ class GameManager
 private:
 	// Variables
 	bool isRunning;
-	Dungeon* dungeon;
+	std::unique_ptr<Dungeon> dungeon;
 	Player player;
-	Room* currentRoom;
+	std::shared_ptr<Room> currentRoom;
 	int level;
 
 	// Functions

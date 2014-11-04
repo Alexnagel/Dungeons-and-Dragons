@@ -12,7 +12,7 @@ std::default_random_engine GameManager::random;
 GameManager::GameManager() : isRunning(true), level(0), currentRoom(nullptr), dungeon(nullptr)
 {
 	DungeonGenerator generator;
-	dungeon = generator.CreateDungeon();
+	dungeon = std::move(generator.CreateDungeon());
 
 #ifdef _WIN32
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
@@ -31,10 +31,6 @@ GameManager::GameManager() : isRunning(true), level(0), currentRoom(nullptr), du
 
 GameManager::~GameManager()
 {
-	if (dungeon != nullptr)
-		delete dungeon;
-	if (currentRoom != nullptr)
-		delete currentRoom;
 }
 
 #pragma region Print functions
@@ -42,7 +38,7 @@ void GameManager::PrintFloor()
 {
 	// Print the floor map
 	std::cout << "Floor map:" << std::endl;
-	Floor* floor = dungeon->GetFloor(level);
+	std::shared_ptr<Floor> floor = dungeon->GetFloor(level);
 	std::cout << floor->PrintFloor();
 	
 	// Print the legend
@@ -60,8 +56,9 @@ void GameManager::PrintFloor()
 
 void GameManager::PrintRoom(int x, int y)
 {
-	Room* room = dungeon->GetRoom(level, x, y);
+	std::shared_ptr<Room> room = dungeon->GetRoom(level, x, y);
 	room->Print();
+	room.reset();
 }
 #pragma endregion
 
@@ -95,13 +92,29 @@ void GameManager::Move()
 
 	direction = ToLowerCase(direction);
 	if (direction == "north" && currentRoom->ContainsRoom(Direction::NORTH))
-		currentRoom = currentRoom->GoInDirection(Direction::NORTH);
+	{
+		std::shared_ptr<Room> nextRoom = std::shared_ptr<Room>(currentRoom->GoInDirection(Direction::NORTH));
+		currentRoom.reset();
+		currentRoom = nextRoom;
+	}
 	else if (direction == "east" && currentRoom->ContainsRoom(Direction::EAST))
-		currentRoom = currentRoom->GoInDirection(Direction::EAST);
+	{
+		std::shared_ptr<Room> nextRoom = std::shared_ptr<Room>(currentRoom->GoInDirection(Direction::EAST));
+		currentRoom.reset();
+		currentRoom = nextRoom;
+	}
 	else if (direction == "south" && currentRoom->ContainsRoom(Direction::SOUTH))
-		currentRoom = currentRoom->GoInDirection(Direction::SOUTH);
+	{
+		std::shared_ptr<Room> nextRoom = std::shared_ptr<Room>(currentRoom->GoInDirection(Direction::SOUTH));
+		currentRoom.reset();
+		currentRoom = nextRoom;
+	}
 	else if (direction == "west" && currentRoom->ContainsRoom(Direction::WEST))
-		currentRoom = currentRoom->GoInDirection(Direction::WEST);
+	{
+		std::shared_ptr<Room> nextRoom = std::shared_ptr<Room>(currentRoom->GoInDirection(Direction::WEST));
+		currentRoom.reset();
+		currentRoom = nextRoom;
+	}
 	else
 	{
 		std::cout << "You can't move in this direction" << std::endl << std::endl;
@@ -138,7 +151,7 @@ void GameManager::StartGame()
 	system("CLS");
 
 	// Start the game
-	currentRoom = dungeon->GetStartRoom();
+	currentRoom = std::shared_ptr<Room>(dungeon->GetStartRoom());
 	std::cout << "Welcome " << player.GetName() << ", your epic journey will start from here!" << std::endl;
 	std::cout << std::endl;
 	std::cout << currentRoom->Print() << std::endl;

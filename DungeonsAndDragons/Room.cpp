@@ -7,15 +7,29 @@ Room::Room(int level)
 	roomIsVisited = false;
 	roomIsStart = false;
 
-	roomTop = nullptr;
-	roomRight = nullptr;
-	roomBottom = nullptr;
-	roomLeft = nullptr;
+	roomTop = std::weak_ptr<Room>();
+	roomRight = std::weak_ptr<Room>();
+	roomBottom = std::weak_ptr<Room>();
+	roomLeft = std::weak_ptr<Room>();
 
 	GenerateDescription();
 }
 
-Room::Room() : roomTop(nullptr), roomRight(nullptr), roomBottom(nullptr), roomLeft(nullptr)
+Room::Room(int level, bool isStart)
+{
+	this->level = level;
+	roomIsVisited = false;
+
+	roomTop = std::weak_ptr<Room>();
+	roomRight = std::weak_ptr<Room>();
+	roomBottom = std::weak_ptr<Room>();
+	roomLeft = std::weak_ptr<Room>();
+
+	GenerateDescription();
+	SetStart();
+}
+
+Room::Room() : roomTop(std::weak_ptr<Room>()), roomRight(std::weak_ptr<Room>()), roomBottom(std::weak_ptr<Room>()), roomLeft(std::weak_ptr<Room>())
 {
 }
 
@@ -35,34 +49,34 @@ bool Room::ContainsRoom(Direction direction)
 	switch (direction)
 	{
 	case Direction::NORTH:
-		if (roomTop != nullptr)
+		if (!roomTop.expired())
 			return true;
 		break;
 	case Direction::EAST:
-		if (roomRight != nullptr)
+		if (!roomRight.expired())
 			return true;
 		break;
 	case Direction::SOUTH:
-		if (roomBottom != nullptr)
+		if (!roomBottom.expired())
 			return true;
 		break;;
 	case Direction::WEST:
-		if (roomLeft != nullptr)
+		if (!roomLeft.expired())
 			return true;
 		break;
 	}
 }
 
-Room* Room::GoInDirection(Direction direction)
+std::shared_ptr<Room> Room::GoInDirection(Direction direction)
 {
 	switch (direction)
 	{
-	case Direction::NORTH: return roomTop; break;
-	case Direction::EAST:  return roomRight; break;
-	case Direction::SOUTH: return roomBottom; break;
-	case Direction::WEST:  return roomLeft; break;
+	case Direction::NORTH: return std::shared_ptr<Room>(roomTop.lock()); break;
+	case Direction::EAST:  return std::shared_ptr<Room>(roomRight.lock()); break;
+	case Direction::SOUTH: return std::shared_ptr<Room>(roomBottom.lock()); break;
+	case Direction::WEST:  return std::shared_ptr<Room>(roomLeft.lock()); break;
 	}
-	return new Room();
+	return std::make_shared<Room>();
 }
 
 std::string Room::Print()
@@ -87,13 +101,13 @@ void Room::SetDirections()
 {
 	directions = "Possible directions:";
 
-	if (roomTop != nullptr)
+	if (!roomTop.expired())
 		directions += " north,";
-	if (roomRight != nullptr)
+	if (!roomRight.expired())
 		directions += " east,";
-	if (roomBottom != nullptr)
+	if (!roomBottom.expired())
 		directions += " south,";
-	if (roomLeft != nullptr)
+	if (!roomLeft.expired())
 		directions += " west";
 
 	if (directions.back() == char(','))
@@ -143,10 +157,14 @@ void Room::GenerateDescription()
 */
 std::array<bool, 2> Room::GetConnections()
 {
-	std::array<bool, 2> connections{ { (roomTop != nullptr), (roomLeft != nullptr) } };
+	std::array<bool, 2> connections{ { !roomTop.expired(), !roomLeft.expired() } };
 	return connections;
 }
 
 Room::~Room()
 {
+	roomTop.reset();
+	roomRight.reset();
+	roomBottom.reset();
+	roomLeft.reset();
 }

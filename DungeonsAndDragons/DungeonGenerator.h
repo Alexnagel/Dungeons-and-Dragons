@@ -23,7 +23,7 @@ private:
 
 	// Functions
 	bool CheckRoom(int chance);
-	Floor* CreateFloor();
+	std::shared_ptr<Floor> CreateFloor();
 	int GetRandomNumber();
 	RoomType CreateSpecialRoom();
 	bool ContainsAllSpecial();
@@ -34,7 +34,7 @@ public:
 	virtual ~DungeonGenerator();
 
 	// Functions
-	Dungeon* CreateDungeon();
+	std::unique_ptr<Dungeon> CreateDungeon();
 
 	// Constant variables
 	static const int NUMBER_OF_TYPES = 4;
