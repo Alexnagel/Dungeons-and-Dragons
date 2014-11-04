@@ -3,6 +3,7 @@
 #include "DungeonGenerator.h"
 #include "Dungeon.h"
 #include "Player.h"
+#include "Battle.h";
 
 class GameManager
 {
@@ -12,6 +13,7 @@ private:
 	Dungeon* dungeon;
 	Player player;
 	Room* currentRoom;
+	Battle battle;
 	int level;
 
 	// Functions

@@ -4,6 +4,7 @@
 #include <array>
 #include "RoomElements.h"
 #include "Direction.h"
+#include "Enemy.h"
 
 class Room
 {
@@ -44,5 +45,7 @@ public:
 	bool GetStart();
 	virtual std::string Print();
 	virtual std::string RoomCharacter();
+	virtual std::vector<Enemy*> GetEnemies();
+	virtual void DefeatedEnemies();
 };
 

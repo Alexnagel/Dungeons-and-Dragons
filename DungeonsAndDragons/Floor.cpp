@@ -9,6 +9,17 @@ Floor::Floor(std::vector<std::vector<Room*>> floorVector) :vFloor(floorVector)
 {
 }
 
+Floor& Floor::operator=(const Floor& other)
+{
+	if (this != &other)
+	{
+		Floor* cSymbol = new Floor(other);
+		return *cSymbol;
+
+	}
+	return *this;
+}
+
 std::string Floor::PrintFloor()
 {
 	std::string output;

@@ -10,6 +10,10 @@ Player::Player()
 Player::Player(std::string p_name)
 {
 	name = p_name;
+	hp = 100;
+	level = 1;
+	attack = 1;
+	defence = 1;
 }
 
 
@@ -47,19 +51,30 @@ void Player::SetArmour(Armour p_armour)
 	armour = p_armour;
 }
 
+bool Player::ContainsPotion()
+{
+	for (int i = 0; i < backpack.size(); i++)
+	{
+		// Check for instance..
+	}
+	return false;
+}
+
 int Player::Attack()
 {
 	// Gebruik een random getal, of de enemy mist of niet?
-	if (50 < 80) // <-- onzin getallen atm...
+	int result = RandomNumber(100);
+	if (result < 80)
 	{
 		// De enemy raakt de tegenstander
 		// Bereken het aantal damage dat de tegenstander doet op basis van het level en een random.
-		int damage = 0;
+		int damage = RandomNumber(1, (attack * 10)) * level;
+
 		return damage;
 	}
 	else
 	{
-		return 0;// The enemy missed
+		return 0;
 	}
 }
 

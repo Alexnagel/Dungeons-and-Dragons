@@ -11,6 +11,8 @@ public:
 	std::string PrintEnemies();
 	std::string RoomCharacter();
 	std::string Print() override;
+	std::vector<Enemy*> GetEnemies() override;
+	void DefeatedEnemies() override;
 
 private:
 	// Variables
@@ -19,7 +21,7 @@ private:
 	int seed;
 	std::mt19937 rng;
 
-	std::vector<Enemy *> enemies;
+	std::vector<Enemy*> enemies;
 	Chest* chest;
 
 	void GenerateChest();

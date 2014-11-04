@@ -147,6 +147,15 @@ std::array<bool, 2> Room::GetConnections()
 	return connections;
 }
 
+std::vector<Enemy*> Room::GetEnemies()
+{
+	return std::vector<Enemy*>();
+}
+
+void Room::DefeatedEnemies()
+{
+}
+
 Room::~Room()
 {
 	/*

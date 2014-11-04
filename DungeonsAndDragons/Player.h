@@ -28,6 +28,7 @@ public:
 	Armour GetEquipedArmour();
 	void SetWeapon(Weapon weapon);
 	void SetArmour(Armour armour);
+	bool ContainsPotion();
 
 	int Attack();
 	int Hit(int damage);

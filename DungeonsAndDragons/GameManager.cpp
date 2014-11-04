@@ -14,9 +14,9 @@ GameManager::GameManager() : isRunning(true), level(0), currentRoom(nullptr), du
 	DungeonGenerator generator;
 	dungeon = generator.CreateDungeon();
 
-#ifdef _WIN32
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-#endif
+//#ifdef _WIN32
+//	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+//#endif
 
 	// Start handling user input
 	std::string input;
@@ -117,7 +117,32 @@ void GameManager::Move()
 
 void GameManager::Attack()
 {
+	system("CLS");
+	std::cout << "You entered the battle!!" << std::endl << std::endl;
+	std::cout << "Options: Flee, Attack, Potion, Item" << std::endl;
 
+	battle = Battle(currentRoom->GetEnemies(), &player);
+
+	std::string input;
+	while (!battle.Finished())
+	{
+		std::cin >> input;
+		system("CLS");
+		input = ToLowerCase(input);
+
+		if (input == "flee")
+			std::cout << battle.Flee() << std::endl;
+		else if (input == "attack")
+			std::cout << battle.Attack() << std::endl;
+		else if (input == "potion")
+			std::cout << battle.UsePotion() << std::endl;
+		else if (input == "item")
+			std::cout << battle.UseItem() << std::endl;
+	}
+
+	std::cout << battle.Won() << std::endl;
+	currentRoom->DefeatedEnemies();
+	// Print the room...
 }
 
 void GameManager::Flee()

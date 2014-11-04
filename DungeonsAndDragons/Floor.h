@@ -6,6 +6,8 @@ class Floor
 {
 private:
 	std::vector<std::vector<Room*>> vFloor;
+	Floor& operator=(const Floor& other);
+
 public:
 	Floor();
 	Floor(std::vector<std::vector<Room*>> floorVector);
