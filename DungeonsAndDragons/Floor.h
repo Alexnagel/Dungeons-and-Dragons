@@ -9,9 +9,11 @@ private:
 public:
 	Floor();
 	Floor(std::vector<std::vector<Room*>> floorVector);
-	void PrintFloor();
+	
+	std::string PrintFloor();
 	Room* GetRoom(int x, int y);
 	Room* GetStartRoom();
+	
 	virtual ~Floor();
 };
 

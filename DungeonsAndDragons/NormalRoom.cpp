@@ -11,6 +11,11 @@ NormalRoom::NormalRoom(int level)
 	RandomizeEnemies();
 }
 
+void NormalRoom::GenerateChest()
+{
+
+}
+
 void NormalRoom::RandomizeEnemies()
 {
 	int enemyAmount = RandomNumber(MAX_ENEMIES);
@@ -65,4 +70,7 @@ std::string NormalRoom::Print()
 
 NormalRoom::~NormalRoom()
 {
+	enemies.clear();
+	delete chest;
+	chest = nullptr;
 }

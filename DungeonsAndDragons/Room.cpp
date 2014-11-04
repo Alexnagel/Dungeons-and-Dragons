@@ -85,16 +85,19 @@ std::string Room::GetDirections()
 
 void Room::SetDirections()
 {
-	directions = "You can go in the following directions: ";
+	directions = "Possible directions:";
 
 	if (roomTop != nullptr)
-		directions += "north, ";
+		directions += " north,";
 	if (roomRight != nullptr)
-		directions += "east, ";
+		directions += " east,";
 	if (roomBottom != nullptr)
-		directions += "south, ";
+		directions += " south,";
 	if (roomLeft != nullptr)
-		directions += "west";
+		directions += " west";
+
+	if (directions.back() == char(','))
+		 directions.pop_back();
 }
 
 void Room::SetStart()
@@ -146,12 +149,14 @@ std::array<bool, 2> Room::GetConnections()
 
 Room::~Room()
 {
-	/*delete roomTop;
+	/*
+	delete roomTop;
 	delete roomRight;
 	delete roomBottom; 
 	delete roomLeft;
 	roomTop = nullptr;
 	roomRight = nullptr;
 	roomBottom = nullptr;
-	roomLeft = nullptr;*/
+	roomLeft = nullptr;
+	*/
 }
