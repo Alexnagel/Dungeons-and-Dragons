@@ -65,6 +65,7 @@ bool Room::ContainsRoom(Direction direction)
 			return true;
 		break;
 	}
+	return false;
 }
 
 std::shared_ptr<Room> Room::GoInDirection(Direction direction)

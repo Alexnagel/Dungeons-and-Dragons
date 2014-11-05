@@ -79,6 +79,19 @@ void NormalRoom::DefeatedEnemies()
 	enemies.clear();
 }
 
+std::string NormalRoom::GetOptions()
+{
+	std::string options;
+
+	if (enemies.size() > 0)
+		options.append("Attack, Flee, ");
+
+	options.append("Move, Chest");
+
+
+	return options;
+}
+
 std::string NormalRoom::Print()
 {
 	std::string output = description + "\n";
@@ -86,7 +99,9 @@ std::string NormalRoom::Print()
 		SetDirections();
 
 	output.append(directions + "\n\n");
-	output.append(PrintEnemies());
+	output.append(PrintEnemies() + "\n");
+
+	output.append("Options: " + GetOptions() + "\n"); // print options
 
 	return output;
 }

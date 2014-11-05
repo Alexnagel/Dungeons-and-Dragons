@@ -11,6 +11,7 @@ Player::Player(std::string p_name)
 {
 	name = p_name;
 	hp = 100;
+	xp = 0;
 	level = 1;
 	attack = 1;
 	defence = 1;
@@ -69,6 +70,24 @@ void Player::SetArmour(Armour p_armour)
 	armour = p_armour;
 }
 
+std::string Player::GainedXp(int gained_xp)
+{
+	xp += gained_xp;
+	
+	// Check if the player has lvled up!
+	std::string result;
+	if (xp > pow((level * 50), 2))
+	{
+		level++;
+		result.append("You have leveled up! You are now level: " + std::to_string(level) + "\n");
+	}
+	
+	result.append("You now have " + std::to_string(xp) + " xp\n");
+	result.append(std::to_string((int)pow((level * 20), 2) - xp) + " xp left till next level.");
+	
+	return result;
+}
+
 bool Player::ContainsPotion()
 {
 	for (int i = 0; i < backpack.size(); i++)
@@ -78,6 +97,8 @@ bool Player::ContainsPotion()
 	return false;
 }
 
+// De onderstaande link zou mss leuk zijn voor het damage systeem.
+// http://gamedev.stackexchange.com/questions/45901/ideas-for-attack-damage-algorithm-language-irrelevant
 int Player::Attack()
 {
 	// Gebruik een random getal, of de enemy mist of niet?

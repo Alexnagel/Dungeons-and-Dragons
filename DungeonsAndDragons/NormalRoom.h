@@ -25,6 +25,7 @@ private:
 	std::vector<std::shared_ptr<Enemy>> enemies;
 	Chest chest;
 
+	std::string GetOptions();
 	void GenerateChest();
 	void RandomizeEnemies();
 	int RandomNumber(int max);

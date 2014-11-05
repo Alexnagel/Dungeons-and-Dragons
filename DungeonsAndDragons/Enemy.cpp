@@ -81,7 +81,8 @@ int Enemy::GetXp()
 		return 0;
 }
 
-
+// De onderstaande link zou mss leuk zijn voor het damage systeem.
+// http://gamedev.stackexchange.com/questions/45901/ideas-for-attack-damage-algorithm-language-irrelevant
 int Enemy::Attack()
 {
 	int result = RandomNumber(100);
@@ -89,8 +90,9 @@ int Enemy::Attack()
 	{
 		// De enemy raakt de tegenstander
 		// Bereken het aantal damage dat de tegenstander doet op basis van het level en een random.
-		int damage = (RandomNumber(1, 2) * level) / 3;
+		int damage = (RandomNumber(1, 7) * level) / 3;
 		return damage;
+		//return 50;
 	}
 	else
 	{

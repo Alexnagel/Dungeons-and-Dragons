@@ -1,22 +1,12 @@
 #include "stdafx.h"
 #include "GameManager.h"
 
-#ifdef _WIN32
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-#endif
-
 std::default_random_engine GameManager::random;
 
 GameManager::GameManager() : isRunning(true), level(0), currentRoom(nullptr), dungeon(nullptr)
 {
 	DungeonGenerator generator;
 	dungeon = std::move(generator.CreateDungeon());
-
-//#ifdef _WIN32
-//	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-//#endif
 
 	// Start handling user input
 	std::string input;
@@ -27,6 +17,9 @@ GameManager::GameManager() : isRunning(true), level(0), currentRoom(nullptr), du
 		std::cin >> input;
 		HandleInput(input);
 	}
+
+	std::cout << std::endl << "Press any key to shutdown" << std::endl;
+	std::cin >> input; // .ignore werkt niet :(
 }
 
 GameManager::~GameManager()
@@ -90,6 +83,7 @@ void GameManager::Move()
 	std::cout << currentRoom->GetDirections() << std::endl << std::endl;
 	std::cin >> direction;
 
+	
 	direction = ToLowerCase(direction);
 	if (direction == "north" && currentRoom->ContainsRoom(Direction::NORTH))
 	{
@@ -121,6 +115,7 @@ void GameManager::Move()
 		return;
 	}
 	// set the room as visited
+	system("CLS");
 	currentRoom->SetVisited();
 
 	// Print the new room if the player has moved
@@ -153,9 +148,18 @@ void GameManager::Attack()
 			std::cout << battle.UseItem() << std::endl;
 	}
 
-	std::cout << battle.Won() << std::endl;
-	currentRoom->DefeatedEnemies();
-	// Print the room...
+	if (player->GetHp() > 0)
+	{
+		std::cout << battle.Won() << std::endl << std::endl;
+		currentRoom->DefeatedEnemies();
+
+		// Print the room again
+		std::cout << currentRoom->Print() << std::endl;
+	}
+	else
+	{
+		isRunning = false;
+	}	
 }
 
 void GameManager::Flee()

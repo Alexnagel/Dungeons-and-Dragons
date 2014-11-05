@@ -73,7 +73,9 @@ std::string Battle::Attack()
 
 			if (player->GetHp() == 0)
 			{
-				// Player died....
+				result.append("You died in this fearsome battle!");
+				finished = true;
+				return result;
 			}
 		}
 	}
@@ -115,7 +117,9 @@ std::string Battle::Won()
 		xp += enemies.at(i)->GetXp();
 	}
 
-	return "You defeated all enemies! you gained " + std::to_string(xp) + " xp!";
+	std::string result = "You defeated all enemies! you gained " + std::to_string(xp) + " xp!\n\n";
+	result.append(player->GainedXp(xp));
+	return result;
 }
 
 bool Battle::Finished()
