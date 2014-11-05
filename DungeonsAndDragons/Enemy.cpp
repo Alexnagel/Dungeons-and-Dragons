@@ -90,7 +90,7 @@ int Enemy::Attack()
 	{
 		// De enemy raakt de tegenstander
 		// Bereken het aantal damage dat de tegenstander doet op basis van het level en een random.
-		int damage = (RandomNumber(1, 7) * level) / 3;
+		int damage = (RandomNumber(1, 4) * level) / 3;
 		return damage;
 		//return 50;
 	}

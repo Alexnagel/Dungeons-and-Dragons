@@ -10,11 +10,14 @@ Player::Player()
 Player::Player(std::string p_name)
 {
 	name = p_name;
-	hp = 100;
+	maxHp = 100;
+	hp = maxHp;
 	xp = 0;
 	level = 1;
 	attack = 1;
 	defence = 1;
+	exploring = 1;
+	leveled = false;
 }
 
 
@@ -78,14 +81,61 @@ std::string Player::GainedXp(int gained_xp)
 	std::string result;
 	if (xp > pow((level * 50), 2))
 	{
-		level++;
-		result.append("You have leveled up! You are now level: " + std::to_string(level) + "\n");
+		leveled = true;
+		result.append("You have leveled up! You are now level: " + std::to_string((level + 1)) + "\n");
 	}
 	
 	result.append("You now have " + std::to_string(xp) + " xp\n");
-	result.append(std::to_string((int)pow((level * 20), 2) - xp) + " xp left till next level.");
-	
+	if (leveled)
+		result.append(std::to_string((int)pow(((level + 1) * 20), 2) - xp) + " xp left till next level.");
+	else
+		result.append(std::to_string((int)pow((level * 20), 2) - xp) + " xp left till next level.");
+
 	return result;
+}
+
+bool Player::IsLeveled()
+{
+	return leveled;
+}
+
+void Player::LevelUp()
+{
+	std::string result;
+	std::cout << "Choose 2 abilities to level up: Attack, Defence, Exploring" << std::endl;
+	
+	int counter = 0;
+	while (counter < 2)
+	{
+		std::cin >> result;
+		result = Utils::ToLowerCase(result);
+		if (result == "attack")
+		{
+			attack++;
+			counter++;
+			std::cout << "Your attack level is now: " << attack << std::endl;
+		}
+		else if (result == "defence")
+		{
+			exploring++;
+			counter++;
+			std::cout << "Your defence level is now: " << defence << std::endl;
+		}
+		else if (result == "exploring")
+		{
+			exploring++;
+			counter++;
+			std::cout << "Your exploring level is now: " << exploring << std::endl;
+		}
+	}
+
+	// Raise the player his level and hp
+	level++;
+	maxHp += 20;
+	hp = maxHp;
+
+	// Set leveled up to false
+	leveled = false;
 }
 
 bool Player::ContainsPotion()
@@ -107,7 +157,7 @@ int Player::Attack()
 	{
 		// De enemy raakt de tegenstander
 		// Bereken het aantal damage dat de tegenstander doet op basis van het level en een random.
-		int damage = RandomNumber(1, (attack * 10)) * level;
+		int damage = RandomNumber(1, (attack + weapon.GetAttack()) * 3);
 
 		return damage;
 	}

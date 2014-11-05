@@ -58,7 +58,7 @@ void GameManager::PrintRoom(int x, int y)
 #pragma region User input
 void GameManager::HandleInput(std::string input)
 {
-	input = ToLowerCase(input);
+	input = Utils::ToLowerCase(input);
 
 	if (input == "move")
 		Move();
@@ -83,8 +83,7 @@ void GameManager::Move()
 	std::cout << currentRoom->GetDirections() << std::endl << std::endl;
 	std::cin >> direction;
 
-	
-	direction = ToLowerCase(direction);
+	direction = Utils::ToLowerCase(direction);
 	if (direction == "north" && currentRoom->ContainsRoom(Direction::NORTH))
 	{
 		std::shared_ptr<Room> nextRoom = std::shared_ptr<Room>(currentRoom->GoInDirection(Direction::NORTH));
@@ -136,7 +135,7 @@ void GameManager::Attack()
 	{
 		std::cin >> input;
 		system("CLS");
-		input = ToLowerCase(input);
+		input = Utils::ToLowerCase(input);
 
 		if (input == "flee")
 			std::cout << battle.Flee() << std::endl;
@@ -152,6 +151,12 @@ void GameManager::Attack()
 	{
 		std::cout << battle.Won() << std::endl << std::endl;
 		currentRoom->DefeatedEnemies();
+
+		// Check if the player has leveled
+		if (player->IsLeveled())
+		{
+			player->LevelUp();
+		}
 
 		// Print the room again
 		std::cout << currentRoom->Print() << std::endl;
@@ -192,7 +197,7 @@ void GameManager::QuitGame()
 	std::cout << "Are you sure you want to quit this epic game?? (YES / NO)" << std::endl;
 	std::cin >> input;
 
-	input = ToLowerCase(input);
+	input = Utils::ToLowerCase(input);
 
 	if (input == "yes")
 		isRunning = false;
@@ -209,14 +214,5 @@ void GameManager::Help()
 	std::cout << "Map:    Prints a map of your current floor and a legend." << std::endl;
 	std::cout << "Help:   Shows you all the commands." << std::endl;
 	std::cout << std::endl;
-}
-
-std::string GameManager::ToLowerCase(std::string string)
-{
-	for (int i = 0; i < string.length(); i++)
-	{
-		string[i] = tolower(string[i]);
-	}
-	return string;
 }
 #pragma endregion

@@ -5,6 +5,7 @@ class Weapon :
 {
 private:
 	bool equiped;
+	int attack;
 
 public:
 	Weapon();
@@ -13,5 +14,6 @@ public:
 	// Functions
 	void Equiped(bool p_equiped);
 	bool IsEquiped();
+	int GetAttack();
 };
 

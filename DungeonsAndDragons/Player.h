@@ -13,6 +13,8 @@ private:
 	int xp;
 	int attack;
 	int defence;
+	int exploring;
+	bool leveled;
 	std::vector<Item> backpack;
 	Weapon weapon;
 	Armour armour;
@@ -30,8 +32,11 @@ public:
 	Armour GetEquipedArmour();
 	void SetWeapon(Weapon weapon);
 	void SetArmour(Armour armour);
-	std::string GainedXp(int gained_xp);
 	bool ContainsPotion();
+
+	std::string GainedXp(int gained_xp);
+	bool IsLeveled();
+	void LevelUp();
 
 	int Attack();
 	int Hit(int damage);
