@@ -108,6 +108,18 @@ void GameManager::Move()
 		currentRoom.reset();
 		currentRoom = nextRoom;
 	}
+	else if (direction == "up")
+	{
+		std::shared_ptr<Room> nextRoom = dungeon->GetStaircaseUp(level++);
+		currentRoom.reset();
+		currentRoom = nextRoom;
+	}
+	else if (direction == "down")
+	{
+		std::shared_ptr<Room> nextRoom = dungeon->GetStaircaseDown(level--);
+		currentRoom.reset();
+		currentRoom = nextRoom;
+	}
 	else
 	{
 		std::cout << "You can't move in this direction" << std::endl << std::endl;

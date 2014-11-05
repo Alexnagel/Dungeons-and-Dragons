@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include "Room.h"
+#include "Staircase.h"
 
 class Floor
 {
@@ -15,6 +16,8 @@ public:
 	std::string PrintFloor();
 	std::shared_ptr<Room> GetRoom(int x, int y);
 	std::shared_ptr<Room> GetStartRoom();
+	std::shared_ptr<Room> GetStaircaseDown();
+	std::shared_ptr<Room> GetStaircaseUp();
 	
 	virtual ~Floor();
 };

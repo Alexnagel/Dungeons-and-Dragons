@@ -23,3 +23,24 @@ std::string Staircase::RoomCharacter()
 Staircase::~Staircase()
 {
 }
+
+std::string Staircase::Print()
+{
+	std::string output = description + "\n";
+	if (directions.empty())
+		SetDirections();
+
+	output.append(directions + "\n\n");
+
+	switch (direction)
+	{
+	case StairCaseDirection::UP: 
+		output.append("Options: Up\n");
+		break;
+	case StairCaseDirection::DOWN: 
+		output.append("Options: Down\n");
+		break;
+	}
+
+	return output;
+}
