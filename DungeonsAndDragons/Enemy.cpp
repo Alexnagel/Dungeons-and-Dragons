@@ -42,13 +42,13 @@ Enemy::Enemy(int floor)
 	case 1: hp = 50; maxHp = 50; break;
 	case 2: hp = 60; maxHp = 60; break;
 	case 3: hp = 70; maxHp = 70; break;
-	case 4: hp = 70; maxHp = 70; break;
-	case 5: hp = 80; maxHp = 80; break;
-	case 6: hp = 85; maxHp = 85; break;
-	case 7: hp = 90; maxHp = 90; break;
-	case 8: hp = 100; maxHp = 100; break;
-	case 9: hp = 110; maxHp = 110; break;
-	case 10: hp = 120; maxHp = 120; break;
+	case 4: hp = 70; maxHp = 85; break;
+	case 5: hp = 80; maxHp = 90; break;
+	case 6: hp = 85; maxHp = 100; break;
+	case 7: hp = 90; maxHp = 120; break;
+	case 8: hp = 100; maxHp = 150; break;
+	case 9: hp = 110; maxHp = 175; break;
+	case 10: hp = 120; maxHp = 200; break;
 	}
 	
 	// Add a xp amount

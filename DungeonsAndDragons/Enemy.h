@@ -4,7 +4,7 @@
 
 class Enemy : public Character
 {
-private:
+protected:
 	int xp;
 
 public:
@@ -13,8 +13,8 @@ public:
 	virtual ~Enemy();
 
 	// Functions
-	int GetXp();
-	int Attack();
-	int Hit(int damage);
+	virtual int GetXp();
+	virtual int Attack();
+	virtual int Hit(int damage);
 };
 
