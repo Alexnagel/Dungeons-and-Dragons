@@ -16,6 +16,7 @@ private:
 	std::shared_ptr<Room> currentRoom;
 	Battle battle;
 	int level;
+	bool canRest;
 
 	// Functions
 	void PrintFloor();
@@ -26,6 +27,8 @@ private:
 	void StartGame();
 	void QuitGame();
 	void Help();
+	void PlayerStats();
+	void Rest();
 	void HandleInput(std::string input);
 
 public:

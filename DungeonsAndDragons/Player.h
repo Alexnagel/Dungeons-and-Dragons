@@ -40,5 +40,7 @@ public:
 
 	int Attack();
 	int Hit(int damage);
+	void Rest();
+	std::string Print();
 };
 

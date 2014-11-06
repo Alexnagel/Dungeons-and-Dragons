@@ -177,3 +177,32 @@ int Player::Hit(int damage)
 	// Return the leftover hp of the enemy
 	return hp;
 }
+
+void Player::Rest()
+{
+	int gainedHp = maxHp / 2;
+	if ((hp + gainedHp) > maxHp)
+		hp = maxHp;
+	else
+		hp += gainedHp;
+}
+
+std::string Player::Print()
+{
+	std::string output;
+	output.append("Name             :" + name + "\n\n");
+
+	output.append("Level info:\n");
+	output.append("Level            :" + std::to_string(level) + "\n");
+	output.append("Xp               :" + std::to_string(xp) + "\n");
+	output.append("Xp till next lvl :" + std::to_string((int) (pow(((level) * 20), 2)) - xp) + "\n\n");
+
+	output.append("Stats info:\n");
+	output.append("Hp               :" + std::to_string(maxHp) + "\n");
+	output.append("Current hp       :" + std::to_string(hp) + "\n");
+	output.append("Attack           :" + std::to_string(attack) + "\n");
+	output.append("Defence          :" + std::to_string(defence) + "\n");
+	output.append("Exploring        :" + std::to_string(exploring) + "\n");
+
+	return output;
+}

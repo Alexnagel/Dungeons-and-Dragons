@@ -17,9 +17,6 @@ GameManager::GameManager() : isRunning(true), level(0), currentRoom(nullptr), du
 		std::cin >> input;
 		HandleInput(input);
 	}
-
-	std::cout << std::endl << "Press any key to shutdown" << std::endl;
-	std::cin >> input; // .ignore werkt niet :(
 }
 
 GameManager::~GameManager()
@@ -74,6 +71,16 @@ void GameManager::HandleInput(std::string input)
 		PrintFloor();
 	else if (input == "help")
 		Help();
+	else if (input == "player_info")
+		PlayerStats();
+	else if (input == "rest")
+		Rest();
+}
+
+void GameManager::PlayerStats()
+{
+	std::cout << std::endl << "------ Player Info ------" << std::endl << std::endl;
+	std::cout << player->Print() << std::endl;
 }
 
 void GameManager::Move()
@@ -128,6 +135,7 @@ void GameManager::Move()
 	// set the room as visited
 	system("CLS");
 	currentRoom->SetVisited();
+	canRest = true;
 
 	// Print the new room if the player has moved
 	std::cout << std::endl;
@@ -184,6 +192,19 @@ void GameManager::Flee()
 
 }
 
+void GameManager::Rest()
+{
+	if (canRest)
+	{
+		std::cout << "Your player is resting...." << std::endl;
+		player->Rest();
+		std::cout << "Your player now has " << player->GetHp() << " HP." << std::endl;
+		canRest = false;
+	}
+	else
+		std::cout << "You did already rest this turn." << std::endl;
+}
+
 void GameManager::StartGame()
 {
 	std::string name;
@@ -218,13 +239,15 @@ void GameManager::QuitGame()
 void GameManager::Help()
 {
 	std::cout << std::endl << "------ Help ------" << std::endl << std::endl;
-	std::cout << "Start:  Starts a new game." << std::endl;
-	std::cout << "Quit:   Ends the game." << std::endl;
-	std::cout << "Move:   You can move to a new room." << std::endl;
-	std::cout << "Attack: You will attack the enemies in the room." << std::endl;
-	std::cout << "Flee:   You try to run from the enemies." << std::endl;
-	std::cout << "Map:    Prints a map of your current floor and a legend." << std::endl;
-	std::cout << "Help:   Shows you all the commands." << std::endl;
+	std::cout << "Start       : Starts a new game." << std::endl;
+	std::cout << "Quit        : Ends the game." << std::endl;
+	std::cout << "Move        : You can move to a new room." << std::endl;
+	std::cout << "Attack      : You will attack the enemies in the room." << std::endl;
+	std::cout << "Flee        : You try to run from the enemies." << std::endl;
+	std::cout << "Player_info : Check your hero his current stats." << std::endl;
+	std::cout << "Rest        : Your hero can regain 50% of his total health." << std::endl;
+	std::cout << "Map         : Prints a map of your current floor and a legend." << std::endl;
+	std::cout << "Help        : Shows you all the commands." << std::endl;
 	std::cout << std::endl;
 }
 #pragma endregion
