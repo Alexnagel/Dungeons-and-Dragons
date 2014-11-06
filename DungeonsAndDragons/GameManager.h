@@ -20,6 +20,8 @@ private:
 	// Functions
 	void PrintFloor();
 	void PrintRoom(int x, int y);
+	void PrintChest();
+	void TakeItem();
 	void Move();
 	void Attack();
 	void Flee();

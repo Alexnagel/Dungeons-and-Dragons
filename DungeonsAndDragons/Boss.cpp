@@ -23,7 +23,7 @@ Boss::~Boss()
 }
 
 // Functions
-int Enemy::GetXp()
+int Boss::GetXp()
 {
 	if (hp == 0)
 		return xp;
@@ -33,7 +33,7 @@ int Enemy::GetXp()
 
 // De onderstaande link zou mss leuk zijn voor het damage systeem.
 // http://gamedev.stackexchange.com/questions/45901/ideas-for-attack-damage-algorithm-language-irrelevant
-int Enemy::Attack()
+int Boss::Attack()
 {
 	int result = RandomNumber(100);
 	if (result < 80)
@@ -49,7 +49,7 @@ int Enemy::Attack()
 	}
 }
 
-int Enemy::Hit(int damage)
+int Boss::Hit(int damage)
 {
 	if (hp > damage)
 		hp = hp - damage;

@@ -6,6 +6,7 @@
 #include "RoomElements.h"
 #include "Direction.h"
 #include "Enemy.h"
+#include "Item.h"
 
 class Room
 {
@@ -49,5 +50,7 @@ public:
 	virtual std::string RoomCharacter();
 	virtual std::vector<std::shared_ptr<Enemy>> GetEnemies();
 	virtual void DefeatedEnemies();
+	virtual std::string PrintChest();
+	virtual Item GetChestItem(std::string itemName);
 };
 

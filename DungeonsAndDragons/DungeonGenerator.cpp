@@ -78,7 +78,7 @@ std::shared_ptr<Floor> DungeonGenerator::CreateFloor()
 	}
 
 	// Parse the floor
-	std::unique_ptr<DungeonParser> parser(new DungeonParser());
+	std::unique_ptr<DungeonParser> parser = std::make_unique<DungeonParser>(DungeonParser());
 	return parser->ParseFloor(floor, 0);
 	//return new Floor();
 }
