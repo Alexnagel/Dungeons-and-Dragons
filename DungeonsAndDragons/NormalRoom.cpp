@@ -9,6 +9,7 @@ NormalRoom::NormalRoom(int level)
 	rng = std::mt19937(seed);
 
 	RandomizeEnemies();
+	GenerateChest();
 }
 
 NormalRoom::NormalRoom(int level, bool isStart)
@@ -22,7 +23,24 @@ NormalRoom::NormalRoom(int level, bool isStart)
 
 void NormalRoom::GenerateChest()
 {
-
+	int chestChance = RandomNumber(100);
+	if (chestChance < CHANCE_CHEST)
+	{
+		description.append("\n The room contains a chest.");
+		int itemAmount = RandomNumber(MAX_ITEMS);
+		for (int i = 0; i < itemAmount; i++)
+		{
+			int itemType = RandomNumber(2);
+			switch (itemType)
+			{
+			case 0: chest.AddItem(Weapon(level)); break;
+			case 1: chest.AddItem(Potion(level)); break;
+			case 2: chest.AddItem(Armour(level)); break;
+			default:
+				break;
+			}
+		}
+	}
 }
 
 void NormalRoom::RandomizeEnemies()
@@ -54,6 +72,16 @@ std::string NormalRoom::PrintEnemies()
 		output.append("There are no enemies in the room\n");
 
 	return output;
+}
+
+std::string NormalRoom::PrintChest()
+{
+	return chest.ListItems();
+}
+
+Item NormalRoom::GetChestItem(std::string itemName)
+{
+	return chest.GetItem(itemName);
 }
 
 std::string NormalRoom::RoomCharacter()

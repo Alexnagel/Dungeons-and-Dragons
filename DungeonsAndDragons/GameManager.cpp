@@ -63,6 +63,10 @@ void GameManager::HandleInput(std::string input)
 		Attack();
 	else if (input == "flee")
 		Flee();
+	else if (input == "chest")
+		PrintChest();
+	else if (input == "take")
+		TakeItem();
 	else if (input == "start")
 		StartGame();
 	else if (input == "quit")
@@ -203,6 +207,30 @@ void GameManager::Rest()
 	}
 	else
 		std::cout << "You did already rest this turn." << std::endl;
+}
+
+void GameManager::PrintChest()
+{
+	std::cout << currentRoom->PrintChest();
+}
+
+void GameManager::TakeItem()
+{
+	std::string itemName;
+	std::cout << "Which item do you want to put in your backpack?" << std::endl;
+	std::cin.ignore(1000, '\n');
+	std::getline(std::cin, itemName);
+
+	itemName = Utils::ToLowerCase(itemName);
+	Item item = currentRoom->GetChestItem(itemName);
+
+	if (!item.GetName().empty())
+	{
+		player->AddToBackpack(item);
+		std::cout << item.GetName() << " was added to your backpack" << std::endl;
+	}
+	else
+		std::cout << "This item is not in the chest, try again" << std::endl;
 }
 
 void GameManager::StartGame()

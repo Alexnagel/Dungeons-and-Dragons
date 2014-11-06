@@ -88,6 +88,16 @@ std::string Room::Print()
 	return description + "\n" + directions;
 }
 
+std::string Room::PrintChest()
+{
+	return std::string();
+}
+
+Item Room::GetChestItem(std::string itemName)
+{
+	return Item();
+}
+
 std::string Room::RoomCharacter()
 {
 	return "x";
@@ -148,7 +158,7 @@ void Room::GenerateDescription()
 	std::string lighting = roomElements.GetRandomLighting();
 
 	char buffer[512];
-	sprintf_s(buffer, sizeof(buffer), "You've entered a %s %s size room, with a %s floor. It is lit by %s. You look around and see %s in %s", 
+	sprintf_s(buffer, sizeof(buffer), "You've entered a %s %s size room, with a %s floor. It is lit by %s. You look around and see %s in %s.", 
 		state.c_str(), size.c_str(), floor.c_str(), lighting.c_str(), item.c_str(), place.c_str());
 	description = buffer;
 }
