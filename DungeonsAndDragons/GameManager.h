@@ -31,6 +31,8 @@ private:
 	void Help();
 	void PlayerStats();
 	void Rest();
+	void ListBackpack();
+	void EquipItem();
 	void HandleInput(std::string input);
 
 public:

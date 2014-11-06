@@ -39,13 +39,13 @@ Armour Player::GetEquipedArmour()
 std::string Player::ListBackpackContents()
 {
 	std::string output;
+	output = "Backpack contents:\n";
 	for (Item item : backpack)
 	{
-		output.append(" " + item.GetName() + ",");
+		output.append("- " + item.GetName() + " (Level " + item.GetLevel() +", adds " + std::to_string(item.GetIncrement()) + " " + item.GetIncrementType() + ")\n");
 	}
-	if (output.back() == char(','))
-		output.pop_back();
-
+	if (backpack.size() == 0)
+		output = "Your backpack is empty \n";
 	return output;
 }
 

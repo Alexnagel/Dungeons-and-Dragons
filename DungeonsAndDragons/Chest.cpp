@@ -32,7 +32,11 @@ Item Chest::GetItem(std::string itemName)
 {
 	chestMap::iterator it = chestItems.find(itemName);
 	if (it != chestItems.end())
-		return chestItems[itemName];
+	{
+		Item temp = chestItems[itemName];
+		chestItems.erase(itemName);
+		return temp;
+	}
 	else
 		return Item();
 }

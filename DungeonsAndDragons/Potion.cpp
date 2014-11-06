@@ -22,6 +22,7 @@ Potion::~Potion()
 
 void Potion::GenerateItem(int itemNumber, int itemLevel)
 {
+	itemLevel++;
 	switch (itemNumber)
 	{
 	case 1: Item::name = "Health Pot"; break;
@@ -33,10 +34,13 @@ void Potion::GenerateItem(int itemNumber, int itemLevel)
 
 	// base hp increment
 	Item::ItemIncrement = 10;
-	if (itemLevel > 0)
+	if (itemLevel > 2)
 		Item::ItemIncrement *= (itemLevel / 2);
+	else if (itemLevel > 1)
+		Item::ItemIncrement *= 1.2;
 
 	// Set the item level and type
 	Item::level = std::to_string(itemLevel);
+	Item::name.append(" Lvl " + Item::level);
 	Item::itemType = ItemType::HealthItem;
 }
