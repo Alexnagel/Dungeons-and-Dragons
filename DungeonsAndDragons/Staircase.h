@@ -12,5 +12,6 @@ public:
 	virtual ~Staircase();
 
 	std::string RoomCharacter();
+	std::string Print() override;
 };
 

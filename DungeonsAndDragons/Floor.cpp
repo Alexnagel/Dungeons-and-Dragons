@@ -84,6 +84,42 @@ std::shared_ptr<Room> Floor::GetStartRoom()
 	}
 }
 
+std::shared_ptr<Room> Floor::GetStaircaseDown()
+{
+	for (int y = 0; y < vFloor.size(); y++)
+	{
+		std::vector<std::shared_ptr<Room>> vRow = vFloor.at(y);
+		for (int x = 0; x < vRow.size(); x++)
+		{
+			std::shared_ptr<Room> room = std::shared_ptr<Room>(vRow.at(x));
+			if (room->RoomCharacter() == "D")
+			{
+				//room->SetVisited();
+				return room;
+			}
+			room.reset();
+		}
+	}
+}
+
+std::shared_ptr<Room> Floor::GetStaircaseUp()
+{
+	for (int y = 0; y < vFloor.size(); y++)
+	{
+		std::vector<std::shared_ptr<Room>> vRow = vFloor.at(y);
+		for (int x = 0; x < vRow.size(); x++)
+		{
+			std::shared_ptr<Room> room = std::shared_ptr<Room>(vRow.at(x));
+			if (room->RoomCharacter() == "U")
+			{
+				//room->SetVisited();
+				return room;
+			}
+			room.reset();
+		}
+	}
+}
+
 Floor::~Floor()
 {
 	vFloor.clear();

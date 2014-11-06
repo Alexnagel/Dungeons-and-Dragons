@@ -34,6 +34,11 @@ ItemType Item::GetItemType()
 	return itemType;
 }
 
+void Item::GenerateItem(int itemNumber, int itemLevel)
+{
+
+}
+
 int Item::RandomNumber(int max)
 {
 	return std::uniform_int_distribution<int>(0, max)(rng);

@@ -25,7 +25,7 @@ std::shared_ptr<Floor> DungeonParser::ParseFloor(std::vector<std::vector<RoomTyp
 		for (int x = 0; x < row.size(); x++)
 		{
 			std::shared_ptr<Room> room = std::shared_ptr<Room>(RoomGenerator::CreateRoom(row.at(x), level));
-			roomCollection[x][y] = room; // <-- Memory leak??? new Room(); geeft geen memory leaks.....
+			roomCollection[x][y] = room;
 			room.reset();
 		}
 	}

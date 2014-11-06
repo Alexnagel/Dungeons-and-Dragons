@@ -5,6 +5,7 @@ class Weapon :
 {
 private:
 	bool equiped;
+	int attack;
 
 protected:
 	void GenerateItem(int itemNumber, int itemLevel);
@@ -18,5 +19,6 @@ public:
 	// Functions
 	void Equiped(bool p_equiped);
 	bool IsEquiped();
+	int GetAttack();
 };
 

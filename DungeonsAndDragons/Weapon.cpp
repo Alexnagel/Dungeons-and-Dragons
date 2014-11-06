@@ -2,7 +2,7 @@
 #include "Weapon.h"
 
 
-Weapon::Weapon()
+Weapon::Weapon() : attack(1)
 {
 }
 
@@ -55,4 +55,9 @@ void Weapon::Equiped(bool p_equiped)
 bool Weapon::IsEquiped()
 {
 	return equiped;
+}
+
+int Weapon::GetAttack()
+{
+	return attack;
 }

@@ -3,7 +3,8 @@
 #include "DungeonGenerator.h"
 #include "Dungeon.h"
 #include "Player.h"
-#include "Battle.h";
+#include "Battle.h"
+#include "Utils.h"
 
 class GameManager
 {
@@ -26,7 +27,6 @@ private:
 	void QuitGame();
 	void Help();
 	void HandleInput(std::string input);
-	std::string ToLowerCase(std::string string);
 
 public:
 	static std::default_random_engine random;

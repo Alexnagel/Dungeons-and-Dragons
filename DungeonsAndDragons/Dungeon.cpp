@@ -31,3 +31,14 @@ std::shared_ptr<Room> Dungeon::GetStartRoom()
 {
 	return (FloorCollection.at(0))->GetStartRoom();
 }
+
+std::shared_ptr<Room> Dungeon::GetStaircaseDown(int level)
+{
+	return (FloorCollection.at(level))->GetStaircaseDown();
+}
+
+std::shared_ptr<Room> Dungeon::GetStaircaseUp(int level)
+{
+	return (FloorCollection.at(level))->GetStaircaseUp();
+}
+
