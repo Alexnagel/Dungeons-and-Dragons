@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "GameManager.h"
 
-std::default_random_engine GameManager::random;
-
 GameManager::GameManager() : isRunning(true), level(0), currentRoom(nullptr), dungeon(nullptr)
 {
 	DungeonGenerator generator;
 	dungeon = std::move(generator.CreateDungeon());
+
+	seed = std::random_device()();
+	rng = std::mt19937(seed);
 
 	// Start handling user input
 	std::string input;
@@ -58,9 +59,12 @@ void GameManager::HandleInput(std::string input)
 	input = Utils::ToLowerCase(input);
 
 	if (input == "move")
-		Move();
+		Move("Which direction do you want to travel in?");
 	else if (input == "attack")
-		Attack();
+	{
+		system("CLS");
+		Attack(Battle(currentRoom->GetEnemies(), std::shared_ptr<Player>(player)));
+	}
 	else if (input == "flee")
 		Flee();
 	else if (input == "chest")
@@ -98,10 +102,10 @@ void GameManager::PlayerStats()
 	std::cout << player->Print() << std::endl;
 }
 
-void GameManager::Move()
+void GameManager::Move(std::string txt)
 {
 	std::string direction;
-	std::cout << "Which direction do you want to travel in?" << std::endl;
+	std::cout << txt << std::endl;
 	std::cout << currentRoom->GetDirections() << std::endl << std::endl;
 	std::cin >> direction;
 
@@ -157,13 +161,10 @@ void GameManager::Move()
 	std::cout << currentRoom->Print() << std::endl;
 }
 
-void GameManager::Attack()
+void GameManager::Attack(Battle battle)
 {
-	system("CLS");
 	std::cout << "You entered the battle!!" << std::endl << std::endl;
 	std::cout << "Options: Flee, Attack, Potion, Item" << std::endl;
-
-	battle = Battle(currentRoom->GetEnemies(), std::shared_ptr<Player>(player));
 
 	std::string input;
 	while (!battle.Finished())
@@ -173,7 +174,15 @@ void GameManager::Attack()
 		input = Utils::ToLowerCase(input);
 
 		if (input == "flee")
-			std::cout << battle.Flee() << std::endl;
+		{
+			if (RandomNumber(100) > 50) 
+			{
+				std::cout << "You failed to run away!" << std::endl;
+				std::cout << battle.EnemyAttack() << std::endl;
+			}
+			else
+				Move("Which direction are you running too?");
+		}
 		else if (input == "attack")
 			std::cout << battle.Attack() << std::endl;
 		else if (input == "potion")
@@ -204,20 +213,48 @@ void GameManager::Attack()
 
 void GameManager::Flee()
 {
-
+	if (currentRoom->GetEnemies().size() > 0)
+	{
+		if (RandomNumber(100) > 50)
+		{
+			std::cout << "The enemies notice you when you try to run and attack you!" << std::endl;
+			Attack(Battle(currentRoom->GetEnemies(), std::shared_ptr<Player>(player)));
+		}
+		else
+		{
+			Move("Which direction are you running too?");
+		}
+	}
 }
 
 void GameManager::Rest()
 {
-	if (canRest)
+	if (currentRoom->GetEnemies().size() == 0)
 	{
-		std::cout << "Your player is resting...." << std::endl;
-		player->Rest();
-		std::cout << "Your player now has " << player->GetHp() << " HP." << std::endl;
-		canRest = false;
+		if (canRest)
+		{
+			std::cout << "Your player is resting...." << std::endl;
+
+			if (RandomNumber(100) > 90)
+			{
+				std::cout << "You get disturbed while resting" << std::endl;
+				std::cout << "An agressive enemy appeared and attacks you!" << std::endl;
+				std::vector<std::shared_ptr<Enemy>> enemies;
+				enemies.push_back(std::make_shared<Enemy>(Enemy(level)));
+				Attack(Battle(enemies, std::shared_ptr<Player>(player)));
+			}
+			else
+			{
+				player->Rest();
+				std::cout << "Your player now has " << player->GetHp() << " HP." << std::endl;
+				canRest = false;
+			}
+		}
+		else
+			std::cout << "You did already rest this turn." << std::endl;
 	}
 	else
-		std::cout << "You did already rest this turn." << std::endl;
+		std::cout << "You can't rest with enemies in the room." << std::endl;
 }
 
 void GameManager::PrintChest()
@@ -308,3 +345,8 @@ void GameManager::Help()
 	std::cout << std::endl;
 }
 #pragma endregion
+
+int GameManager::RandomNumber(int max)
+{
+	return std::uniform_int_distribution<int>(0, max)(rng);
+}

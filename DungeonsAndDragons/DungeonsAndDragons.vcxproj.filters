@@ -149,9 +149,9 @@
     </ClInclude>
     <ClInclude Include="ItemType.h">
       <Filter>Header Files\Model\Item</Filter>
-	</ClInclude>
+    </ClInclude>
     <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -234,7 +234,7 @@
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Services</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

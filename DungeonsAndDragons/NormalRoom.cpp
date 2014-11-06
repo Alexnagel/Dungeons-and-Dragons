@@ -8,6 +8,8 @@ NormalRoom::NormalRoom(int level)
 	seed = std::random_device()();
 	rng = std::mt19937(seed);
 
+	hasChest = false;
+
 	RandomizeEnemies();
 	GenerateChest();
 }
@@ -26,6 +28,7 @@ void NormalRoom::GenerateChest()
 	int chestChance = RandomNumber(100);
 	if (chestChance < CHANCE_CHEST)
 	{
+		hasChest = true;
 		description.append("\n The room contains a chest.");
 		int itemAmount = RandomNumber(MAX_ITEMS);
 		for (int i = 0; i < itemAmount; i++)
@@ -113,9 +116,11 @@ std::string NormalRoom::GetOptions()
 
 	if (enemies.size() > 0)
 		options.append("Attack, Flee, ");
+	else
+		options.append("Move, Rest, ");
 
-	options.append("Move, Chest");
-
+	if (hasChest)
+		options.append("Chest");
 
 	return options;
 }
