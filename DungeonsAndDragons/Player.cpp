@@ -59,18 +59,67 @@ void Player::AddToBackpack(Item toAdd)
 	backpack.push_back(toAdd);
 }
 
+std::string Player::EquipItem(std::string itemName)
+{
+	std::string output;
+	output = "There is no item with this name.";
+	Item item = Item();
+
+	for (std::vector<Item>::iterator it = backpack.begin(); it != backpack.end(); it++)
+	{
+		item = *it;
+	}
+
+	if (!item.GetName().empty())
+	{
+		if (item.GetItemType() == ItemType::WeaponItem)
+		{
+			Weapon weapon = static_cast<Weapon&>(item);
+			SetWeapon(weapon);
+			output = "Your weapon has been set!";
+			output.append("You now have " + std::to_string(attack) + " attack");
+		}
+		else if (item.GetItemType() == ItemType::ArmourItem)
+		{
+			Armour armour = static_cast<Armour&>(item);
+			SetArmour(armour);
+			output = "Your armour has been set! \n";
+			output.append("You now have " + std::to_string(defence) + " defence");
+		}
+		else if (item.GetItemType() == ItemType::HealthItem)
+		{
+			hp += item.GetIncrement();
+			output = "Your health has been increased with " + std::to_string(item.GetIncrement()) + " hp. \n";
+			output.append("You now have " + std::to_string(hp) + " hp");
+		}
+	}
+
+	return output;
+}
+
 void Player::SetWeapon(Weapon p_weapon)
 {
-	weapon.Equiped(false);
+	if (!weapon.GetName().empty())
+	{
+		weapon.Equiped(false);
+		attack -= weapon.GetIncrement();
+	}
+
 	p_weapon.Equiped(true);
 	weapon = p_weapon;
+	attack += p_weapon.GetIncrement();
 }
 
 void Player::SetArmour(Armour p_armour)
 {
-	armour.Equiped(false);
+	if (!armour.GetName().empty())
+	{
+		armour.Equiped(false);
+		defence -= armour.GetIncrement();
+	}
 	p_armour.Equiped(true);
 	armour = p_armour;
+	defence += p_armour.GetIncrement();
 }
 
 std::string Player::GainedXp(int gained_xp)
@@ -157,7 +206,7 @@ int Player::Attack()
 	{
 		// De enemy raakt de tegenstander
 		// Bereken het aantal damage dat de tegenstander doet op basis van het level en een random.
-		int damage = RandomNumber(1, (attack + weapon.GetAttack()) * 3);
+		int damage = RandomNumber(1, (attack) * 3);
 
 		return damage;
 	}

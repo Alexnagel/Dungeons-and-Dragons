@@ -81,8 +81,15 @@ void GameManager::HandleInput(std::string input)
 		Help();
 	else if (input == "player_info")
 		PlayerStats();
+	else if (input == "room_info")
+		RoomInfo();
 	else if (input == "rest")
 		Rest();
+}
+
+void GameManager::RoomInfo()
+{
+	std::cout << currentRoom->Print() << std::endl;
 }
 
 void GameManager::PlayerStats()
@@ -247,6 +254,12 @@ void GameManager::EquipItem()
 	std::string itemName;
 	std::cout << "Which item do you want to equip?" << std::endl;
 	std::cin.ignore(1000, '\n');
+	std::getline(std::cin, itemName);
+	
+	itemName = Utils::ToLowerCase(itemName);
+
+	std::string output = player->EquipItem(itemName);
+	std::cout << output << std::endl;
 }
 
 void GameManager::StartGame()

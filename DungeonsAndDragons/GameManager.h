@@ -33,6 +33,7 @@ private:
 	void Rest();
 	void ListBackpack();
 	void EquipItem();
+	void RoomInfo();
 	void HandleInput(std::string input);
 
 public:

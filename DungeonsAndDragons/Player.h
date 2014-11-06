@@ -32,6 +32,7 @@ public:
 	Armour GetEquipedArmour();
 	void SetWeapon(Weapon weapon);
 	void SetArmour(Armour armour);
+	std::string EquipItem(std::string itemName);
 	bool ContainsPotion();
 
 	std::string GainedXp(int gained_xp);
