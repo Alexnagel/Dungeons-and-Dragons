@@ -21,6 +21,7 @@ public:
 	// Functions
 	std::string Flee();
 	std::string Attack();
+	std::string EnemyAttack();
 	std::string UsePotion();
 	std::string UseItem();
 	std::string Won();

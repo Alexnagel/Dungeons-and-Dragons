@@ -30,6 +30,7 @@ private:
 
 	std::vector<std::shared_ptr<Enemy>> enemies;
 	Chest chest;
+	bool hasChest;
 
 	std::string GetOptions();
 	void GenerateChest();

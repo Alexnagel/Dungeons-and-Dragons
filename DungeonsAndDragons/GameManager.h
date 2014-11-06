@@ -10,6 +10,8 @@ class GameManager
 {
 private:
 	// Variables
+	int seed;
+	std::mt19937 rng;
 	bool isRunning;
 	std::unique_ptr<Dungeon> dungeon;
 	std::shared_ptr<Player> player;
@@ -23,8 +25,8 @@ private:
 	void PrintRoom(int x, int y);
 	void PrintChest();
 	void TakeItem();
-	void Move();
-	void Attack();
+	void Move(std::string txt);
+	void Attack(Battle battle);
 	void Flee();
 	void StartGame();
 	void QuitGame();
@@ -32,6 +34,8 @@ private:
 	void PlayerStats();
 	void Rest();
 	void HandleInput(std::string input);
+
+	int RandomNumber(int max);
 
 public:
 	static std::default_random_engine random;

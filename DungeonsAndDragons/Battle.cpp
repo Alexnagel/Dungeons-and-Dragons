@@ -87,6 +87,34 @@ std::string Battle::Attack()
 	return result;
 }
 
+std::string Battle::EnemyAttack()
+{
+	std::string result;
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		if (enemies.at(i)->GetHp() > 0)
+		{
+			int damage = enemies.at(i)->Attack();
+			int hpLeft = player->Hit(damage);
+
+			if (damage == 0)
+				result.append("The " + enemies.at(i)->GetName() + " missed.\n");
+			else
+				result.append("The " + enemies.at(i)->GetName() +
+				" hit you with " + std::to_string(damage) +
+				" You have " + std::to_string(hpLeft) + " hp left.\n");
+		}
+
+		if (player->GetHp() == 0)
+		{
+			result.append("You died in this fearsome battle!");
+			finished = true;
+			return result;
+		}
+	}
+	return result;
+}
+
 std::string Battle::UsePotion()
 {
 	std::string result;
