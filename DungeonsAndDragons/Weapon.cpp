@@ -59,6 +59,7 @@ void Weapon::GenerateItem(int itemNumber, int itemLevel)
 
 	Item::level = std::to_string(itemLevel);
 	Item::itemType = ItemType::WeaponItem;
+	Item::ItemId = itemNumber;
 }
 
 void Weapon::Equiped(bool p_equiped)

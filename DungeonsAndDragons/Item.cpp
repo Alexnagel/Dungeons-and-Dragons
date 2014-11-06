@@ -24,6 +24,11 @@ std::string Item::GetLevel()
 	return level;
 }
 
+std::string Item::GetItemId()
+{
+	return std::to_string(ItemId);
+}
+
 int Item::GetIncrement()
 {
 	return ItemIncrement;

@@ -260,3 +260,19 @@ std::string Player::Print()
 
 	return output;
 }
+
+std::string Player::SaveString()
+{
+	std::string output;
+	output = name + "," + std::to_string(level) + "," + std::to_string(xp) + "," + std::to_string(hp) + "," + std::to_string(maxHp) + "," + std::to_string(attack)
+		+ "," + std::to_string(defence) + "," + std::to_string(exploring) + "," + weapon.GetItemId() + " " + weapon.GetLevel() + "," + 
+		armour.GetItemId() + " " + armour.GetLevel() + "\n";
+	
+	for (Item item : backpack)
+	{
+		output.append(item.GetItemId() + " " + item.GetLevel() + ",");
+	}
+	if (output.back() == char(','))
+		output.pop_back();
+	return output;
+}

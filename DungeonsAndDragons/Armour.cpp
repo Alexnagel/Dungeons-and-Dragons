@@ -71,6 +71,7 @@ void Armour::GenerateItem(int itemNumber, int itemLevel)
 	// Set the item level and type
 	Item::level = std::to_string(itemLevel);
 	Item::itemType = ItemType::ArmourItem;
+	Item::ItemId = itemNumber;
 }
 
 void Armour::Equiped(bool p_equiped)

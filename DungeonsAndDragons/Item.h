@@ -15,6 +15,7 @@ protected:
 	ItemType itemType;
 	std::string name;
 	std::string level;
+	int ItemId;
 	int ItemIncrement;
 	virtual void GenerateItem(int itemNumber, int itemLevel);
 
@@ -28,5 +29,6 @@ public:
 	int GetIncrement();
 	ItemType GetItemType();
 	std::string GetIncrementType();
+	std::string GetItemId();
 };
 

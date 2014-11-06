@@ -1,5 +1,8 @@
 #pragma once
 #include <random>
+#include <iostream>
+#include <fstream>
+
 #include "DungeonGenerator.h"
 #include "Dungeon.h"
 #include "Player.h"
@@ -37,6 +40,7 @@ private:
 	void EquipItem();
 	void RoomInfo();
 	void HandleInput(std::string input);
+	void SavePlayer();
 
 	int RandomNumber(int max);
 

@@ -89,6 +89,8 @@ void GameManager::HandleInput(std::string input)
 		RoomInfo();
 	else if (input == "rest")
 		Rest();
+	else if (input == "save")
+		SavePlayer();
 }
 
 void GameManager::RoomInfo()
@@ -344,6 +346,19 @@ void GameManager::QuitGame()
 
 	if (input == "yes")
 		isRunning = false;
+}
+
+void GameManager::SavePlayer()
+{
+	std::string saveString = player->SaveString();
+
+	// save user data to file
+	std::ofstream myfile;
+	myfile.open("DungeonsAndDragons.txt");
+	myfile << saveString;
+	myfile.close();
+
+	std::cout << "You have been saved to a file, your whole life in just one little text file.." << std::endl;
 }
 
 void GameManager::Help()

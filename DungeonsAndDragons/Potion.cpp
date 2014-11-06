@@ -43,4 +43,5 @@ void Potion::GenerateItem(int itemNumber, int itemLevel)
 	Item::level = std::to_string(itemLevel);
 	Item::name.append(" Lvl " + Item::level);
 	Item::itemType = ItemType::HealthItem;
+	Item::ItemId = itemNumber;
 }

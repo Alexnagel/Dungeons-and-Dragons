@@ -44,5 +44,7 @@ public:
 	int Hit(int damage);
 	void Rest();
 	std::string Print();
+
+	std::string SaveString();
 };
 
