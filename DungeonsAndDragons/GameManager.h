@@ -24,6 +24,7 @@ private:
 	bool canRest;
 
 	// Functions
+	void GameLoop();
 	void PrintFloor();
 	void PrintRoom(int x, int y);
 	void PrintChest();
@@ -41,6 +42,7 @@ private:
 	void RoomInfo();
 	void HandleInput(std::string input);
 	void SavePlayer();
+	void LoadPlayer();
 
 	int RandomNumber(int max);
 

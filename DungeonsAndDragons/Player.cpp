@@ -211,7 +211,7 @@ int Player::Attack()
 	{
 		// De enemy raakt de tegenstander
 		// Bereken het aantal damage dat de tegenstander doet op basis van het level en een random.
-		int damage = RandomNumber(1, (attack) * 3);
+		int damage = RandomNumber(1, attack * 5);
 
 		return damage;
 	}

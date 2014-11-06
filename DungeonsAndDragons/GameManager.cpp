@@ -12,16 +12,35 @@ GameManager::GameManager() : isRunning(true), level(0), currentRoom(nullptr), du
 	// Start handling user input
 	std::string input;
 	std::cout << "To start the game enter \"Start\", to quit the game enter \"Quit\"." << std::endl;
+	std::cout << "To load a player enter \"Load\"." << std::endl;
 	std::cout << "You can find all the commands by entering \"Help\"." << std::endl;
+	
 	while (isRunning)
 	{
 		std::cin >> input;
-		HandleInput(input);
+		input = Utils::ToLowerCase(input);
+
+		if (input == "start")
+			StartGame();
+		else if (input == "quit")
+			QuitGame();
+		else if (input == "load")
+			LoadPlayer();
 	}
 }
 
 GameManager::~GameManager()
 {
+}
+
+void GameManager::GameLoop()
+{
+	std::string input;
+	while (isRunning)
+	{
+		std::cin >> input;
+		HandleInput(input);
+	}
 }
 
 #pragma region Print functions
@@ -75,8 +94,6 @@ void GameManager::HandleInput(std::string input)
 		ListBackpack();
 	else if (input == "equip")
 		EquipItem();
-	else if (input == "start")
-		StartGame();
 	else if (input == "quit")
 		QuitGame();
 	else if (input == "map")
@@ -334,6 +351,9 @@ void GameManager::StartGame()
 	std::cout << "Welcome " << player->GetName() << ", your epic journey will start from here!" << std::endl;
 	std::cout << std::endl;
 	std::cout << currentRoom->Print() << std::endl;
+
+	// Start the game loop to handle input
+	GameLoop();
 }
 
 void GameManager::QuitGame()
@@ -359,6 +379,11 @@ void GameManager::SavePlayer()
 	myfile.close();
 
 	std::cout << "You have been saved to a file, your whole life in just one little text file.." << std::endl;
+}
+
+void GameManager::LoadPlayer()
+{
+
 }
 
 void GameManager::Help()

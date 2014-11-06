@@ -46,6 +46,7 @@ std::string Floor::PrintFloor()
 				else
 					rowstring.append("  ");
 
+				// TODO: Print where you are atm...
 				rowstring.append(currentRoom->RoomCharacter());
 			}
 			else

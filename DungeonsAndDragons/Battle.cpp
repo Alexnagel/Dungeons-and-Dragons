@@ -115,6 +115,7 @@ std::string Battle::EnemyAttack()
 	return result;
 }
 
+// TODO!!!
 std::string Battle::UsePotion()
 {
 	std::string result;
