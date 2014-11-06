@@ -71,6 +71,10 @@ void GameManager::HandleInput(std::string input)
 		PrintChest();
 	else if (input == "take")
 		TakeItem();
+	else if (input == "backpack")
+		ListBackpack();
+	else if (input == "equip")
+		EquipItem();
 	else if (input == "start")
 		StartGame();
 	else if (input == "quit")
@@ -268,6 +272,18 @@ void GameManager::TakeItem()
 	}
 	else
 		std::cout << "This item is not in the chest, try again" << std::endl;
+}
+
+void GameManager::ListBackpack()
+{
+	std::cout << player->ListBackpackContents();
+}
+
+void GameManager::EquipItem()
+{
+	std::string itemName;
+	std::cout << "Which item do you want to equip?" << std::endl;
+	std::cin.ignore(1000, '\n');
 }
 
 void GameManager::StartGame()

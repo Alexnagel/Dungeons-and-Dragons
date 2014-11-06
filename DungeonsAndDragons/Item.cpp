@@ -29,6 +29,16 @@ int Item::GetIncrement()
 	return ItemIncrement;
 }
 
+std::string Item::GetIncrementType()
+{
+	switch (itemType)
+	{
+	case ItemType::ArmourItem: return "armour"; break;
+	case ItemType::WeaponItem: return "damage"; break;
+	case ItemType::HealthItem: return "health"; break;
+	}
+}
+
 ItemType Item::GetItemType()
 {
 	return itemType;

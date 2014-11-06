@@ -27,5 +27,6 @@ public:
 	std::string GetLevel();
 	int GetIncrement();
 	ItemType GetItemType();
+	std::string GetIncrementType();
 };
 
