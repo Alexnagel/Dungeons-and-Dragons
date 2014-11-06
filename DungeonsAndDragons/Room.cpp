@@ -6,6 +6,7 @@ Room::Room(int level)
 	this->level = level;
 	roomIsVisited = false;
 	roomIsStart = false;
+	hasTrap = false;
 
 	roomTop = std::weak_ptr<Room>();
 	roomRight = std::weak_ptr<Room>();
@@ -19,6 +20,7 @@ Room::Room(int level, bool isStart)
 {
 	this->level = level;
 	roomIsVisited = false;
+	hasTrap = false;
 
 	roomTop = std::weak_ptr<Room>();
 	roomRight = std::weak_ptr<Room>();
@@ -96,6 +98,16 @@ std::string Room::PrintChest()
 Item Room::GetChestItem(std::string itemName)
 {
 	return Item();
+}
+
+bool Room::HasTrap()
+{
+	return hasTrap;
+}
+
+Trap Room::GetTrap()
+{
+	return trap;
 }
 
 std::string Room::RoomCharacter()

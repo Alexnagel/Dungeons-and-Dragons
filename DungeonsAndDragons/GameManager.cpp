@@ -109,6 +109,23 @@ void GameManager::Move(std::string txt)
 	std::cout << currentRoom->GetDirections() << std::endl << std::endl;
 	std::cin >> direction;
 
+	system("CLS");
+	if (currentRoom->HasTrap())
+	{
+		int trapFindChance = RandomNumber(21);
+		if (trapFindChance > player->GetExploring())
+		{
+			Trap trap = currentRoom->GetTrap();
+			player->Hit(trap.GetDamage());
+			std::cout << trap.GetDescription() << std::endl;
+			std::cout << "This made you lose " << std::to_string(trap.GetDamage()) << " hp" << std::endl;
+		}
+		else
+		{
+			std::cout << "You noticed a trap and didn't endure any damage, lucky bastard" << std::endl;
+		}
+	}
+
 	direction = Utils::ToLowerCase(direction);
 	if (direction == "north" && currentRoom->ContainsRoom(Direction::NORTH))
 	{
@@ -152,7 +169,6 @@ void GameManager::Move(std::string txt)
 		return;
 	}
 	// set the room as visited
-	system("CLS");
 	currentRoom->SetVisited();
 	canRest = true;
 

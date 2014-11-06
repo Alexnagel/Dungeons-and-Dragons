@@ -196,6 +196,11 @@ bool Player::ContainsPotion()
 	return false;
 }
 
+int Player::GetExploring()
+{
+	return exploring;
+}
+
 // De onderstaande link zou mss leuk zijn voor het damage systeem.
 // http://gamedev.stackexchange.com/questions/45901/ideas-for-attack-damage-algorithm-language-irrelevant
 int Player::Attack()

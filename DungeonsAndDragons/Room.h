@@ -7,6 +7,7 @@
 #include "Direction.h"
 #include "Enemy.h"
 #include "Item.h"
+#include "Trap.h"
 
 class Room
 {
@@ -18,6 +19,8 @@ protected:
 	int level;
 	std::string description;
 	std::string directions;
+	bool hasTrap;
+	Trap trap;
 	RoomElements roomElements;
 
 	void SetDirections();
@@ -43,6 +46,9 @@ public:
 
 	void SetVisited();
 	bool IsVisited();
+
+	bool HasTrap();
+	Trap GetTrap();
 
 	void SetStart();
 	bool GetStart();

@@ -5,6 +5,7 @@
 #include "Armour.h"
 #include "Potion.h"
 #include "Chest.h"
+#include "Trap.h"
 
 class NormalRoom : public Room
 {
@@ -25,6 +26,7 @@ private:
 	const int MAX_ENEMIES = 3;
 	const int CHANCE_CHEST = 50;
 	const int MAX_ITEMS = 3;
+	const int CHANCE_TRAP = 40;
 	int seed;
 	std::mt19937 rng;
 
@@ -34,6 +36,7 @@ private:
 
 	std::string GetOptions();
 	void GenerateChest();
+	void GenerateTrap();
 	void RandomizeEnemies();
 	int RandomNumber(int max);
 };

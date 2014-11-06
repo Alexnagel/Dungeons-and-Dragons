@@ -12,6 +12,7 @@ NormalRoom::NormalRoom(int level)
 
 	RandomizeEnemies();
 	GenerateChest();
+	GenerateTrap();
 }
 
 NormalRoom::NormalRoom(int level, bool isStart)
@@ -43,6 +44,16 @@ void NormalRoom::GenerateChest()
 				break;
 			}
 		}
+	}
+}
+
+void NormalRoom::GenerateTrap()
+{
+	int trapChance = RandomNumber(100);
+	if (trapChance < CHANCE_TRAP)
+	{
+		Room::hasTrap = true;
+		Room::trap = Trap(level);
 	}
 }
 

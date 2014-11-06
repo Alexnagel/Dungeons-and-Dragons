@@ -34,6 +34,7 @@ public:
 	void SetArmour(Armour armour);
 	std::string EquipItem(std::string itemName);
 	bool ContainsPotion();
+	int GetExploring();
 
 	std::string GainedXp(int gained_xp);
 	bool IsLeveled();
