@@ -1,5 +1,6 @@
 #pragma once
 #include <unordered_map>
+#include <memory>
 #include "Item.h"
 
 class Chest
@@ -11,7 +12,7 @@ public:
 	Chest();
 	virtual ~Chest();
 
-	void ListItems();
+	std::string ListItems();
 	Item GetItem(std::string itemName);
 	void AddItem(Item item);
 };

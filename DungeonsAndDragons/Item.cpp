@@ -19,6 +19,21 @@ std::string Item::GetName()
 	return name;
 }
 
+std::string Item::GetLevel()
+{
+	return level;
+}
+
+int Item::GetIncrement()
+{
+	return ItemIncrement;
+}
+
+ItemType Item::GetItemType()
+{
+	return itemType;
+}
+
 int Item::RandomNumber(int max)
 {
 	return std::uniform_int_distribution<int>(0, max)(rng);

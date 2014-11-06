@@ -1,6 +1,7 @@
 #pragma once
 #include "Room.h"
 #include "Enemy.h"
+#include "Weapon.h"
 #include "Chest.h"
 
 class NormalRoom : public Room

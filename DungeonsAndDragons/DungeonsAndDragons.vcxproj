@@ -93,6 +93,7 @@
     <ClInclude Include="Floor.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemType.h" />
     <ClInclude Include="NormalRoom.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Position.h" />

@@ -6,9 +6,13 @@ class Armour :
 private:
 	bool equiped;
 
+protected:
+	void GenerateItem(int itemNumber, int itemLevel);
+
 public:
 	Armour();
 	Armour(int floor);
+	Armour(int itemNumber, int itemLevel);
 	virtual ~Armour();
 
 	// Functions

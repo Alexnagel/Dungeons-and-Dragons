@@ -9,6 +9,7 @@ NormalRoom::NormalRoom(int level)
 	rng = std::mt19937(seed);
 
 	RandomizeEnemies();
+	GenerateChest();
 }
 
 NormalRoom::NormalRoom(int level, bool isStart)
@@ -22,7 +23,8 @@ NormalRoom::NormalRoom(int level, bool isStart)
 
 void NormalRoom::GenerateChest()
 {
-
+	chest.AddItem(Weapon(0));
+	std::cout << chest.ListItems();
 }
 
 void NormalRoom::RandomizeEnemies()

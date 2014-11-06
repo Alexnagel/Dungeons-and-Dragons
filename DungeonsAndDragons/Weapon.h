@@ -6,8 +6,13 @@ class Weapon :
 private:
 	bool equiped;
 
+protected:
+	void GenerateItem(int itemNumber, int itemLevel);
+
 public:
 	Weapon();
+	Weapon(int floor);
+	Weapon(int itemNumber, int itemLevel);
 	virtual ~Weapon();
 
 	// Functions

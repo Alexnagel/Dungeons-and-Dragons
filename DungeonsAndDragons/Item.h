@@ -1,10 +1,10 @@
 #pragma once
 #include <random>
+#include <string>
+#include "ItemType.h"
 
 class Item
 {
-private:
-	std::string name;
 
 protected:
 	int seed;
@@ -12,11 +12,20 @@ protected:
 	int RandomNumber(int max);
 	int RandomNumber(int min, int max);
 
+	ItemType itemType;
+	std::string name;
+	std::string level;
+	int ItemIncrement;
+	virtual void GenerateItem(int itemNumber, int itemLevel);
+
 public:
 	Item();
 	virtual ~Item();
 
 	// Functions
 	std::string GetName();
+	std::string GetLevel();
+	int GetIncrement();
+	ItemType GetItemType();
 };
 
