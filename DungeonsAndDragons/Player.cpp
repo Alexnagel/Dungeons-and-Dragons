@@ -118,6 +118,7 @@ std::string Player::UsePotion()
 		if (it->GetItemType() == ItemType::HealthItem)
 		{
 			item = *it;
+			backpack.erase(it);
 			return EquipItem(*it);
 		}
 	}
