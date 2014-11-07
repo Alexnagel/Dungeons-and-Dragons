@@ -14,6 +14,10 @@ Chest::~Chest()
 std::string Chest::ListItems()
 {
 	std::string output = "Chest contents: \n";
+	
+	if (chestItems.size() <= 0)
+		output.append("The chest is empty\n");
+
 	for (auto i : chestItems)
 	{
 		std::string incrementType;

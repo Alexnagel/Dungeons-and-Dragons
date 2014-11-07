@@ -88,6 +88,11 @@ std::string NormalRoom::PrintEnemies()
 	return output;
 }
 
+bool NormalRoom::HasChest()
+{
+	return hasChest;
+}
+
 std::string NormalRoom::PrintChest()
 {
 	return chest.ListItems();
