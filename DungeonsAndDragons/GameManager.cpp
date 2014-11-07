@@ -49,7 +49,7 @@ void GameManager::PrintFloor()
 	// Print the floor map
 	std::cout << "Floor map:" << std::endl;
 	std::shared_ptr<Floor> floor = dungeon->GetFloor(level);
-	std::cout << floor->PrintFloor();
+	std::cout << floor->PrintFloor() << std::endl;
 	
 	// Print the legend
 	std::cout << std::endl << std::endl;
@@ -198,52 +198,59 @@ void GameManager::Move(std::string txt)
 
 void GameManager::Attack(Battle battle)
 {
-	std::cout << "You entered the battle!!" << std::endl << std::endl;
-	std::cout << "Options: Flee, Attack, Potion, Item" << std::endl;
-
-	std::string input;
-	while (!battle.Finished())
+	if (currentRoom->GetEnemies().size() > 0)
 	{
-		std::cin >> input;
-		system("CLS");
-		input = Utils::ToLowerCase(input);
+		std::cout << "You entered the battle!!" << std::endl << std::endl;
+		std::cout << "Options: Flee, Attack, Potion, Item" << std::endl;
 
-		if (input == "flee")
+		std::string input;
+		while (!battle.Finished())
 		{
-			if (RandomNumber(100) > 50) 
+			std::cin >> input;
+			system("CLS");
+			input = Utils::ToLowerCase(input);
+
+			if (input == "flee")
 			{
-				std::cout << "You failed to run away!" << std::endl;
-				std::cout << battle.EnemyAttack() << std::endl;
+				if (RandomNumber(100) > 50)
+				{
+					std::cout << "You failed to run away!" << std::endl;
+					std::cout << battle.EnemyAttack() << std::endl;
+				}
+				else
+					Move("Which direction are you running too?");
 			}
-			else
-				Move("Which direction are you running too?");
+			else if (input == "attack")
+				std::cout << battle.Attack() << std::endl;
+			else if (input == "potion")
+				std::cout << battle.UsePotion() << std::endl;
+			else if (input == "item")
+				std::cout << battle.UseItem() << std::endl;
 		}
-		else if (input == "attack")
-			std::cout << battle.Attack() << std::endl;
-		else if (input == "potion")
-			std::cout << battle.UsePotion() << std::endl;
-		else if (input == "item")
-			std::cout << battle.UseItem() << std::endl;
-	}
 
-	if (player->GetHp() > 0)
-	{
-		std::cout << battle.Won() << std::endl << std::endl;
-		currentRoom->DefeatedEnemies();
-
-		// Check if the player has leveled
-		if (player->IsLeveled())
+		if (player->GetHp() > 0)
 		{
-			player->LevelUp();
-		}
+			std::cout << battle.Won() << std::endl << std::endl;
+			currentRoom->DefeatedEnemies();
 
-		// Print the room again
-		std::cout << currentRoom->Print() << std::endl;
+			// Check if the player has leveled
+			if (player->IsLeveled())
+			{
+				player->LevelUp();
+			}
+
+			// Print the room again
+			std::cout << currentRoom->Print() << std::endl;
+		}
+		else
+		{
+			isRunning = false;
+		}
 	}
 	else
 	{
-		isRunning = false;
-	}	
+		std::cout << "You can't attack when there are no enemies in a room..." << std::endl;
+	}
 }
 
 void GameManager::Flee()
@@ -294,7 +301,12 @@ void GameManager::Rest()
 
 void GameManager::PrintChest()
 {
-	std::cout << currentRoom->PrintChest();
+	currentRoom->HasTrap();
+	if (currentRoom->HasChest())
+		std::cout << currentRoom->PrintChest() << std::endl;
+	else
+		std::cout << "This room doesn't contain a chest" << std::endl;
+	
 }
 
 void GameManager::TakeItem()
@@ -336,15 +348,18 @@ void GameManager::EquipItem()
 
 void GameManager::StartGame()
 {
-	std::string name;
+	if (!player)
+	{
+		std::string name;
 
-	system("CLS");
-	std::cout << "What is your name hero?" << std::endl;
-	std::cin >> name;
+		system("CLS");
+		std::cout << "What is your name hero?" << std::endl;
+		std::cin >> name;
 
-	// Create the hero
-	player = std::make_shared<Player>(Player(name));
-	system("CLS");
+		// Create the hero
+		player = std::make_shared<Player>(Player(name));
+		system("CLS");
+	}
 
 	// Start the game
 	currentRoom = std::shared_ptr<Room>(dungeon->GetStartRoom());
@@ -383,7 +398,22 @@ void GameManager::SavePlayer()
 
 void GameManager::LoadPlayer()
 {
+	std::string name, backpack;
+	int level, xp, hp, maxHp, attack, defence, exploring;
+	int weaponId, weaponLvl, armourId, armourLvl;
 
+	std::ifstream myFile("DungeonsAndDragons.txt");
+	myFile >> name >> level >> xp >> hp >> maxHp >> attack >> defence >> exploring >>
+		weaponId >> weaponLvl >> armourId >> armourLvl >> backpack;
+	
+	// Save this to your player
+	player = std::make_shared<Player>(Player(name));
+	player->LoadPlayer(name, level, xp, hp, maxHp, attack, defence, exploring);
+	player->LoadGear(weaponId, weaponLvl, armourId, armourLvl);
+	player->LoadBackpack(backpack);
+
+	// Start the game
+	StartGame();
 }
 
 void GameManager::Help()
@@ -395,8 +425,10 @@ void GameManager::Help()
 	std::cout << "Attack      : You will attack the enemies in the room." << std::endl;
 	std::cout << "Flee        : You try to run from the enemies." << std::endl;
 	std::cout << "Player_info : Check your hero his current stats." << std::endl;
+	std::cout << "Room_info   : Get info about the room your in." << std::endl;
 	std::cout << "Rest        : Your hero can regain 50% of his total health." << std::endl;
 	std::cout << "Map         : Prints a map of your current floor and a legend." << std::endl;
+	std::cout << "Save        : You can save your hero." << std::endl;
 	std::cout << "Help        : Shows you all the commands." << std::endl;
 	std::cout << std::endl;
 }

@@ -105,6 +105,11 @@ bool Room::HasTrap()
 	return hasTrap;
 }
 
+bool Room::HasChest()
+{
+	return false;
+}
+
 Trap Room::GetTrap()
 {
 	return trap;

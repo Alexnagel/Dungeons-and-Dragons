@@ -223,10 +223,19 @@ int Player::Attack()
 
 int Player::Hit(int damage)
 {
-	if (hp > damage)
-		hp = hp - damage;
+	int chance;
+	if ((defence * 3) > 90)
+		chance = 90;
 	else
-		hp = 0;
+		chance = defence * 3;
+
+	if (Utils::RandomNumber(100) > chance)
+	{
+		if (hp > damage)
+			hp = hp - damage;
+		else
+			hp = 0;
+	}
 
 	// Return the leftover hp of the enemy
 	return hp;
@@ -264,15 +273,41 @@ std::string Player::Print()
 std::string Player::SaveString()
 {
 	std::string output;
-	output = name + "," + std::to_string(level) + "," + std::to_string(xp) + "," + std::to_string(hp) + "," + std::to_string(maxHp) + "," + std::to_string(attack)
-		+ "," + std::to_string(defence) + "," + std::to_string(exploring) + "," + weapon.GetItemId() + " " + weapon.GetLevel() + "," + 
+	output = name + " " + std::to_string(level) + " " + std::to_string(xp) + " " + std::to_string(hp) + " " + std::to_string(maxHp) + " " + std::to_string(attack)
+		+ " " + std::to_string(defence) + " " + std::to_string(exploring) + " " + weapon.GetItemId() + " " + weapon.GetLevel() + " " + 
 		armour.GetItemId() + " " + armour.GetLevel() + "\n";
 	
 	for (Item item : backpack)
 	{
-		output.append(item.GetItemId() + " " + item.GetLevel() + ",");
+		output.append(item.GetItemId() + "," + item.GetLevel() + ",");
 	}
 	if (output.back() == char(','))
 		output.pop_back();
 	return output;
+}
+
+void Player::LoadPlayer(std::string p_name, int p_level, int p_xp, int p_hp, int p_maxHp, int p_attack, int p_defence, int p_exploring)
+{
+	name = p_name;
+	level = p_level;
+	xp = p_xp;
+	hp = p_hp;
+	maxHp = p_maxHp;
+	attack = p_attack;
+	defence = p_defence;
+	exploring = p_exploring;
+}
+
+void Player::LoadGear(int p_weaponId, int p_weaponLvl, int p_armourId, int p_armourLvl)
+{
+	if (p_weaponId >= 0)
+		weapon = Weapon(p_weaponId, p_weaponLvl);
+
+	if (p_armourId >= 0)
+		armour = Armour(p_armourId, p_armourLvl);
+}
+
+void Player::LoadBackpack(std::string backpack)
+{
+
 }

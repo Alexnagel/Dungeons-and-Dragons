@@ -58,5 +58,6 @@ public:
 	virtual void DefeatedEnemies();
 	virtual std::string PrintChest();
 	virtual Item GetChestItem(std::string itemName);
+	virtual bool HasChest();
 };
 

@@ -33,6 +33,7 @@ private:
 	std::vector<std::shared_ptr<Enemy>> enemies;
 	Chest chest;
 	bool hasChest;
+	bool HasChest() override;
 
 	std::string GetOptions();
 	void GenerateChest();

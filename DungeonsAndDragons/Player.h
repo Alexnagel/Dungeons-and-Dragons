@@ -46,5 +46,8 @@ public:
 	std::string Print();
 
 	std::string SaveString();
+	void LoadPlayer(std::string name, int level, int xp, int hp, int maxHp, int attack, int defence, int exploring);
+	void LoadGear(int weaponId, int weaponLvl, int armourId, int armourLvl);
+	void LoadBackpack(std::string backpack);
 };
 
