@@ -193,7 +193,7 @@ void Player::LevelUp()
 		}
 		else if (result == "defence")
 		{
-			exploring++;
+			defence++;
 			counter++;
 			std::cout << "Your defence level is now: " << defence << std::endl;
 		}
