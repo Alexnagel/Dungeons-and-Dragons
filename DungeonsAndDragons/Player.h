@@ -33,6 +33,8 @@ public:
 	void SetWeapon(Weapon weapon);
 	void SetArmour(Armour armour);
 	std::string EquipItem(std::string itemName);
+	std::string EquipItem(Item item);
+	std::string UsePotion();
 	bool ContainsPotion();
 	int GetExploring();
 

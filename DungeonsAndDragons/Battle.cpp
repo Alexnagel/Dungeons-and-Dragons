@@ -118,13 +118,7 @@ std::string Battle::EnemyAttack()
 // TODO!!!
 std::string Battle::UsePotion()
 {
-	std::string result;
-
-	// Check if backpack contains potion.
-	// True: Use potion and remove it.
-	// False: Send a message there was no potion in his backpack.
-
-	return result;
+	return player->UsePotion();
 }
 
 std::string Battle::UseItem()

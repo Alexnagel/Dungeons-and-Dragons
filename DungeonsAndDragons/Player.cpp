@@ -62,13 +62,27 @@ void Player::AddToBackpack(Item toAdd)
 std::string Player::EquipItem(std::string itemName)
 {
 	std::string output;
-	output = "There is no item with this name.";
 	Item item = Item();
 
 	for (std::vector<Item>::iterator it = backpack.begin(); it != backpack.end(); it++)
 	{
-		item = *it;
+		if (it->GetName() == itemName)
+		{
+			item = *it;
+			backpack.erase(it);
+			break;
+		}
 	}
+
+	output = EquipItem(item);
+
+	return output;
+}
+
+std::string Player::EquipItem(Item item)
+{
+	std::string output;
+	output = "There is no item with this name.";
 
 	if (!item.GetName().empty())
 	{
@@ -93,8 +107,21 @@ std::string Player::EquipItem(std::string itemName)
 			output.append("You now have " + std::to_string(hp) + " hp");
 		}
 	}
-
 	return output;
+}
+
+std::string Player::UsePotion()
+{
+	Item item = Item();
+	for (std::vector<Item>::iterator it = backpack.begin(); it != backpack.end(); it++)
+	{
+		if (it->GetItemType() == ItemType::HealthItem)
+		{
+			item = *it;
+			return EquipItem(*it);
+		}
+	}
+	return "You have no potions in your backpack!";
 }
 
 void Player::SetWeapon(Weapon p_weapon)
