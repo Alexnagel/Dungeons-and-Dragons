@@ -413,6 +413,7 @@ void GameManager::LoadPlayer()
 	player->LoadBackpack(backpack);
 
 	// Start the game
+	system("CLS");
 	StartGame();
 }
 

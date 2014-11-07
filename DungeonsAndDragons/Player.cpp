@@ -155,7 +155,7 @@ std::string Player::GainedXp(int gained_xp)
 	
 	// Check if the player has lvled up!
 	std::string result;
-	if (xp > pow((level * 50), 2))
+	if (xp > pow((level * 20), 2))
 	{
 		leveled = true;
 		result.append("You have leveled up! You are now level: " + std::to_string((level + 1)) + "\n");
@@ -280,14 +280,11 @@ void Player::Rest()
 std::string Player::Print()
 {
 	std::string output;
-	output.append("Name             :" + name + "\n\n");
 
-	output.append("Level info:\n");
+	output.append("Name             :" + name + "\n");
 	output.append("Level            :" + std::to_string(level) + "\n");
 	output.append("Xp               :" + std::to_string(xp) + "\n");
-	output.append("Xp till next lvl :" + std::to_string((int) (pow(((level) * 20), 2)) - xp) + "\n\n");
-
-	output.append("Stats info:\n");
+	output.append("Xp till next lvl :" + std::to_string((int) (pow(((level) * 20), 2)) - xp) + "\n");
 	output.append("Hp               :" + std::to_string(maxHp) + "\n");
 	output.append("Current hp       :" + std::to_string(hp) + "\n");
 	output.append("Attack           :" + std::to_string(attack) + "\n");
