@@ -19,9 +19,7 @@ std::string Battle::Flee()
 {
 	std::string result;
 
-	// Try to flee
-	// Fail: Enemies attack you.
-	// Succeeded: You move to a other room.
+	finished = true;
 
 	return result;
 }

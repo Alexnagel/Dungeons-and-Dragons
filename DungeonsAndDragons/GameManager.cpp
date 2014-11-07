@@ -218,7 +218,11 @@ void GameManager::Attack(Battle battle)
 					std::cout << battle.EnemyAttack() << std::endl;
 				}
 				else
+				{
+					battle.Flee();
 					Move("Which direction are you running too?");
+					return;
+				}
 			}
 			else if (input == "attack")
 				std::cout << battle.Attack() << std::endl;
@@ -227,6 +231,7 @@ void GameManager::Attack(Battle battle)
 			else if (input == "item")
 				std::cout << battle.UseItem() << std::endl;
 		}
+
 
 		if (player->GetHp() > 0)
 		{
